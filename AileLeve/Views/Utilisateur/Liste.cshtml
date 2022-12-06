@@ -1,0 +1,18 @@
+@model AileLeve.ViewModels.UtilisateursViewModel
+@{
+    ViewBag.Title = "Liste des utilisateurs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Liste des utilisateurs</h1>
+
+
+@foreach (var item in @Model.Utilisateurs)
+{
+    <div class="container">
+        <p>
+            @item.Nom, @item.Prenom
+        </p>
+        
+    </div>
+}
+    
