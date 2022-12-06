@@ -74,8 +74,8 @@ namespace AileLeve.Models
         public Compte Authentifier (string identifiant, string password){
             string motDePasse = EncodeMD5(password);
             Compte compte = this._bddContext.Comptes.FirstOrDefault(
-                c=>c.Identifiant==identifiant && c.Password==password);
-            return compte;            ;
+                c=>c.Identifiant==identifiant && c.Password==motDePasse);
+            return compte;            
         }
         public Compte ObtenirCompte(int id){
             return this._bddContext.Comptes.Find(id);
@@ -89,7 +89,7 @@ namespace AileLeve.Models
             return null;
         }
 
-        private string EncodeMD5(string motDePasse)
+        public static string EncodeMD5(string motDePasse)
         {
             string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";
             return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));

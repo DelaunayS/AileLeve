@@ -19,15 +19,12 @@ namespace AileLeve.Controllers
 
         private Dal dal = new Dal();
         [Authorize]
-        public IActionResult Liste()       {
-            
-
+        public IActionResult Liste()
+        {
             UtilisateursViewModel uvms = new UtilisateursViewModel
             {
                 Utilisateurs = dal.ObtenirTousLesUtilisateurs()
             };
-
-
             return View(uvms);
         }
 
@@ -40,7 +37,7 @@ namespace AileLeve.Controllers
         [HttpPost()]
         public IActionResult Inscription(string nom, string prenom, string identifiant, string password, string email)
         {
-           
+
             if (ModelState.IsValid)
             {
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom);
@@ -55,7 +52,7 @@ namespace AileLeve.Controllers
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
                 HttpContext.SignInAsync(userPrincipal);
 
-                return RedirectToAction("Liste");
+                return Redirect("http://localhost:5000/Home");
             }
             return View();
         }
@@ -66,22 +63,23 @@ namespace AileLeve.Controllers
             return Redirect("Connexion");
         }
 
-        [HttpGet()]
+        [HttpGet]
         public IActionResult Connexion()
         {
             return View();
         }
 
-        [HttpPost()]
+        [HttpPost]
         public IActionResult Connexion(string identifiant, string password)
         {
             if (ModelState.IsValid)
             {
                 Compte compte = dal.Authentifier(identifiant, password);
-                if (compte!= null)
-                {var userClaims = new List<Claim>()
+                if (compte != null)
+                {
+                    var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, compte.Id.ToString())
+                        new Claim(ClaimTypes.NameIdentifier, compte.Id.ToString())
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
@@ -89,13 +87,13 @@ namespace AileLeve.Controllers
                     var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
 
                     HttpContext.SignInAsync(userPrincipal);
-                    return Redirect("Liste");
+                    return Redirect("/Home/Index");
                 }
-            ModelState.AddModelError("Compte.Identifiant", "Identifiant et/ou mot de passe incorrect(s)");
+                ModelState.AddModelError("Compte.Identifiant", "Identifiant et/ou mot de passe incorrect(s)");
             }
             return View();
         }
-       
+
 
 
 

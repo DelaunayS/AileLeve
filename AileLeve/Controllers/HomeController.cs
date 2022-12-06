@@ -21,7 +21,8 @@ namespace AileLeve.Controllers
             if (viewModel.Authentifie)
             {
                 viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
-                return View();
+                
+                return View(viewModel);
             }
             return Redirect("http://localhost:5000/Utilisateur/Connexion");
         }
