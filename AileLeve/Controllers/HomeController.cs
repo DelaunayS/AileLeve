@@ -24,7 +24,7 @@ namespace AileLeve.Controllers
                 
                 return View(viewModel);
             }
-            return Redirect("http://localhost:5000/Utilisateur/Connexion");
+            return Redirect("/Utilisateur/Connexion");
         }
        
     }

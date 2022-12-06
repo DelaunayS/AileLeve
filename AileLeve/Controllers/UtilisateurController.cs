@@ -79,7 +79,7 @@ namespace AileLeve.Controllers
                 {
                     var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.NameIdentifier, compte.Id.ToString())
+                        new Claim(ClaimTypes.Name, compte.Id.ToString())
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
