@@ -11,7 +11,7 @@ namespace AileLeve.Models
         public int Id { get; set; }
         [MaxLength(30)]
         public string Nom { get; set; }
-         [MaxLength(30)]
+        [MaxLength(30)]
         public string Prenom { get; set; }
     }
 }

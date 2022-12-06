@@ -1,5 +1,5 @@
-﻿.nav{
-  background-color: #4ea22f;
+﻿.navbar{
+  background-color: #7df451;
 }
 #logoImg{
   width: 15%;
@@ -8,8 +8,9 @@
 
 a.navbar-brand {
   white-space: normal;
-  text-align: center;
+  text-align: left;
   word-break: break-all;
+  
 }
 
 /* Provide sufficient contrast against white background */
