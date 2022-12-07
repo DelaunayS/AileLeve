@@ -71,6 +71,19 @@ namespace AileLeve.Models
             _bddContext.Profils.Update(profil);
             _bddContext.SaveChanges();
         }
+
+        public void ModifierCompte(Compte compte)
+        {
+            _bddContext.Comptes.Update(compte);
+            _bddContext.SaveChanges();
+        }
+
+        public void ModifierUtilisateur(Utilisateur utilisateur)
+        {
+            _bddContext.Utilisateurs.Update(utilisateur);
+            _bddContext.SaveChanges();
+        }
+
         public Compte Authentifier (string identifiant, string password){
             string motDePasse = EncodeMD5(password);
             Compte compte = this._bddContext.Comptes.FirstOrDefault(

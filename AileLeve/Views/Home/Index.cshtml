@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Accueil";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    String chemin = String.Format("/profil/modifier/{0}", @Model.Profil.Id);
 }
 
 <div class="container">
@@ -15,7 +16,7 @@
                 <p class="card-text">@Model.Profil.Telephone</p>
                 <p class="card-text">@Model.Compte.Identifiant</p>
 
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href=@chemin class="btn btn-primary">Modifier le profil</a>
             </div>
         </div>
 </div>
