@@ -21,8 +21,12 @@ namespace AileLeve.Controllers
             if (viewModel.Authentifie)
             {
                 viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
-                
-                return View(viewModel);
+                UtilisateurCompletViewModel utilisateurCompletViewModel = new UtilisateurCompletViewModel();
+                utilisateurCompletViewModel.Compte = dal.ObtenirTousLesComptes().Where(a => a.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                utilisateurCompletViewModel.Profil = dal.ObtenirTousLesProfils().Where(a => a.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(a => a.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+
+                return View(utilisateurCompletViewModel);
             }
             return Redirect("/Utilisateur/Connexion");
         }

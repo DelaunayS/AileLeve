@@ -41,7 +41,7 @@ namespace AileLeve.Controllers
             if (ModelState.IsValid)
             {
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom);
-                int profilId = dal.CreerProfil("", "", email);
+                int profilId = dal.CreerProfil("", "/img/profil.jpg", email);
                 int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId);
                 var userClaims = new List<Claim>()
                 {
