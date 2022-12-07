@@ -1,22 +1,23 @@
 @model AileLeve.ViewModels.UtilisateurCompletViewModel;
+
+
 @{
     ViewBag.Title = "Accueil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
-    <div class="card w-25">
-        @if (@Model.Profil.Image != "")
-        {
-            <img class="card-img-top w-25" src="@Model.Profil.Image" alt="Card image cap">
-        }
-        <div class="card-body">
-            <h5 class="card-title">@Model.Utilisateur.Nom  @Model.Utilisateur.Prenom </h5>
-            <p class="card-title">@Model.Compte.Identifiant</p>
-            <p class="card-title">@Model.Profil.Email</p>
-            <p class="card-title">@Model.Profil.Telephone </p>
+        <div class="card w-25">
+            <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
+                <p class="card-text">@Model.Profil.Email</p>
+                <p class="card-text">@Model.Profil.Telephone</p>
+                <p class="card-text">@Model.Compte.Identifiant</p>
+
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
         </div>
-    </div>
 </div>
 
 <div class="container">

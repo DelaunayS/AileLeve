@@ -15,7 +15,7 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
+            optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
         }
         public void InitializeDb()
         {
@@ -31,9 +31,9 @@ namespace AileLeve.Models
 
             this.Profils.AddRange(
                 new Profil { Id = 1, Telephone="0625522552", Image="/img/profil.jpg", Email="dupondjean@gmail.fr"},
-                new Profil { Id = 2, Telephone="0725752552", Image="/img/profil.jpg", Email="dupontyann@yahoo.fr"},
-                new Profil { Id = 3, Telephone="0635528550", Image="/img/profil.jpg", Email="dylanbob@gmail.fr"},
-                new Profil { Id = 4, Telephone="0600548552", Image="/img/profil.jpg", Email="bibbjustine@hotmail.fr"}                
+                new Profil { Id = 2, Telephone="0725752552", Image= "/img/profil.jpg", Email="dupontyann@yahoo.fr"},
+                new Profil { Id = 3, Telephone="0635528550", Image= "/img/profil.jpg", Email="dylanbob@gmail.fr"},
+                new Profil { Id = 4, Telephone="0600548552", Image= "/img/profil.jpg", Email="bibbjustine@hotmail.fr"}                
             );
             this.Comptes.AddRange(
                 new Compte { Id = 1, Identifiant="DupondJ", Password=Dal.EncodeMD5("ddddd"), UtilisateurId=1, ProfilId=1},
