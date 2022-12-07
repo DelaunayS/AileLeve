@@ -1,10 +1,24 @@
-@model AileLeve.ViewModels.CompteViewModel;
+@model AileLeve.ViewModels.UtilisateurCompletViewModel;
 @{
     ViewBag.Title = "Accueil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container"> 
-    <p>Bienvenue @Model.Compte.Identifiant</p>
+<div class="container">
+    <div class="card w-25">
+        @if (@Model.Profil.Image != "")
+        {
+            <img class="card-img-top w-25" src="@Model.Profil.Image" alt="Card image cap">
+        }
+        <div class="card-body">
+            <h5 class="card-title">@Model.Utilisateur.Nom  @Model.Utilisateur.Prenom </h5>
+            <p class="card-title">@Model.Compte.Identifiant</p>
+            <p class="card-title">@Model.Profil.Email</p>
+            <p class="card-title">@Model.Profil.Telephone </p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
     <img src="~/img/Aile'lèveV3.png" class="img-fluid" alt="Logo image">
 </div>
