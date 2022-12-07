@@ -41,7 +41,7 @@ namespace AileLeve.Controllers
             if (ModelState.IsValid)
             {
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom);
-                int profilId = dal.CreerProfil("", "", email);
+                int profilId = dal.CreerProfil("", "/img/profil.jpg", email);
                 int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId);
                 var userClaims = new List<Claim>()
                 {
@@ -79,7 +79,7 @@ namespace AileLeve.Controllers
                 {
                     var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.NameIdentifier, compte.Id.ToString())
+                        new Claim(ClaimTypes.Name, compte.Id.ToString())
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
