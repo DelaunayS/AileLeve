@@ -27,9 +27,11 @@ namespace AileLeve.Controllers
                 {
                     viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
                     UtilisateurCompletViewModel utilisateurCompletViewModel = new UtilisateurCompletViewModel();
-                    utilisateurCompletViewModel.Compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-                    utilisateurCompletViewModel.Profil = dal.ObtenirTousLesProfils().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-                    utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                    utilisateurCompletViewModel.Compte = dal.ObtenirCompte(id);
+                    utilisateurCompletViewModel.Profil = dal.ObtenirProfil(id);
+                    utilisateurCompletViewModel.Utilisateur = dal.ObtenirUtilisateur(id);
+
+                 
                     return View(utilisateurCompletViewModel);
                 }
 
@@ -49,24 +51,16 @@ namespace AileLeve.Controllers
             if (viewModel.Authentifie)
             {
 
-                //int idCompte;
-                //int.TryParse(HttpContext.User.Identity.Name, out int idCompte);
-                //Compte myCompte = dalCompte.modifierCompte(idCompte, utilisateurAmodifier);
-
-
-                //UtilisateurCompletViewModel utilisateurAmodifier = new UtilisateurCompletViewModel
-                //{
-                //    Compte = new Compte { Identifiant = identifiant, Password = password },
-                //    Profil = new Profil { Email = email, Image = "/img/profil.jpg", Telephone = telephone },
-                //    Utilisateur = new Utilisateur { Nom = nom, Prenom = prenom }
-                //};
-
                 if (ModelState.IsValid)
                 {
                     dal.ModifierUtilisateur(utilisateurAmodifier.Utilisateur);
                     dal.ModifierCompte(utilisateurAmodifier.Compte);
-                    dal.ModifierProfil(utilisateurAmodifier.Profil);
-                    return RedirectToAction("Index","Home");
+                    dal.ModifierProfil(utilisateurAmodifier.Profil.Id, utilisateurAmodifier.Profil.Telephone,
+                        utilisateurAmodifier.Profil.Email, utilisateurAmodifier.Profil.Image);
+                   
+                        
+                   // dal.ModifierV2(utilisateurAmodifier);
+                    return Redirect("/Home/Index");
                 } else
                 {
                     return View(utilisateurAmodifier);

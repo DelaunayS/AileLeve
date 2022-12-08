@@ -1,3 +1,4 @@
+using AileLeve.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,14 +67,34 @@ namespace AileLeve.Models
         {
             return _bddContext.Profils.ToList();
         }
-        public void ModifierProfil(Profil profil)
+
+        public void ModifierV2(UtilisateurCompletViewModel uvm)
         {
-            _bddContext.Profils.Update(profil);
+            _bddContext.Profils.Update(uvm.Profil);
+            _bddContext.Comptes.Update(uvm.Compte);
+            _bddContext.Utilisateurs.Update(uvm.Utilisateur);
             _bddContext.SaveChanges();
+        }
+
+        public void ModifierProfil(int id, string telephone, string mail, string image)
+        {
+            Profil profil = _bddContext.Profils.Find(id);
+
+            Console.WriteLine("Telephone : " + telephone);
+
+            if (profil != null)
+            {
+                profil.Telephone = telephone;
+                profil.Email = mail;
+                profil.Image = image;
+                Console.WriteLine("Telephone : " + telephone);
+                _bddContext.SaveChanges();
+            }
         }
 
         public void ModifierCompte(Compte compte)
         {
+           
             _bddContext.Comptes.Update(compte);
             _bddContext.SaveChanges();
         }
@@ -89,6 +110,16 @@ namespace AileLeve.Models
             Compte compte = this._bddContext.Comptes.FirstOrDefault(
                 c=>c.Identifiant==identifiant && c.Password==motDePasse);
             return compte;            
+        }
+
+
+        public Utilisateur ObtenirUtilisateur(int id)
+        {
+            return this._bddContext.Utilisateurs.Find(id);
+        }
+        public Profil ObtenirProfil(int id)
+        {
+            return this._bddContext.Profils.Find(id);
         }
         public Compte ObtenirCompte(int id){
             return this._bddContext.Comptes.Find(id);

@@ -8,7 +8,9 @@
 
 
 <div class="container">
+
     <form action="/Profil/Modifier" method="post">
+
         <div class="form-group">
             <label for="Nom">Nom</label>
             <input type="text" class="form-control" name="Utilisateur.Nom" id="NomForm" value="@Model.Utilisateur.Nom" placeholder="Nom" required>
@@ -35,4 +37,7 @@
         <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
         <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
     </form>
+
+   
+   
 </div>

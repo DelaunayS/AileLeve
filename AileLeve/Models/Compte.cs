@@ -12,9 +12,17 @@ namespace AileLeve.Models
         
         public string Password { get; set; }
         public string Identifiant { get; set; }
+
+        [Required]
         public int? UtilisateurId { get; set; }
+
+        [Required]
         public virtual Utilisateur Utilisateur { get; set;}
-         public int? ProfilId { get; set; }
+        
+        [Required]
+        public int? ProfilId { get; set; }
+
+        [Required]
         public virtual Profil Profil { get; set; }
 
 

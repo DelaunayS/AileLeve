@@ -17,10 +17,13 @@ namespace AileLeve.Models
         List<Profil> ObtenirTousLesProfils(); 
 
         Compte Authentifier (string identifiant, string password);
+        
         Compte ObtenirCompte (int id);
         Compte ObtenirCompte (string idStr);
-
-        void ModifierProfil(Profil profil);
+        Utilisateur ObtenirUtilisateur(int id);
+        Profil ObtenirProfil(int id);
+        
+        void ModifierProfil(int id, string telephone, string mail, string image);
         void ModifierCompte(Compte compte);
         void ModifierUtilisateur(Utilisateur utilisateur);
     }
