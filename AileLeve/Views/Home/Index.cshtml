@@ -8,23 +8,24 @@
 }
 
 <div class="container">
-        <div class="card w-25">
-            <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
-            <div class="card-body">
-                <h5 class="card-title">@Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
-                <p class="card-text">@Model.Profil.Email</p>
-                <p class="card-text">@Model.Profil.Telephone</p>
-                <p class="card-text">@Model.Compte.Identifiant</p>
+    <div class="card w-25">
+        <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
+            <p class="card-text">@Model.Profil.Email</p>
+            <p class="card-text">@Model.Profil.Telephone</p>
+            <p class="card-text">@Model.Compte.Identifiant</p>
 
-                <a href=@chemin class="btn btn-primary">Modifier le profil</a>
-            </div>
+            <a href=@chemin class="btn btn-primary">Modifier le profil</a>
+        </div>
         <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
         <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
         <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
-        <input type="hidden" name="Profil.Telephone" value="@Model.Profil.Telephone" />
         <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
+        <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
+        <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
 
-        </div>
+    </div>
 </div>
 
 <div class="container">

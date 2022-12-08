@@ -68,33 +68,17 @@ namespace AileLeve.Models
             return _bddContext.Profils.ToList();
         }
 
-        public void ModifierV2(UtilisateurCompletViewModel uvm)
+
+
+
+        public void ModifierProfil(Profil profil)
         {
-            _bddContext.Profils.Update(uvm.Profil);
-            _bddContext.Comptes.Update(uvm.Compte);
-            _bddContext.Utilisateurs.Update(uvm.Utilisateur);
+            _bddContext.Profils.Update(profil);
             _bddContext.SaveChanges();
         }
-
-        public void ModifierProfil(int id, string telephone, string mail, string image)
-        {
-            Profil profil = _bddContext.Profils.Find(id);
-
-            Console.WriteLine("Telephone : " + telephone);
-
-            if (profil != null)
-            {
-                profil.Telephone = telephone;
-                profil.Email = mail;
-                profil.Image = image;
-                Console.WriteLine("Telephone : " + telephone);
-                _bddContext.SaveChanges();
-            }
-        }
-
         public void ModifierCompte(Compte compte)
         {
-           
+
             _bddContext.Comptes.Update(compte);
             _bddContext.SaveChanges();
         }
@@ -105,11 +89,12 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
-        public Compte Authentifier (string identifiant, string password){
+        public Compte Authentifier(string identifiant, string password)
+        {
             string motDePasse = EncodeMD5(password);
             Compte compte = this._bddContext.Comptes.FirstOrDefault(
-                c=>c.Identifiant==identifiant && c.Password==motDePasse);
-            return compte;            
+                c => c.Identifiant == identifiant && c.Password == motDePasse);
+            return compte;
         }
 
 
@@ -121,10 +106,12 @@ namespace AileLeve.Models
         {
             return this._bddContext.Profils.Find(id);
         }
-        public Compte ObtenirCompte(int id){
+        public Compte ObtenirCompte(int id)
+        {
             return this._bddContext.Comptes.Find(id);
         }
-        public Compte ObtenirCompte (string idStr){
+        public Compte ObtenirCompte(string idStr)
+        {
             int id;
             if (int.TryParse(idStr, out id))
             {
