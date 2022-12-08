@@ -11,12 +11,12 @@ using Microsoft.Extensions.Logging;
 
 namespace AileLeve.Controllers
 {
-   
-    public class HomeController : Controller
-    {    
-        private Dal dal = new Dal();   
 
-        public IActionResult Index(int id) 
+    public class HomeController : Controller
+    {
+        private Dal dal = new Dal();
+
+        public IActionResult Index(int id)
         {
 
             if (id == 0)
@@ -24,30 +24,21 @@ namespace AileLeve.Controllers
                 return Redirect("/Utilisateur/Connexion");
             }
 
-            CompteViewModel viewModel = new CompteViewModel{ Authentifie = HttpContext.User.Identity.IsAuthenticated };
+            CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
             if (viewModel.Authentifie)
             {
 
                 viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
 
                 UtilisateurCompletViewModel utilisateurCompletViewModel = new UtilisateurCompletViewModel();
-                //utilisateurCompletViewModel.Compte = monCompte;
-                //utilisateurCompletViewModel.Profil = monCompte.Profil;
-                //utilisateurCompletViewModel.Utilisateur = monCompte.Utilisateur;
                 utilisateurCompletViewModel.Compte = dal.ObtenirCompte(id);
                 utilisateurCompletViewModel.Profil = dal.ObtenirProfil(id);
                 utilisateurCompletViewModel.Utilisateur = dal.ObtenirUtilisateur(id);
-
-                //utilisateurCompletViewModel.Compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-                //utilisateurCompletViewModel.Profil = dal.ObtenirTousLesProfils().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-                //utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-                //Compte compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-
                 return View(utilisateurCompletViewModel);
 
             }
             return Redirect("/Utilisateur/Connexion");
         }
-       
+
     }
 }

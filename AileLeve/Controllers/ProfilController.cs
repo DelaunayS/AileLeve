@@ -31,10 +31,8 @@ namespace AileLeve.Controllers
                     utilisateurCompletViewModel.Profil = dal.ObtenirProfil(id);
                     utilisateurCompletViewModel.Utilisateur = dal.ObtenirUtilisateur(id);
 
-                 
                     return View(utilisateurCompletViewModel);
                 }
-
                 return Redirect("/Utilisateur/Connexion");
             }
             return View("Error");
@@ -48,26 +46,18 @@ namespace AileLeve.Controllers
 
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
 
+
             if (viewModel.Authentifie)
             {
+                dal.ModifierUtilisateur(utilisateurAmodifier.Utilisateur);
+                dal.ModifierCompte(utilisateurAmodifier.Compte);
+                dal.ModifierProfil(utilisateurAmodifier.Profil);
 
-                if (ModelState.IsValid)
-                {
-                    dal.ModifierUtilisateur(utilisateurAmodifier.Utilisateur);
-                    dal.ModifierCompte(utilisateurAmodifier.Compte);
-                    dal.ModifierProfil(utilisateurAmodifier.Profil.Id, utilisateurAmodifier.Profil.Telephone,
-                        utilisateurAmodifier.Profil.Email, utilisateurAmodifier.Profil.Image);
-                   
-                        
-                   // dal.ModifierV2(utilisateurAmodifier);
-                    return Redirect("/Home/Index");
-                } else
-                {
-                    return View(utilisateurAmodifier);
 
-                }
+                return RedirectToAction("Index", "Home", new { @id = utilisateurAmodifier.Profil.Id });
 
-            } else
+            }
+            else
             {
                 return Redirect("/Utilisateur/Connexion");
             }
