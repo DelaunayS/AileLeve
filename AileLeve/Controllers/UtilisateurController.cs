@@ -52,7 +52,7 @@ namespace AileLeve.Controllers
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
                 HttpContext.SignInAsync(userPrincipal);
 
-                return Redirect("http://localhost:5000/Home");
+                return Redirect("/Home");
             }
             return View();
         }
@@ -87,7 +87,7 @@ namespace AileLeve.Controllers
                     var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
 
                     HttpContext.SignInAsync(userPrincipal);
-                    return Redirect("/Home/Index");
+                    return RedirectToAction("Index", "Home", new { @id = compte.Id });
                 }
                 ModelState.AddModelError("Compte.Identifiant", "Identifiant et/ou mot de passe incorrect(s)");
             }

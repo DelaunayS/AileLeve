@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using AileLeve.Models;
+using AileLeve.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,40 +14,62 @@ namespace AileLeve.Controllers
 
     public class ProfilController : Controller
     {
-        public IActionResult ModifierProfil(int id)
+
+        private Dal dal = new Dal();
+
+        public IActionResult Modifier(int id)
         {
-            
+
             if (id != 0)
             {
-                using (Dal dal = new Dal())
+                CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
+                if (viewModel.Authentifie)
                 {
-                    Profil profil = dal.ObtenirTousLesProfils().Where(r => r.Id == id).FirstOrDefault();
-                    if (profil == null)
-                    {
-                        return View("Error");
-                    }
-                    return View(profil);
+                    viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
+                    UtilisateurCompletViewModel utilisateurCompletViewModel = new UtilisateurCompletViewModel();
+                    utilisateurCompletViewModel.Compte = dal.ObtenirCompte(id);
+                    utilisateurCompletViewModel.Profil = dal.ObtenirProfil(id);
+                    utilisateurCompletViewModel.Utilisateur = dal.ObtenirUtilisateur(id);
+
+                 
+                    return View(utilisateurCompletViewModel);
                 }
+
+                return Redirect("/Utilisateur/Connexion");
             }
             return View("Error");
         }
 
+
+
         [HttpPost]
-        public IActionResult ModifierProfil(Profil profil)
+        public IActionResult Modifier(UtilisateurCompletViewModel utilisateurAmodifier)
         {
-            if (!ModelState.IsValid)
-                 return View(profil);
-            if (profil.Id != 0)
+
+            CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
+
+            if (viewModel.Authentifie)
             {
-                using (Dal dal = new Dal())
+
+                if (ModelState.IsValid)
                 {
-                    dal.ModifierProfil(profil);
-                    return RedirectToAction("ModifierProfil", new { @id = profil.Id });
+                    dal.ModifierUtilisateur(utilisateurAmodifier.Utilisateur);
+                    dal.ModifierCompte(utilisateurAmodifier.Compte);
+                    dal.ModifierProfil(utilisateurAmodifier.Profil.Id, utilisateurAmodifier.Profil.Telephone,
+                        utilisateurAmodifier.Profil.Email, utilisateurAmodifier.Profil.Image);
+                   
+                        
+                   // dal.ModifierV2(utilisateurAmodifier);
+                    return Redirect("/Home/Index");
+                } else
+                {
+                    return View(utilisateurAmodifier);
+
                 }
-            }
-            else
+
+            } else
             {
-                return View("Error");
+                return Redirect("/Utilisateur/Connexion");
             }
         }
 

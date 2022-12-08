@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AileLeve.Models;
 using AileLeve.ViewModels;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -15,21 +16,37 @@ namespace AileLeve.Controllers
     {    
         private Dal dal = new Dal();   
 
-        public IActionResult Index()
+        public IActionResult Index(int id) 
         {
+
+            if (id == 0)
+            {
+                return Redirect("/Utilisateur/Connexion");
+            }
+
             CompteViewModel viewModel = new CompteViewModel{ Authentifie = HttpContext.User.Identity.IsAuthenticated };
             if (viewModel.Authentifie)
             {
+
                 viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
+
                 UtilisateurCompletViewModel utilisateurCompletViewModel = new UtilisateurCompletViewModel();
-                utilisateurCompletViewModel.Compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-                utilisateurCompletViewModel.Profil = dal.ObtenirTousLesProfils().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-                utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                //utilisateurCompletViewModel.Compte = monCompte;
+                //utilisateurCompletViewModel.Profil = monCompte.Profil;
+                //utilisateurCompletViewModel.Utilisateur = monCompte.Utilisateur;
+                utilisateurCompletViewModel.Compte = dal.ObtenirCompte(id);
+                utilisateurCompletViewModel.Profil = dal.ObtenirProfil(id);
+                utilisateurCompletViewModel.Utilisateur = dal.ObtenirUtilisateur(id);
+
+                //utilisateurCompletViewModel.Compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                //utilisateurCompletViewModel.Profil = dal.ObtenirTousLesProfils().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                //utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                //Compte compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
 
                 return View(utilisateurCompletViewModel);
 
             }
-            return Redirect("http://localhost:5000/Utilisateur/Connexion");
+            return Redirect("/Utilisateur/Connexion");
         }
        
     }
