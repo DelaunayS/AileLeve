@@ -27,6 +27,6 @@ namespace AileLeve.Models
         void ModifierCompte(Compte compte);
         void ModifierUtilisateur(Utilisateur utilisateur);
 
-        public void ModifierPassword(string newPassword);
+        public void ModifierPassword(int id, string nouveauMDP);
     }
 }

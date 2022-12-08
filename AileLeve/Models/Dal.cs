@@ -1,11 +1,11 @@
 using AileLeve.ViewModels;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace AileLeve.Models
 {
     public class Dal : IDal
@@ -24,7 +24,6 @@ namespace AileLeve.Models
         {
             _bddContext.Dispose();
         }
-
         public int CreerUtilisateur(string nom, string prenom)
         {
             Utilisateur utilisateur = new Utilisateur() { Nom = nom, Prenom = prenom };
@@ -32,7 +31,6 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return utilisateur.Id;
         }
-
         public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId)
         {
             string motDePasse = EncodeMD5(password);
@@ -43,7 +41,6 @@ namespace AileLeve.Models
                 UtilisateurId = utilisateurId,
                 ProfilId = profilId
             };
-
             _bddContext.Comptes.Add(compte);
             _bddContext.SaveChanges();
             return compte.Id;
@@ -67,7 +64,6 @@ namespace AileLeve.Models
         {
             return _bddContext.Profils.ToList();
         }
-
         public void ModifierProfil(Profil profil)
         {
             _bddContext.Profils.Update(profil);
@@ -75,17 +71,14 @@ namespace AileLeve.Models
         }
         public void ModifierCompte(Compte compte)
         {
-
             _bddContext.Comptes.Update(compte);
             _bddContext.SaveChanges();
         }
-
         public void ModifierUtilisateur(Utilisateur utilisateur)
         {
             _bddContext.Utilisateurs.Update(utilisateur);
             _bddContext.SaveChanges();
         }
-
         public Compte Authentifier(string identifiant, string password)
         {
             string motDePasse = EncodeMD5(password);
@@ -93,15 +86,12 @@ namespace AileLeve.Models
                 c => c.Identifiant == identifiant && c.Password == motDePasse);
             return compte;
         }
-
-
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return this._bddContext.Utilisateurs.Find(id);
         }
         public Profil ObtenirProfil(int id)
         {
-
             return this._bddContext.Profils.Find(id);
         }
         public Compte ObtenirCompte(int id)
@@ -113,22 +103,21 @@ namespace AileLeve.Models
             int id;
             if (int.TryParse(idStr, out id))
             {
-
                 return this.ObtenirCompte(id);
             }
             return null;
         }
-
         public static string EncodeMD5(string motDePasse)
         {
             string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";
             return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
         }
-
-        public void ModifierPassword(string newPassword)
+        public void ModifierPassword(int id, string nouveauMDP)
         {
-            string motDePasse = EncodeMD5(newPassword);
-
+            string mdp = EncodeMD5(nouveauMDP);
+            Compte compte = this.ObtenirCompte(id);
+            compte.Password = nouveauMDP;
+            _bddContext.SaveChanges();
         }
     }
 }
