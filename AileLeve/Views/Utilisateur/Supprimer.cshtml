@@ -1,0 +1,40 @@
+﻿@model AileLeve.ViewModels.UtilisateurCompletViewModel;
+
+@{
+    ViewBag.Title = "Supprimer le compte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    String chemin = String.Format("/home/index/{0}", @Model.Profil.Id);
+}
+
+<h1>Supprimer le compte</h1>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Voulez-vous supprimer ce compte ?</h5>
+            <p class="card-text">@Model.Utilisateur.Prenom, @Model.Utilisateur.Nom</p>
+            <p class="card-text">@Model.Profil.Email</p>
+
+            <form action="/Utilisateur/Supprimer" method="post">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="passwordForm" placeholder="Password" name="Compte.Password">
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-danger">Valider</button>
+                        </div>
+                        <div class="col">
+                            <a href=@chemin type=" button" class="btn btn-primary">Annuler</a>
+                        </div>
+                    </div>
+
+
+                </div>
+                <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
+            </form>
+
+        </div>
+    </div>
+</div>

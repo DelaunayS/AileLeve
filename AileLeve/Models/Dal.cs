@@ -89,6 +89,17 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+        public void SupprimerCompte(Compte compte)
+        {
+
+            _bddContext.Comptes.Remove(compte);
+            _bddContext.SaveChanges();
+        }
+
+
+
+
+
         public Compte Authentifier(string identifiant, string password)
         {
             string motDePasse = EncodeMD5(password);
