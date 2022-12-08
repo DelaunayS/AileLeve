@@ -68,9 +68,6 @@ namespace AileLeve.Models
             return _bddContext.Profils.ToList();
         }
 
-
-
-
         public void ModifierProfil(Profil profil)
         {
             _bddContext.Profils.Update(profil);
@@ -104,6 +101,7 @@ namespace AileLeve.Models
         }
         public Profil ObtenirProfil(int id)
         {
+
             return this._bddContext.Profils.Find(id);
         }
         public Compte ObtenirCompte(int id)
@@ -115,6 +113,7 @@ namespace AileLeve.Models
             int id;
             if (int.TryParse(idStr, out id))
             {
+
                 return this.ObtenirCompte(id);
             }
             return null;
@@ -126,5 +125,10 @@ namespace AileLeve.Models
             return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
         }
 
+        public void ModifierPassword(string newPassword)
+        {
+            string motDePasse = EncodeMD5(newPassword);
+
+        }
     }
 }
