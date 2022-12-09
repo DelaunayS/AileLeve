@@ -27,7 +27,7 @@ namespace AileLeve.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+            optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
         }
         public void InitializeDb()
         {
@@ -109,8 +109,8 @@ namespace AileLeve.Models
                 new Enseignant { Id = 2, UtilisateurId = 4 });
 
             this.Eleves.AddRange(
-                new Eleve { Id = 2, DateDeNaissance = new DateTime(2006, 08, 15), UtilisateurId = 1},
-                new Eleve { Id = 3, DateDeNaissance = new DateTime(2013, 12, 18), UtilisateurId = 3}
+                new Eleve { Id = 1, DateDeNaissance = new DateTime(2006, 08, 15), UtilisateurId = 1},
+                new Eleve { Id = 2, DateDeNaissance = new DateTime(2013, 12, 18), UtilisateurId = 3}
                 );
 
             this.Cours.AddRange(
