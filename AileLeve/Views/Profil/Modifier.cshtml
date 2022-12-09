@@ -1,25 +1,18 @@
 @model AileLeve.ViewModels.UtilisateurCompletViewModel;
-
 @{
     ViewBag.Title = "Modifier le profil";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    String chemin = String.Format("/compte/ModifierPassword/{0}", @Model.Compte.Id);
 }
 <h1>Modifier le profil</h1>
-
-
 <div class="container">
-
     <form action="/Profil/Modifier" method="post">
-
         <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
         <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
         <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
         <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
         <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
         <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
-        <input type="hidden" class="form-control" name="Compte.password" value="@Model.Compte.Password" id="PasswordForm" placeholder="Mot de passe">
-
-
         <div class="form-group">
             <label for="Nom">Nom</label>
             <input type="text" class="form-control" name="Utilisateur.Nom" id="NomForm" value="@Model.Utilisateur.Nom" placeholder="Nom" required>
@@ -31,24 +24,25 @@
         <div class="form-group">
             <label for="Identifiant">Identifiant</label>
             <input type="text" class="form-control" name="Compte.Identifiant" id="IdentifiantForm" value="@Model.Compte.Identifiant" placeholder="Identifiant">
-
         </div>
-       
+        <div class="form-group">
+            <a href=@chemin>Modifier le mot de passe</a>
+            <input type="hidden" class="form-control" name="Compte.password" value="@Model.Compte.Password" id="PasswordForm" placeholder="Mot de passe">
+        </div>
         <div class="form-group">
             <label for="telephone">Téléphone</label>
             <input type="text" class="form-control" name="Profil.Telephone" value="@Model.Profil.Telephone" placeholder="Téléphone">
         </div>
-               
-
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="Profil.Email" id="EmailForm" value="@Model.Profil.Email" placeholder="Email">
         </div>
 
+
         <button type="submit" class="btn">Enregistrer</button>
 
+
+        <button type="submit" class="btn ">Enregistrer</button>
+
     </form>
-
-
-
 </div>
