@@ -94,9 +94,45 @@ namespace AileLeve.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Supprimer()
+        {
+            CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
+            if (viewModel.Authentifie)
+            {
+                viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
+                UtilisateurCompletViewModel utilisateurCompletViewModel = new UtilisateurCompletViewModel();
+                utilisateurCompletViewModel.Compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                utilisateurCompletViewModel.Profil = dal.ObtenirTousLesProfils().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
 
 
+                return View(utilisateurCompletViewModel);
+            }
+            return Redirect("/Utilisateur/Connexion");
+        }
 
+        [HttpPost]
+        public IActionResult Supprimer(UtilisateurCompletViewModel utilisateurASupprimer)
+        {
+            CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
 
+            if (viewModel.Authentifie)
+            {
+                viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
+                Compte compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+
+                if (Dal.EncodeMD5(utilisateurASupprimer.Compte.Password) == compte.Password)
+
+                {
+                    dal.SupprimerCompte(compte);
+
+                    return RedirectToAction("Deconnexion");
+                }
+
+                return View();
+            }
+            return Redirect("/Utilisateur/Connexion");
+        }
     }
 }
