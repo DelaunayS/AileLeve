@@ -9,8 +9,9 @@ namespace AileLeve.Models
     {
         void DeleteCreateDatabase();
 
-
-        int CreerUtilisateur(string nom, string prenom);
+        int CreerEleve(DateTime date, int utilisateurId);
+        int CreerAdresse(int numeroRue, string rue, string ville, int codePostal);
+        int CreerUtilisateur(string nom, string prenom, int adresseId);
         int CreerCompte(string identifiant, string password, int utilisateurId, int profilId);
         int CreerProfil(string telephone, string image, string email);
 
