@@ -9,7 +9,6 @@ namespace AileLeve.ViewModels
     public class CompteViewModel
     {
         public Compte Compte { get; set; }
-
         public string MotDePasse { get; set; }
         public bool Authentifie { get; set; }
     }

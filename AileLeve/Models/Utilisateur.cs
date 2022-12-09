@@ -13,5 +13,7 @@ namespace AileLeve.Models
         public string Nom { get; set; }
         [MaxLength(30)]
         public string Prenom { get; set; }
+        public int? AdresseId { get; set; }   
+        public virtual Adresse Adresse { get; set; }
     }
 }
