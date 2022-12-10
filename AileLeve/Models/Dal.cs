@@ -74,7 +74,8 @@ namespace AileLeve.Models
         }
         public List<Compte> ObtenirTousLesComptes()
         {
-            return _bddContext.Comptes.ToList();
+            return _bddContext.Comptes.Include(c=>c.Profil).Include(c=>c.Utilisateur)
+                        .ThenInclude(u=>u.Adresse).ToList();
         }
         public List<Profil> ObtenirTousLesProfils()
         {

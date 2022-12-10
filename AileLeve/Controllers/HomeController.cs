@@ -29,9 +29,7 @@ namespace AileLeve.Controllers
             {
 
                 viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
-                Compte compte=dal.ObtenirCompte(id); 
-                UtilisateurCompletViewModel utilisateurCompletViewModel = new UtilisateurCompletViewModel();
-                utilisateurCompletViewModel.Compte = dal.ObtenirCompte(id);                
+                Compte compte=dal.ObtenirCompte(id);                               
                 return View(compte);
 
             }
