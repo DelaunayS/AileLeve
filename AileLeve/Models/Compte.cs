@@ -9,22 +9,11 @@ namespace AileLeve.Models
     public class Compte
     {
         public int Id { get; set; }
-
         public string Password { get; set; }
         public string Identifiant { get; set; }
-
-
         public int? UtilisateurId { get; set; }
-
-
         public virtual Utilisateur Utilisateur { get; set; }
-
-
         public int? ProfilId { get; set; }
-
-
         public virtual Profil Profil { get; set; }
-
-
     }
 }

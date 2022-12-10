@@ -35,13 +35,17 @@ namespace AileLeve.Controllers
         }
 
         [HttpPost()]
-        public IActionResult Inscription(string nom, string prenom, string identifiant, string password, string email)
+        public IActionResult Inscription(string nom, string prenom, string identifiant, string password,
+         string email, string tel, DateTime dateNaissance, int numeroRue, string rue, int codePostal, string ville )
         {
 
             if (ModelState.IsValid)
             {
-                int utilisateurId = dal.CreerUtilisateur(nom, prenom);
-                int profilId = dal.CreerProfil("", "/img/profil.jpg", email);
+
+                int adressesId=dal.CreerAdresse(numeroRue,rue,ville,codePostal);
+                int utilisateurId = dal.CreerUtilisateur(nom, prenom,adressesId);
+                dal.CreerEleve(dateNaissance,utilisateurId);
+                int profilId = dal.CreerProfil(tel, "/img/profil.jpg", email);
                 int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId);
                 var userClaims = new List<Claim>()
                 {
@@ -52,7 +56,7 @@ namespace AileLeve.Controllers
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
                 HttpContext.SignInAsync(userPrincipal);
 
-                return Redirect("/Home");
+                return RedirectToAction("Index", "Home", new { @id = compteId });
             }
             return View();
         }

@@ -11,5 +11,7 @@ namespace AileLeve.ViewModels
         public Compte Compte { get; set; }
         public Profil Profil { get; set; }
         public Utilisateur Utilisateur { get; set; }
+        public Adresse Adresse {get;set;}
+        public Eleve Eleve { get; set; }
     }
 }

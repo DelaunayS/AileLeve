@@ -29,12 +29,10 @@ namespace AileLeve.Controllers
             {
 
                 viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
-
+                Compte compte=dal.ObtenirCompte(id); 
                 UtilisateurCompletViewModel utilisateurCompletViewModel = new UtilisateurCompletViewModel();
-                utilisateurCompletViewModel.Compte = dal.ObtenirCompte(id);
-                utilisateurCompletViewModel.Profil = dal.ObtenirProfil(id);
-                utilisateurCompletViewModel.Utilisateur = dal.ObtenirUtilisateur(id);
-                return View(utilisateurCompletViewModel);
+                utilisateurCompletViewModel.Compte = dal.ObtenirCompte(id);                
+                return View(compte);
 
             }
             return Redirect("/Utilisateur/Connexion");
