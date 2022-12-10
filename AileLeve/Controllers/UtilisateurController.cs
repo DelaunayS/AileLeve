@@ -18,16 +18,7 @@ namespace AileLeve.Controllers
     {
 
         private Dal dal = new Dal();
-        [Authorize]
-        public IActionResult Liste()
-        {
-            UtilisateursViewModel uvms = new UtilisateursViewModel
-            {
-                Utilisateurs = dal.ObtenirTousLesUtilisateurs()
-            };
-            return View(uvms);
-        }
-
+        
         [HttpGet()]
         public IActionResult Inscription()
         {
