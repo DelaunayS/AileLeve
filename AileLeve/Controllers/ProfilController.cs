@@ -25,6 +25,7 @@ namespace AileLeve.Controllers
                     utilisateurCompletViewModel.Compte = dal.ObtenirCompte(id);
                     utilisateurCompletViewModel.Profil = dal.ObtenirProfil(id);
                     utilisateurCompletViewModel.Utilisateur = dal.ObtenirUtilisateur(id);
+                    utilisateurCompletViewModel.Adresse = dal.ObtenirAdresse(id);
                     return View(utilisateurCompletViewModel);
                 }
                 return Redirect("/Utilisateur/Connexion");
@@ -40,6 +41,7 @@ namespace AileLeve.Controllers
                 dal.ModifierUtilisateur(utilisateurAmodifier.Utilisateur);
                 dal.ModifierCompte(utilisateurAmodifier.Compte);
                 dal.ModifierProfil(utilisateurAmodifier.Profil);
+                dal.ModifierAdresse(utilisateurAmodifier.Adresse);
                 return RedirectToAction("Index", "Home", new { @id = utilisateurAmodifier.Profil.Id });
             }
             else

@@ -38,7 +38,9 @@ a {
     color: #fff;
     background-color: #5C964A;
     border-color: #000000;
-    width :150px
+    width :150px;
+    margin-right : 50px;
+   
 }
     .btn:hover {
         color: #fff;
