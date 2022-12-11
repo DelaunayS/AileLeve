@@ -39,7 +39,7 @@ a {
     background-color: #5C964A;
     border-color: #000000;
     width :150px;
-    margin-right : 50px;
+   
    
 }
     .btn:hover {
@@ -47,6 +47,7 @@ a {
         background-color: #3F6632;
     }
    
+
    
 
 .nav-pills .nav-link.active,
