@@ -49,7 +49,7 @@ namespace AileLeve.Controllers
 
                 return RedirectToAction("Index", "Home", new { @id = compteId });
             }
-            return View();
+            return Redirect("/Utilisateur/Connexion"); 
         }
 
         public ActionResult Deconnexion()

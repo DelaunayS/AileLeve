@@ -19,26 +19,28 @@
         <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
 
         <div class="row h-100 justify-content-center align-items-center form-group">
-            <label for="Nom" class="col-2">Nom</label>
+            <label for="nom" class="col-2">Nom</label>
             <div class="col-4">
                 <input type="text" class="form-control" name="Utilisateur.Nom" id="NomForm" value="@Model.Utilisateur.Nom" placeholder="Nom" required>
             </div>
         </div>
         <div class="row h-100 justify-content-center align-items-center form-group">
-            <label for="Prenom" class="col-2">Prénom</label>
+            <label for="prenom" class="col-2">Prénom</label>
             <div class="col-4">
                 <input type="text" class="form-control" name="Utilisateur.Prenom" id="PrenomForm" value="@Model.Utilisateur.Prenom" placeholder="Prénom" required>
             </div>
         </div>
         <div class="row h-100 justify-content-center align-items-center form-group">
-            <label for="Identifiant" class="col-2">Identifiant</label>
+            <label for="identifiant" class="col-2">Identifiant</label>
             <div class="col-4">
                 <input type="text" class="form-control" name="Compte.Identifiant" id="IdentifiantForm" value="@Model.Compte.Identifiant" placeholder="Identifiant" required>
             </div>
         </div>
         <div class="row h-100 justify-content-center align-items-center form-group">
-            <a href=@chemin>Modifier le mot de passe</a>
+            <label for="motDePasse" class="col-2">Mot de passe</label>
+           
             <div class="col-4">
+                <a href=@chemin>Cliquer ici pour modifier le mot de passe</a>
                 <input type="hidden" class="form-control" name="Compte.password" id="PasswordForm" value="@Model.Compte.Password" placeholder="Mot de passe" required>
             </div>
         </div>
@@ -80,7 +82,7 @@
             </div>
         </div>
 
-        <div class="row h-100 justify-content-center align-items-center mt-5">
+        <div class="row h-100 justify-content-center align-items-center mt-5 form-group">
             <button type="submit" class="btn mr-5">Enregistrer</button>
             <button type="submit" class="btn ml-5">Annuler</button>
         </div>
