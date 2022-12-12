@@ -26,7 +26,7 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
+            optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
         }
         public void InitializeDb()
         {
@@ -98,9 +98,9 @@ namespace AileLeve.Models
             );
 
             this.Adresses.AddRange(
-                new Adresse { Id = 1, Rue = "avenue des Roses", Numero = 50, CodePostal = 38000, Ville = "Grenoble" },
-                new Adresse { Id = 2, Rue = "chemin des marais", Numero = 2, CodePostal = 51290, Ville = "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson" },
-                new Adresse { Id = 3, Rue = "impasse de l'espoir", Numero = 150, CodePostal = 67000, Ville = "Strasbourg"}
+                new Adresse { Id = 1, Rue = "avenue des Roses", NumeroRue = 50, CodePostal = 38000, Ville = "Grenoble" },
+                new Adresse { Id = 2, Rue = "chemin des marais", NumeroRue = 2, CodePostal = 51290, Ville = "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson" },
+                new Adresse { Id = 3, Rue = "impasse de l'espoir", NumeroRue = 150, CodePostal = 67000, Ville = "Strasbourg"}
                 );
 
             this.Enseignants.AddRange(

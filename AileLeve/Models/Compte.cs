@@ -9,7 +9,9 @@ namespace AileLeve.Models
     public class Compte
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Le champ mot de passe doit être rempli.")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "Le champ Identifiant doit être rempli.")]
         public string Identifiant { get; set; }
         public int? UtilisateurId { get; set; }
         public virtual Utilisateur Utilisateur { get; set; }
