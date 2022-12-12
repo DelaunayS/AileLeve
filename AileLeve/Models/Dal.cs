@@ -32,7 +32,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return utilisateur.Id;
         }
-        public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId)
+        public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId, string role)
         {
             string motDePasse = EncodeMD5(password);
             Compte compte = new Compte()
@@ -41,7 +41,8 @@ namespace AileLeve.Models
                 Password = motDePasse,
                 UtilisateurId = utilisateurId,
                 ProfilId = profilId,
-                StatusActif = true
+                StatusActif = true,
+                Role=role
             };
             _bddContext.Comptes.Add(compte);
             _bddContext.SaveChanges();
