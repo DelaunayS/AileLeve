@@ -47,6 +47,8 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return compte.Id;
         }
+
+      
         public int CreerProfil(string telephone, string image, string email)
         {
             Profil profil = new Profil() { Telephone = telephone, Image = image, Email = email };
@@ -181,6 +183,34 @@ namespace AileLeve.Models
             Compte compte = this.ObtenirCompte(id);
             compte.Password = nouveauMDP;
             _bddContext.SaveChanges();
+        }
+
+        public int CreerCours(TypeCours typeCours, string matiere, string niveau, string enseignant)
+        {
+            Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
+            Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
+            Enseignant ens = new Enseignant();
+
+            Cours cours = new Cours
+            {
+                TypeCours = typeCours,
+                Matiere = mat,
+                Niveau = niv,
+                Enseignant = ens
+            };
+            _bddContext.Cours.Add(cours);
+            _bddContext.SaveChanges();
+            return cours.Id;
+        }
+
+        public Matiere ObtenirMatiere(int id)
+        {
+            return this._bddContext.Matieres.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Niveau ObtenirNiveau(int id)
+        {
+            return this._bddContext.Niveaux.FirstOrDefault(c => c.Id == id);
         }
     }
 }

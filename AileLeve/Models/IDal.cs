@@ -14,7 +14,7 @@ namespace AileLeve.Models
         int CreerUtilisateur(string nom, string prenom, int adresseId);
         int CreerCompte(string identifiant, string password, int utilisateurId, int profilId);
         int CreerProfil(string telephone, string image, string email);
-
+        int CreerCours(TypeCours typeCours, string matiere, string niveau, string enseignant);
 
         List<Utilisateur> ObtenirTousLesUtilisateurs();
         List<Compte> ObtenirTousLesComptes();
@@ -30,6 +30,10 @@ namespace AileLeve.Models
         Utilisateur ObtenirUtilisateur(int id);
         Profil ObtenirProfil(int id);
         Adresse ObtenirAdresse(int id);
+
+        Matiere ObtenirMatiere(int id);
+
+        Niveau ObtenirNiveau(int id);
 
         void ModifierProfil(Profil profil);
         void ModifierCompte(Compte compte);
