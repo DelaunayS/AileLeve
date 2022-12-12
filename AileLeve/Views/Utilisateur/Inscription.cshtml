@@ -2,85 +2,102 @@
     ViewBag.Title = "Inscription";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1 class="text-center mb-5">Inscription</h1>
-
+<h1 class="text-center mb-4">S'inscrire</h1>
 
 <div class="container">
     <form action="/Utilisateur/Inscription" method="post">
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="Nom" class="col-2">Nom</label>
-                <input type="text" class="form-control col-4" name="nom" id="NomForm" placeholder="Nom" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="Prenom" class="col-2">Prénom</label>
-                <input type="text" class="form-control col-4" name="prenom" id="PrenomForm" placeholder="Prénom"
-                    required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="DateNaissance" class="col-2">Date de Naissance</label>
-                <input type="date" class="form-control col-4" name="dateNaissance" id="DateNaissanceForm" 
-                    required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="Identifiant" class="col-2">Identifiant</label>
-                <input type="text" class="form-control col-4" name="identifiant" id="IdentifiantForm"
-                    placeholder="Identifiant">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="Identifiant" class="col-2">Mot de passe</label>
-                <input type="password" class="form-control col-4" name="password" id="PasswordForm"
-                    placeholder="Mot de passe" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="email" class="col-2">Email</label>
-                <input type="email" class="form-control col-4" name="email" id="EmailForm" placeholder="Email" required>
-            </div>
-        </div>
-         <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="tel" class="col-2">Téléphone</label>
-                <input type="text" class="form-control col-4" name="tel" id="TelForm" placeholder="Télephone">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="numeroRue" class="col-2">Numéro</label>
-                <input type="number" class="form-control col-4" name="numeroRue" id="NumeroRueForm">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="Rue" class="col-2">Adresse</label>
-                <input type="text" class="form-control col-4" name="rue" id="RueForm">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="CodePostal" class="col-2">Code Postal</label>
-                <input type="number" class="form-control col-4" name="codePostal" id="CodePostalForm">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row h-100 justify-content-center align-items-center">
-                <label for="Ville" class="col-2">Ville</label>
-                <input type="text" class="form-control col-4" name="ville" id="VilleForm">
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="Nom" class="col-2">Nom</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="nom" id="NomForm" placeholder="Nom" required>
             </div>
         </div>
 
-    <div class="row h-100 justify-content-center align-items-center">
-        <button type="submit" class="btn">Enregistrer</button>
-    </div>
-        
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="Prenom" class="col-2">Prénom</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="prenom" id="PrenomForm" placeholder="Prénom" required>
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="DateNaissance" class="col-2">Date de Naissance</label>
+            <div class="col-4">
+                <input type="date" class="form-control" name="dateNaissance" id="DateNaissanceForm" required>
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="Identifiant" class="col-2">Identifiant</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="identifiant" id="IdentifiantForm"
+                    placeholder="Identifiant">
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="Password" class="col-2">Mot de passe</label>
+            <div class="col-4 input-group">
+                <input type="password" class="form-control" name="password" id="PasswordForm" placeholder="Mot de passe"
+                    required>
+                <div class="input-group-append">
+                    <span class="input-group-text" onclick="password_show_hide();">
+                        <i class="fas fa-eye" id="show_eye"></i>
+                        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="email" class="col-2">Email</label>
+            <div class="col-4">
+                <input type="email" class="form-control" name="email" id="EmailForm" placeholder="Email" required>
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="tel" class="col-2">Téléphone</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="tel" id="TelForm" placeholder="Télephone">
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="numeroRue" class="col-2">Numéro</label>
+            <div class="col-4">
+                <input type="number" class="form-control" name="numeroRue" id="NumeroRueForm">
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="Rue" class="col-2">Adresse</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="rue" id="RueForm">
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="CodePostal" class="col-2">Code Postal</label>
+            <div class="col-4">
+                <input type="number" class="form-control" name="codePostal" id="CodePostalForm">
+            </div>
+        </div>
+
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="Ville" class="col-2">Ville</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="ville" id="VilleForm">
+            </div>
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center">
+            <button type="submit" class="btn">Enregistrer</button>
+        </div>
+
     </form>
 </div>
+
+<script src="/Scripts/password_show_hide.js"></script>

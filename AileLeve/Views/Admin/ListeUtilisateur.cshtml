@@ -1,0 +1,35 @@
+@model AileLeve.ViewModels.ComptesViewModel;
+@{
+    ViewBag.Title = "Liste des utilisateurs";
+    Layout = "~/Views/Shared/_Layout.cshtml";  
+    
+}
+<h1 class="text-center mb-4">Liste des utilisateurs</h1>
+
+<table class="table table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Comptes)
+        {
+            <tr>                
+                <td>@item.Utilisateur.Nom</td>
+                <td>@item.Utilisateur.Prenom</td>
+                <td>@item.Profil.Email</td>
+                <td>
+                    @{String cheminModifier = String.Format("/Profil/Modifier/{0}", @item.Id);}
+                    <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2"></a>
+                    
+                    @{String cheminSupprimer = String.Format("/Admin/Supprimer/{0}", @item.Id);}
+                    <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
