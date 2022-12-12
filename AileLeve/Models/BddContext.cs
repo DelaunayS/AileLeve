@@ -80,7 +80,6 @@ namespace AileLeve.Models
                 );
 
             this.Utilisateurs.AddRange(
-
                 new Utilisateur { Id = 1, Nom = "Dupond", Prenom = "Jean", AdresseId = 1,  },
                 new Utilisateur { Id = 2, Nom = "Dupont", Prenom = "Yann", AdresseId = 2 },
                 new Utilisateur { Id = 3, Nom = "Dylan", Prenom = "Bob", AdresseId = 3 },
@@ -105,8 +104,7 @@ namespace AileLeve.Models
                 new Profil { Id = 10, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "jeanmichel.maulpoix@gmail.com" }
             );
             this.Comptes.AddRange(
-
-                new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif=true },
+new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif=true },
                 new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2, StatusActif=true },
                 new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3, StatusActif=true },
                 new Compte { Id = 4, Identifiant = "Juju", Password = Dal.EncodeMD5("jjjjj"), UtilisateurId = 4, ProfilId = 4, StatusActif=true },
@@ -116,7 +114,6 @@ namespace AileLeve.Models
                 new Compte { Id = 8, Identifiant = "Chris", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 8, ProfilId = 8 , StatusActif=false},
                 new Compte { Id = 9, Identifiant = "Marcelou", Password = Dal.EncodeMD5("mmmmm"), UtilisateurId = 9, ProfilId = 9 , StatusActif=true},
                 new Compte { Id = 10, Identifiant = "JeanMi", Password = Dal.EncodeMD5("jmjmjm"), UtilisateurId = 10, ProfilId = 10 , StatusActif=true}
-
             );
 
             this.Adresses.AddRange(
@@ -129,7 +126,7 @@ namespace AileLeve.Models
                 new Adresse { Id = 7, Rue = "rue de l'instant suspendu", NumeroRue = 5, CodePostal = 75001, Ville = "Paris" },
                 new Adresse { Id = 8, Rue = "chemin de l'école buissonnière", NumeroRue = 27, CodePostal = 20169, Ville = "Bonifacio" },
                 new Adresse { Id = 9, Rue = "allée du côté de chez Swann", NumeroRue = 43, CodePostal = 28120, Ville = "'Illiers-Combray. " },
-                new Adresse { Id = 10, Rue = "rue de la pointe du jour", NumeroRue = 17, CodePostal = 92100, Ville = " Boulogne" }
+                new Adresse { Id = 10, Rue = "rue de la pointe du jour",NumeroRue = 17, CodePostal = 92100, Ville = " Boulogne" }
 
                 );
 
@@ -177,7 +174,7 @@ namespace AileLeve.Models
 
             );
 
-            this.Etudie.AddRange(
+           this.Etudie.AddRange(
                 new Etudie { EleveId = 1, CoursId = 12},
                 new Etudie { EleveId = 2, CoursId = 5},
                 new Etudie { EleveId = 3, CoursId = 2 },

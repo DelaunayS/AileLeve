@@ -41,7 +41,7 @@ namespace AileLeve.Models
                 Password = motDePasse,
                 UtilisateurId = utilisateurId,
                 ProfilId = profilId,
-                statusActif = true
+                StatusActif = true
             };
             _bddContext.Comptes.Add(compte);
             _bddContext.SaveChanges();
@@ -123,16 +123,10 @@ namespace AileLeve.Models
             _bddContext.Comptes.Remove(compte);
             _bddContext.SaveChanges();
         }
-         public void SuspendreCompte(Compte compte)
-        {
-            compte.StatusActif = !compte.StatusActif;
-            _bddContext.Comptes.Update(compte);
-            _bddContext.SaveChanges();
-        }
-
+        
         public void SuspendreCompte(Compte compte)
         {
-            compte.statusActif = !compte.statusActif;
+            compte.StatusActif = !compte.StatusActif;
             _bddContext.Comptes.Update(compte);
             _bddContext.SaveChanges();
         }
