@@ -17,6 +17,6 @@ namespace AileLeve.Models
         public virtual Utilisateur Utilisateur { get; set; }
         public int? ProfilId { get; set; }
         public virtual Profil Profil { get; set; }
-        public bool statusActif { get; set; }
+        public bool StatusActif { get; set; }
     }
 }

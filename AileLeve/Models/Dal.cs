@@ -121,6 +121,12 @@ namespace AileLeve.Models
             _bddContext.Comptes.Remove(compte);
             _bddContext.SaveChanges();
         }
+         public void SuspendreCompte(Compte compte)
+        {
+            compte.StatusActif = !compte.StatusActif;
+            _bddContext.Comptes.Update(compte);
+            _bddContext.SaveChanges();
+        }
 
         public void SuspendreCompte(Compte compte)
         {
