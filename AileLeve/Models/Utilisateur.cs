@@ -16,5 +16,6 @@ namespace AileLeve.Models
         public int? AdresseId { get; set; }   
         public virtual Adresse Adresse { get; set; }
        
+       
     }
 }
