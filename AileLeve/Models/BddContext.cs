@@ -26,12 +26,8 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//<<<<<<< HEAD
-           
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
-//=======
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
-//>>>>>>> b52a00c3ddc3a03a5ba36cefaf04aa9b84724f0e
+        optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+
         }
         public void InitializeDb()
         {
@@ -121,6 +117,7 @@ namespace AileLeve.Models
             );
 
             this.Adresses.AddRange(
+
                 new Adresse { Id = 1, Rue = "avenue des Roses", Numero = 50, CodePostal = 38000, Ville = "Grenoble" },
                 new Adresse { Id = 2, Rue = "chemin des marais", Numero = 2, CodePostal = 51290, Ville = "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson" },
                 new Adresse { Id = 3, Rue = "impasse de l'espoir", Numero = 150, CodePostal = 67000, Ville = "Strasbourg"},
@@ -130,6 +127,7 @@ namespace AileLeve.Models
                 new Adresse { Id = 8, Rue = "chemin de l'école buissonnière", Numero = 27, CodePostal = 20169, Ville = "Bonifacio" },
                 new Adresse { Id = 9, Rue = "allée du côté de chez Swann", Numero = 43, CodePostal = 28120, Ville = "'Illiers-Combray. " },
                 new Adresse { Id = 10, Rue = "rue de la pointe du jour", Numero = 17, CodePostal = 92100, Ville = " Boulogne" }
+
                 );
 
             this.Enseignants.AddRange(
