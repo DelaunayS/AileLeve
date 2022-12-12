@@ -17,7 +17,8 @@ namespace AileLeve.Controllers
                     viewModel.Compte = dal.ObtenirCompte(id);
                     return View(viewModel);
                 }
-                return Redirect("/Utilisateur/Connexion");
+               return Redirect("/Utilisateur/Connexion");
+                
             }
             return View("Error");
         }
@@ -33,11 +34,15 @@ namespace AileLeve.Controllers
             if (viewModel.Authentifie)
             {
                 dal.ModifierPassword(monCompte.Compte.Id, mdpCrypte);
-                return RedirectToAction("Deconnexion", "Utilisateur");
+              return RedirectToAction("Deconnexion", "Utilisateur");
+               
+
+
             }
             else
             {
                 return Redirect("/Utilisateur/Connexion");
+                
             }
         }
     }

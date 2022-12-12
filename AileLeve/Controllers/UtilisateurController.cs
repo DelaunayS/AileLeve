@@ -18,16 +18,7 @@ namespace AileLeve.Controllers
     {
 
         private Dal dal = new Dal();
-        [Authorize]
-        public IActionResult Liste()
-        {
-            UtilisateursViewModel uvms = new UtilisateursViewModel
-            {
-                Utilisateurs = dal.ObtenirTousLesUtilisateurs()
-            };
-            return View(uvms);
-        }
-
+        
         [HttpGet()]
         public IActionResult Inscription()
         {
@@ -42,8 +33,8 @@ namespace AileLeve.Controllers
             if (ModelState.IsValid)
             {
 
-                int adressesId=dal.CreerAdresse(numeroRue,rue,ville,codePostal);
-                int utilisateurId = dal.CreerUtilisateur(nom, prenom,adressesId);
+                int adresseId=dal.CreerAdresse(numeroRue, rue, codePostal, ville);
+                int utilisateurId = dal.CreerUtilisateur(nom, prenom, adresseId);
                 dal.CreerEleve(dateNaissance,utilisateurId);
                 int profilId = dal.CreerProfil(tel, "/img/profil.jpg", email);
                 int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId);
@@ -58,7 +49,7 @@ namespace AileLeve.Controllers
 
                 return RedirectToAction("Index", "Home", new { @id = compteId });
             }
-            return View();
+            return Redirect("/Utilisateur/Connexion"); 
         }
 
         public ActionResult Deconnexion()
@@ -70,6 +61,7 @@ namespace AileLeve.Controllers
         [HttpGet]
         public IActionResult Connexion()
         {
+
             return View();
         }
 
@@ -79,11 +71,14 @@ namespace AileLeve.Controllers
             if (ModelState.IsValid)
             {
                 Compte compte = dal.Authentifier(identifiant, password);
+                if (compte.StatusActif==false){
+                    return View();
+                }
                 if (compte != null)
                 {
                     var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, compte.Id.ToString())
+                        new Claim(ClaimTypes.Name, compte.Id.ToString())                        
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
@@ -109,6 +104,7 @@ namespace AileLeve.Controllers
                 utilisateurCompletViewModel.Compte = dal.ObtenirTousLesComptes().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
                 utilisateurCompletViewModel.Profil = dal.ObtenirTousLesProfils().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
                 utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+                utilisateurCompletViewModel.Adresse = dal.ObtenirToutesLesAdresses().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
 
 
                 return View(utilisateurCompletViewModel);

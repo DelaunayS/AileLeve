@@ -27,7 +27,7 @@ namespace AileLeve.Models
         }
         public int CreerUtilisateur(string nom, string prenom, int adresseId)
         {
-            Utilisateur utilisateur = new Utilisateur() { Nom = nom, Prenom = prenom, AdresseId=adresseId };
+            Utilisateur utilisateur = new Utilisateur() { Nom = nom, Prenom = prenom, AdresseId = adresseId };
             _bddContext.Utilisateurs.Add(utilisateur);
             _bddContext.SaveChanges();
             return utilisateur.Id;
@@ -40,12 +40,15 @@ namespace AileLeve.Models
                 Identifiant = identifiant,
                 Password = motDePasse,
                 UtilisateurId = utilisateurId,
-                ProfilId = profilId
+                ProfilId = profilId,
+                StatusActif = true
             };
             _bddContext.Comptes.Add(compte);
             _bddContext.SaveChanges();
             return compte.Id;
         }
+
+      
         public int CreerProfil(string telephone, string image, string email)
         {
             Profil profil = new Profil() { Telephone = telephone, Image = image, Email = email };
@@ -53,19 +56,21 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return profil.Id;
         }
-        public int CreerAdresse (int numeroRue, string rue, string ville, int codePostal)
+
+        public int CreerAdresse (int numeroRue, string rue, int codePostal, string ville)
         {
-            Adresse adresse = new Adresse() { Numero = numeroRue, Rue=rue, Ville=ville,CodePostal=codePostal };
+            Adresse adresse = new Adresse() { NumeroRue = numeroRue, Rue=rue, CodePostal = codePostal, Ville =ville};
+
             _bddContext.Adresses.Add(adresse);
             _bddContext.SaveChanges();
             return adresse.Id;
         }
         public int CreerEleve(DateTime date, int utilisateurId)
         {
-            Eleve eleve = new Eleve() { DateDeNaissance = date, UtilisateurId=utilisateurId };
+            Eleve eleve = new Eleve() { DateDeNaissance = date, UtilisateurId = utilisateurId };
             _bddContext.Eleves.Add(eleve);
             _bddContext.SaveChanges();
-            return eleve.Id;            
+            return eleve.Id;
 
         }
         public List<Utilisateur> ObtenirTousLesUtilisateurs()
@@ -74,11 +79,17 @@ namespace AileLeve.Models
         }
         public List<Compte> ObtenirTousLesComptes()
         {
-            return _bddContext.Comptes.ToList();
+            return _bddContext.Comptes.Include(c => c.Profil).Include(c => c.Utilisateur)
+                        .ThenInclude(u => u.Adresse).ToList();
         }
         public List<Profil> ObtenirTousLesProfils()
         {
             return _bddContext.Profils.ToList();
+        }
+
+        public List<Adresse> ObtenirToutesLesAdresses()
+        {
+            return _bddContext.Adresses.ToList();
         }
         public void ModifierProfil(Profil profil)
         {
@@ -96,12 +107,31 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+        public void ModifierAdresse(Adresse adresse)
+        {
+            _bddContext.Adresses.Update(adresse);
+            _bddContext.SaveChanges();
+        }
+        public void AjouterAdresse(int id, Adresse adresse)
+        {
+            Compte compte = ObtenirCompte(id);
+            compte.Utilisateur.AdresseId = CreerAdresse(adresse.NumeroRue, adresse.Rue, adresse.CodePostal, adresse.Ville);
+            _bddContext.SaveChanges();
+        }
         public void SupprimerCompte(Compte compte)
         {
-
             _bddContext.Comptes.Remove(compte);
             _bddContext.SaveChanges();
         }
+        
+        public void SuspendreCompte(Compte compte)
+        {
+            compte.StatusActif = !compte.StatusActif;
+            _bddContext.Comptes.Update(compte);
+            _bddContext.SaveChanges();
+        }
+
+
 
         public Compte Authentifier(string identifiant, string password)
         {
@@ -124,8 +154,8 @@ namespace AileLeve.Models
         }
         public Compte ObtenirCompte(int id)
         {
-            return this._bddContext.Comptes.Include(c=>c.Profil).Include(c=>c.Utilisateur)
-                        .ThenInclude(u=>u.Adresse).FirstOrDefault(c=>c.Id==id);
+            return this._bddContext.Comptes.Include(c => c.Profil).Include(c => c.Utilisateur)
+                        .ThenInclude(u => u.Adresse).FirstOrDefault(c => c.Id == id);
         }
         public Compte ObtenirCompte(string idStr)
         {
@@ -147,6 +177,34 @@ namespace AileLeve.Models
             Compte compte = this.ObtenirCompte(id);
             compte.Password = nouveauMDP;
             _bddContext.SaveChanges();
+        }
+
+        public int CreerCours(TypeCours typeCours, string matiere, string niveau, string enseignant)
+        {
+            Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
+            Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
+            Enseignant ens = new Enseignant();
+
+            Cours cours = new Cours
+            {
+                TypeCours = typeCours,
+                Matiere = mat,
+                Niveau = niv,
+                Enseignant = ens
+            };
+            _bddContext.Cours.Add(cours);
+            _bddContext.SaveChanges();
+            return cours.Id;
+        }
+
+        public Matiere ObtenirMatiere(int id)
+        {
+            return this._bddContext.Matieres.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Niveau ObtenirNiveau(int id)
+        {
+            return this._bddContext.Niveaux.FirstOrDefault(c => c.Id == id);
         }
     }
 }
