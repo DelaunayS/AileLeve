@@ -80,6 +80,7 @@ namespace AileLeve.Models
                 );
 
             this.Utilisateurs.AddRange(
+
                 new Utilisateur { Id = 1, Nom = "Dupond", Prenom = "Jean", AdresseId = 1,  },
                 new Utilisateur { Id = 2, Nom = "Dupont", Prenom = "Yann", AdresseId = 2 },
                 new Utilisateur { Id = 3, Nom = "Dylan", Prenom = "Bob", AdresseId = 3 },
@@ -104,6 +105,7 @@ namespace AileLeve.Models
                 new Profil { Id = 10, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "jeanmichel.maulpoix@gmail.com" }
             );
             this.Comptes.AddRange(
+
                 new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif=true },
                 new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2, StatusActif=true },
                 new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3, StatusActif=true },
@@ -114,6 +116,7 @@ namespace AileLeve.Models
                 new Compte { Id = 8, Identifiant = "Chris", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 8, ProfilId = 8 , StatusActif=false},
                 new Compte { Id = 9, Identifiant = "Marcelou", Password = Dal.EncodeMD5("mmmmm"), UtilisateurId = 9, ProfilId = 9 , StatusActif=true},
                 new Compte { Id = 10, Identifiant = "JeanMi", Password = Dal.EncodeMD5("jmjmjm"), UtilisateurId = 10, ProfilId = 10 , StatusActif=true}
+
             );
 
             this.Adresses.AddRange(

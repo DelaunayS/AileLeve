@@ -28,6 +28,7 @@
                     <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2"></a>
                     
                     @{String cheminSuspendre = String.Format("/Admin/Suspendre/{0}", @item.Id);}
+
                     @{valeurClass = item.StatusActif ? "fas fa-pause" : "fas fa-play";}
                     <a type="button" href=@cheminSuspendre class="text-warning p-2 @valeurClass"></a>
                     
