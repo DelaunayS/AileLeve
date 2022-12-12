@@ -61,6 +61,7 @@ namespace AileLeve.Controllers
         [HttpGet]
         public IActionResult Connexion()
         {
+
             return View();
         }
 
@@ -70,11 +71,14 @@ namespace AileLeve.Controllers
             if (ModelState.IsValid)
             {
                 Compte compte = dal.Authentifier(identifiant, password);
+                if (compte.statusActif==false){
+                    return View();
+                }
                 if (compte != null)
                 {
                     var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, compte.Id.ToString())
+                        new Claim(ClaimTypes.Name, compte.Id.ToString())                        
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");

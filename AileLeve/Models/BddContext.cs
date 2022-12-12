@@ -79,7 +79,7 @@ namespace AileLeve.Models
                 );
 
             this.Utilisateurs.AddRange(
-                new Utilisateur { Id = 1, Nom = "Dupond", Prenom = "Jean", AdresseId=1 },
+                new Utilisateur { Id = 1, Nom = "Dupond", Prenom = "Jean", AdresseId=1},
                 new Utilisateur { Id = 2, Nom = "Dupont", Prenom = "Yann", AdresseId = 2 },
                 new Utilisateur { Id = 3, Nom = "Dylan", Prenom = "Bob", AdresseId = 3 },
                 new Utilisateur { Id = 4, Nom = "Bibb", Prenom = "Justine" }
@@ -91,10 +91,10 @@ namespace AileLeve.Models
                 new Profil { Id = 4, Telephone = "0600548552", Image = "/img/profil.jpg", Email = "bibbjustine@hotmail.fr" }
             );
             this.Comptes.AddRange(
-                new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1 },
-                new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2 },
-                new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3 },
-                new Compte { Id = 4, Identifiant = "Juju", Password = Dal.EncodeMD5("jjjjj"), UtilisateurId = 4, ProfilId = 4 }
+                new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1,statusActif=true },
+                new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2,statusActif=true },
+                new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3,statusActif=true },
+                new Compte { Id = 4, Identifiant = "Juju", Password = Dal.EncodeMD5("jjjjj"), UtilisateurId = 4, ProfilId = 4,statusActif = false }
             );
 
             this.Adresses.AddRange(

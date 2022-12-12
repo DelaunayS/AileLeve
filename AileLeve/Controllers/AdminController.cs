@@ -35,6 +35,16 @@ namespace AileLeve.Controllers
             return Redirect("/Admin/ListeUtilisateur");
         }
 
+        [Authorize]
+         public IActionResult Suspendre(int id)
+        {
+            Compte compteASuspendre = dal.ObtenirCompte(id);
+            dal.SuspendreCompte(compteASuspendre);
+                                                   
+            return Redirect("/Admin/ListeUtilisateur");
+        }
+
+
 
     }
 }
