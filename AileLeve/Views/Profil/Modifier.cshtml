@@ -4,8 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     String chemin = String.Format("/compte/ModifierPassword/{0}", @Model.Compte.Id);
 }
-<h1>Modifier le profil</h1>
+<h1 class="text-center mb-4">Modifier le profil</h1>
+
 <div class="container">
+
     <form action="/Profil/Modifier" method="post">
         <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
         <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
@@ -13,36 +15,119 @@
         <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
         <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
         <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
-        <div class="form-group">
-            <label for="Nom">Nom</label>
-            <input type="text" class="form-control" name="Utilisateur.Nom" id="NomForm" value="@Model.Utilisateur.Nom" placeholder="Nom" required>
+        @if (@Model.Utilisateur.Adresse != null)
+        {
+            <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
+            <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
+        }
+        
+
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="nom" class="col-2">Nom</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="Utilisateur.Nom" id="NomForm" value="@Model.Utilisateur.Nom" placeholder="Nom" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="Prenom">Prénom</label>
-            <input type="text" class="form-control" name="Utilisateur.Prenom" id="PrenomForm" value="@Model.Utilisateur.Prenom" placeholder="Prénom" required>
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="prenom" class="col-2">Prénom</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="Utilisateur.Prenom" id="PrenomForm" value="@Model.Utilisateur.Prenom" placeholder="Prénom" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="Identifiant">Identifiant</label>
-            <input type="text" class="form-control" name="Compte.Identifiant" id="IdentifiantForm" value="@Model.Compte.Identifiant" placeholder="Identifiant">
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="identifiant" class="col-2">Identifiant</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="Compte.Identifiant" id="IdentifiantForm" value="@Model.Compte.Identifiant" placeholder="Identifiant" required>
+            </div>
         </div>
-        <div class="form-group">
-            <a href=@chemin>Modifier le mot de passe</a>
-            <input type="hidden" class="form-control" name="Compte.password" value="@Model.Compte.Password" id="PasswordForm" placeholder="Mot de passe">
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="motDePasse" class="col-2">Mot de passe</label>
+
+            <div class="col-4">
+                <a href=@chemin>Cliquer ici pour modifier le mot de passe</a>
+                <input type="hidden" class="form-control" name="Compte.password" id="PasswordForm" value="@Model.Compte.Password" placeholder="Mot de passe" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="telephone">Téléphone</label>
-            <input type="text" class="form-control" name="Profil.Telephone" value="@Model.Profil.Telephone" placeholder="Téléphone">
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="telephone" class="col-2">Téléphone</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="Profil.Telephone" id="TelForm" value="@Model.Profil.Telephone" placeholder="Téléphone">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="Profil.Email" id="EmailForm" value="@Model.Profil.Email" placeholder="Email">
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <label for="email" class="col-2">Email</label>
+            <div class="col-4">
+                <input type="email" class="form-control" name="Profil.Email" id="EmailForm" value="@Model.Profil.Email" placeholder="Email" required>
+            </div>
+        </div>
+        @if (@Model.Utilisateur.Adresse == null)
+        {
+            <div class="row h-100 justify-content-center align-items-center form-group">
+                <label for="numeroRue" class="col-2">Numéro</label>
+                <div class="col-4">
+                    <input type="text" class="form-control" name="numeroRue" id="NumeroRueForm">
+                </div>
+            </div>
+            <div class="row h-100 justify-content-center align-items-center form-group">
+                <label for="Rue" class="col-2">Adresse</label>
+                <div class="col-4">
+                    <input type="text" class="form-control" name="rue" id="RueForm">
+                </div>
+            </div>
+            <div class="row h-100 justify-content-center align-items-center form-group">
+                <label for="CodePostal" class="col-2">Code Postal</label>
+                <div class="col-4">
+                    <input type="number" class="form-control" name="codePostal" id="CodePostalForm">
+                </div>
+            </div>
+            <div class="row h-100 justify-content-center align-items-center form-group">
+                <label for="Ville" class="col-2">Ville</label>
+                <div class="col-4">
+                    <input type="text" class="form-control" name="ville" id="VilleForm">
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row h-100 justify-content-center align-items-center form-group">
+                <label for="numero" class="col-2">Numéro</label>
+                <div class="col-4">
+                    <input type="text" class="form-control" name="Adresse.NumeroRue" id="NumeroRueForm" value="@Model.Utilisateur.Adresse.NumeroRue" placeholder="Numéro">
+                </div>
+            </div>
+            <div class="row h-100 justify-content-center align-items-center form-group">
+                <label for="rue" class="col-2">Rue</label>
+                <div class="col-4">
+                    <input type="text" class="form-control" name="Adresse.Rue" id="RueForm" value="@Model.Utilisateur.Adresse.Rue" placeholder="Rue">
+                </div>
+            </div>
+            <div class="row h-100 justify-content-center align-items-center form-group">
+                <label for="codePostal" class="col-2">Code postal</label>
+                <div class="col-4">
+                    <input type="text" class="form-control" name="Adresse.CodePostal" id="CodePostalForm" value="@Model.Utilisateur.Adresse.CodePostal" placeholder="Code postal">
+                </div>
+            </div>
+            <div class="row h-100 justify-content-center align-items-center form-group">
+                <label for="ville" class="col-2">Ville</label>
+                <div class="col-4">
+                    <input type="text" class="form-control" name="Adresse.Ville" id="VilleForm" value="@Model.Utilisateur.Adresse.Ville" placeholder="Ville">
+                </div>
+            </div>
+
+
+
+
+
+        }
+
+
+        <div class="row h-100 justify-content-center align-items-center mt-5 form-group">
+            <button type="submit" class="btn mr-5">Enregistrer</button>
+            <button type="submit" class="btn ml-5">Annuler</button>
         </div>
 
 
-        <button type="submit" class="btn">Enregistrer</button>
 
-
-        <button type="submit" class="btn ">Enregistrer</button>
 
     </form>
 </div>

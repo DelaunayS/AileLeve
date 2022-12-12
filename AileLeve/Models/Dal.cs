@@ -54,9 +54,11 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return profil.Id;
         }
-        public int CreerAdresse(int numeroRue, string rue, string ville, int codePostal)
+
+        public int CreerAdresse (int numeroRue, string rue, int codePostal, string ville)
         {
-            Adresse adresse = new Adresse() { Numero = numeroRue, Rue = rue, Ville = ville, CodePostal = codePostal };
+            Adresse adresse = new Adresse() { NumeroRue = numeroRue, Rue=rue, CodePostal = codePostal, Ville =ville};
+
             _bddContext.Adresses.Add(adresse);
             _bddContext.SaveChanges();
             return adresse.Id;
@@ -82,6 +84,11 @@ namespace AileLeve.Models
         {
             return _bddContext.Profils.ToList();
         }
+
+        public List<Adresse> ObtenirToutesLesAdresses()
+        {
+            return _bddContext.Adresses.ToList();
+        }
         public void ModifierProfil(Profil profil)
         {
             _bddContext.Profils.Update(profil);
@@ -98,6 +105,17 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+        public void ModifierAdresse(Adresse adresse)
+        {
+            _bddContext.Adresses.Update(adresse);
+            _bddContext.SaveChanges();
+        }
+        public void AjouterAdresse(int id, Adresse adresse)
+        {
+            Compte compte = ObtenirCompte(id);
+            compte.Utilisateur.AdresseId = CreerAdresse(adresse.NumeroRue, adresse.Rue, adresse.CodePostal, adresse.Ville);
+            _bddContext.SaveChanges();
+        }
         public void SupprimerCompte(Compte compte)
         {
             _bddContext.Comptes.Remove(compte);
