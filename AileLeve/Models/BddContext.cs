@@ -26,7 +26,7 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-        optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+        optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
 
         }
         public void InitializeDb()
@@ -80,7 +80,7 @@ namespace AileLeve.Models
                 );
 
             this.Utilisateurs.AddRange(
-                new Utilisateur { Id = 1, Nom = "Dupond", Prenom = "Jean", AdresseId = 1 },
+                new Utilisateur { Id = 1, Nom = "Dupond", Prenom = "Jean", AdresseId = 1,  },
                 new Utilisateur { Id = 2, Nom = "Dupont", Prenom = "Yann", AdresseId = 2 },
                 new Utilisateur { Id = 3, Nom = "Dylan", Prenom = "Bob", AdresseId = 3 },
                 new Utilisateur { Id = 4, Nom = "Bibb", Prenom = "Justine" },
@@ -104,29 +104,29 @@ namespace AileLeve.Models
                 new Profil { Id = 10, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "jeanmichel.maulpoix@gmail.com" }
             );
             this.Comptes.AddRange(
-                new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1 },
-                new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2 },
-                new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3 },
-                new Compte { Id = 4, Identifiant = "Juju", Password = Dal.EncodeMD5("jjjjj"), UtilisateurId = 4, ProfilId = 4 },
-                new Compte { Id = 5, Identifiant = "Pierrot", Password = Dal.EncodeMD5("ppppp"), UtilisateurId = 5, ProfilId = 5 },
-                new Compte { Id = 6, Identifiant = "bob", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 6, ProfilId = 6 },
-                new Compte { Id = 7, Identifiant = "Jack", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 7, ProfilId = 7 },
-                new Compte { Id = 8, Identifiant = "Chris", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 8, ProfilId = 8 },
-                new Compte { Id = 9, Identifiant = "Marcelou", Password = Dal.EncodeMD5("mmmmm"), UtilisateurId = 9, ProfilId = 9 },
-                new Compte { Id = 10, Identifiant = "JeanMi", Password = Dal.EncodeMD5("jmjmjm"), UtilisateurId = 10, ProfilId = 10 }
+                new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif=true },
+                new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2, StatusActif=true },
+                new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3, StatusActif=true },
+                new Compte { Id = 4, Identifiant = "Juju", Password = Dal.EncodeMD5("jjjjj"), UtilisateurId = 4, ProfilId = 4, StatusActif=true },
+                new Compte { Id = 5, Identifiant = "Pierrot", Password = Dal.EncodeMD5("ppppp"), UtilisateurId = 5, ProfilId = 5, StatusActif=true },
+                new Compte { Id = 6, Identifiant = "bob", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 6, ProfilId = 6 , StatusActif=true},
+                new Compte { Id = 7, Identifiant = "Jack", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 7, ProfilId = 7 , StatusActif=true},
+                new Compte { Id = 8, Identifiant = "Chris", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 8, ProfilId = 8 , StatusActif=false},
+                new Compte { Id = 9, Identifiant = "Marcelou", Password = Dal.EncodeMD5("mmmmm"), UtilisateurId = 9, ProfilId = 9 , StatusActif=true},
+                new Compte { Id = 10, Identifiant = "JeanMi", Password = Dal.EncodeMD5("jmjmjm"), UtilisateurId = 10, ProfilId = 10 , StatusActif=true}
             );
 
             this.Adresses.AddRange(
 
-                new Adresse { Id = 1, Rue = "avenue des Roses", Numero = 50, CodePostal = 38000, Ville = "Grenoble" },
-                new Adresse { Id = 2, Rue = "chemin des marais", Numero = 2, CodePostal = 51290, Ville = "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson" },
-                new Adresse { Id = 3, Rue = "impasse de l'espoir", Numero = 150, CodePostal = 67000, Ville = "Strasbourg"},
-                new Adresse { Id = 5, Rue = "rue des pommiers en fleurs", Numero = 8, CodePostal = 80132, Ville = " Vauchelles-les-Quesnoy" },
-                new Adresse { Id = 6, Rue = "rue des neiges éternelles", Numero = 1, CodePostal = 04000, Ville = "Digne-Les-Bains" },
-                new Adresse { Id = 7, Rue = "rue de l'instant suspendu", Numero = 5, CodePostal = 75001, Ville = "Paris" },
-                new Adresse { Id = 8, Rue = "chemin de l'école buissonnière", Numero = 27, CodePostal = 20169, Ville = "Bonifacio" },
-                new Adresse { Id = 9, Rue = "allée du côté de chez Swann", Numero = 43, CodePostal = 28120, Ville = "'Illiers-Combray. " },
-                new Adresse { Id = 10, Rue = "rue de la pointe du jour", Numero = 17, CodePostal = 92100, Ville = " Boulogne" }
+                new Adresse { Id = 1, Rue = "avenue des Roses", NumeroRue = 50, CodePostal = 38000, Ville = "Grenoble" },
+                new Adresse { Id = 2, Rue = "chemin des marais", NumeroRue = 2, CodePostal = 51290, Ville = "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson" },
+                new Adresse { Id = 3, Rue = "impasse de l'espoir", NumeroRue = 150, CodePostal = 67000, Ville = "Strasbourg"},
+                new Adresse { Id = 5, Rue = "rue des pommiers en fleurs", NumeroRue = 8, CodePostal = 80132, Ville = " Vauchelles-les-Quesnoy" },
+                new Adresse { Id = 6, Rue = "rue des neiges éternelles", NumeroRue = 1, CodePostal = 04000, Ville = "Digne-Les-Bains" },
+                new Adresse { Id = 7, Rue = "rue de l'instant suspendu", NumeroRue = 5, CodePostal = 75001, Ville = "Paris" },
+                new Adresse { Id = 8, Rue = "chemin de l'école buissonnière", NumeroRue = 27, CodePostal = 20169, Ville = "Bonifacio" },
+                new Adresse { Id = 9, Rue = "allée du côté de chez Swann", NumeroRue = 43, CodePostal = 28120, Ville = "'Illiers-Combray. " },
+                new Adresse { Id = 10, Rue = "rue de la pointe du jour", NumeroRue = 17, CodePostal = 92100, Ville = " Boulogne" }
 
                 );
 
@@ -184,17 +184,17 @@ namespace AileLeve.Models
                 new Etudie { EleveId = 2, CoursId = 1 },
                 new Etudie { EleveId = 3, CoursId = 4 },
                 new Etudie { EleveId = 4, CoursId = 14 },
-                new Etudie { EleveId = 5, CoursId = 26 },
+                new Etudie { EleveId = 5, CoursId = 18 },
                 new Etudie { EleveId = 1, CoursId = 15 },
                 new Etudie { EleveId = 2, CoursId = 8},
                 new Etudie { EleveId = 3, CoursId = 9 },
                 new Etudie { EleveId = 4, CoursId = 5 },
                 new Etudie { EleveId = 5, CoursId = 1 },
-                new Etudie { EleveId = 1, CoursId = 25 },
-                new Etudie { EleveId = 2, CoursId = 1 },
+                new Etudie { EleveId = 1, CoursId = 14 },
+                new Etudie { EleveId = 2, CoursId = 18 },
                 new Etudie { EleveId = 3, CoursId = 3 },
-                new Etudie { EleveId = 4, CoursId = 13 },
-                new Etudie { EleveId = 5, CoursId = 19}
+                 new Etudie { EleveId = 4, CoursId = 13 },
+                 new Etudie { EleveId = 5, CoursId = 19}
                 );
 
             this.SaveChanges();
