@@ -33,7 +33,7 @@ namespace AileLeve.Controllers
             return View("Error");
         }
         [HttpPost]
-        public IActionResult Modifier(UtilisateurCompletViewModel utilisateurAmodifier)
+        public IActionResult Modifier(UtilisateurCompletViewModel utilisateurAmodifier, int numeroRue, string rue, int codePostal, string ville)
         {
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
             if (viewModel.Authentifie)
@@ -41,7 +41,23 @@ namespace AileLeve.Controllers
                 dal.ModifierUtilisateur(utilisateurAmodifier.Utilisateur);
                 dal.ModifierCompte(utilisateurAmodifier.Compte);
                 dal.ModifierProfil(utilisateurAmodifier.Profil);
-                dal.ModifierAdresse(utilisateurAmodifier.Adresse);
+                if (utilisateurAmodifier.Adresse == null)
+                {
+                    Adresse adresse = new Adresse
+                    {
+                        NumeroRue = numeroRue,
+                        CodePostal = codePostal,
+                        Rue = rue,
+                        Ville = ville
+                    };
+                    dal.AjouterAdresse(utilisateurAmodifier.Compte.Id, adresse);
+                }
+                else
+                {
+                    dal.ModifierAdresse(utilisateurAmodifier.Adresse);
+                }
+
+
                 return RedirectToAction("Index", "Home", new { @id = utilisateurAmodifier.Profil.Id });
             }
             else

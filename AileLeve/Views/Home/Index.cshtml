@@ -15,10 +15,16 @@
             <p class="card-text">@Model.Profil.Email</p>
             <p class="card-text">@Model.Profil.Telephone</p>
             <p class="card-text">@Model.Identifiant</p>
-            <p class="card-text">@Model.Utilisateur.Adresse.NumeroRue<p>
-                                 @Model.Utilisateur.Adresse.Rue</p>
-            <p class="card-text">@Model.Utilisateur.Adresse.CodePostal</p>
-                                 @Model.Utilisateur.Adresse.Ville</p>
+            @if (@Model.Utilisateur.Adresse != null)
+            {
+                     <p class="card-text">@Model.Utilisateur.Adresse.NumeroRue
+                    @Model.Utilisateur.Adresse.Rue
+                </p>
+                <p class="card-text">@Model.Utilisateur.Adresse.CodePostal
+                    @Model.Utilisateur.Adresse.Ville</p>
+            }
+
+          
 
             <div class="row h-100 justify-content-center align-items-center mt-5">
                 <a href=@chemin class="btn">Modifier le profil</a>
@@ -31,8 +37,12 @@
         <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
         <input type="hidden" name="Compte.UtilisateurId" value="@Model.UtilisateurId" />
         <input type="hidden" name="Compte.ProfilId" value="@Model.ProfilId" />
-        <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
-        <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
+        @if (@Model.Utilisateur.Adresse != null)
+        {
+                <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
+                <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
+        }
+        
 
     </div>
 </div>

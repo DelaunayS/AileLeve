@@ -107,7 +107,12 @@ namespace AileLeve.Models
             _bddContext.Adresses.Update(adresse);
             _bddContext.SaveChanges();
         }
-
+        public void AjouterAdresse(int id, Adresse adresse)
+        {
+            Compte compte = ObtenirCompte(id);
+            compte.Utilisateur.AdresseId = CreerAdresse(adresse.NumeroRue, adresse.Rue, adresse.CodePostal, adresse.Ville);
+            _bddContext.SaveChanges();
+        }
         public void SupprimerCompte(Compte compte)
         {
 
