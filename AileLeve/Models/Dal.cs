@@ -35,7 +35,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return utilisateur.Id;
         }
-        public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId)
+        public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId, string role)
         {
             string motDePasse = EncodeMD5(password);
             Compte compte = new Compte()
@@ -43,8 +43,10 @@ namespace AileLeve.Models
                 Identifiant = identifiant,
                 Password = motDePasse,
                 UtilisateurId = utilisateurId,
-                ProfilId = profilId,
-                StatusActif = true
+                ProfilId = profilId,   
+                StatusActif = true,
+                Role=role
+
             };
             _bddContext.Comptes.Add(compte);
             _bddContext.SaveChanges();
@@ -124,6 +126,7 @@ namespace AileLeve.Models
 
         public List<Cours> ObtenirTousLesCours()
         {
+
             return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
                        .Include(u => u.Enseignant).ToList();
         }
@@ -131,6 +134,15 @@ namespace AileLeve.Models
         public List<Enseignant> ObtenirTousLesEnseignants()
         {
             return _bddContext.Enseignants.ToList();
+
+        }
+        
+        public void SuspendreCompte(Compte compte)
+        {
+            compte.StatusActif = !compte.StatusActif;
+            _bddContext.Comptes.Update(compte);
+            _bddContext.SaveChanges();
+
         }
 
 

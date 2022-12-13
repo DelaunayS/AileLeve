@@ -12,7 +12,7 @@ namespace AileLeve.Models
         int CreerEleve(DateTime date, int utilisateurId);
         int CreerAdresse(int numeroRue, string rue, int codePostal, string ville);
         int CreerUtilisateur(string nom, string prenom, int adresseId);
-        int CreerCompte(string identifiant, string password, int utilisateurId, int profilId);
+        int CreerCompte(string identifiant, string password, int utilisateurId, int profilId, string role);
         int CreerProfil(string telephone, string image, string email);
         int CreerCours(TypeCours typeCours, string matiere, string niveau, string enseignant);
 

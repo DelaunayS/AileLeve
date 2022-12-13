@@ -32,15 +32,17 @@ namespace AileLeve.Controllers
 
             if (ModelState.IsValid)
             {
-
+              
                 int adresseId=dal.CreerAdresse(numeroRue, rue, codePostal, ville);
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom, adresseId);
                 dal.CreerEleve(dateNaissance,utilisateurId);
                 int profilId = dal.CreerProfil(tel, "/img/profil.jpg", email);
-                int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId);
+                string Role="Eleve";
+                int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId,Role);
                 var userClaims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name, compteId.ToString()),
+                    new Claim(ClaimTypes.Role,Role)
                 };
                 var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
 
@@ -78,7 +80,8 @@ namespace AileLeve.Controllers
                 {
                     var userClaims = new List<Claim>()
                     {
-                        new Claim(ClaimTypes.Name, compte.Id.ToString())                        
+                        new Claim(ClaimTypes.Name, compte.Id.ToString()),
+                        new Claim(ClaimTypes.Role, compte.Role)                        
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");

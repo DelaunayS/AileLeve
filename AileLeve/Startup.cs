@@ -22,6 +22,7 @@ namespace AileLeve
             .AddCookie(options =>
             {
                 options.LoginPath = "/Utilisateur/Connexion";
+                options.AccessDeniedPath = "/Home/Index";
 
             });
             services.AddControllersWithViews();
