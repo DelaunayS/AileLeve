@@ -118,15 +118,15 @@ namespace AileLeve.Models
 
             this.Adresses.AddRange(
 
-                new Adresse { Id = 1, Rue = "avenue des Roses", Numero = 50, CodePostal = 38000, Ville = "Grenoble" },
-                new Adresse { Id = 2, Rue = "chemin des marais", Numero = 2, CodePostal = 51290, Ville = "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson" },
-                new Adresse { Id = 3, Rue = "impasse de l'espoir", Numero = 150, CodePostal = 67000, Ville = "Strasbourg"},
-                new Adresse { Id = 5, Rue = "rue des pommiers en fleurs", Numero = 8, CodePostal = 80132, Ville = " Vauchelles-les-Quesnoy" },
-                new Adresse { Id = 6, Rue = "rue des neiges éternelles", Numero = 1, CodePostal = 04000, Ville = "Digne-Les-Bains" },
-                new Adresse { Id = 7, Rue = "rue de l'instant suspendu", Numero = 5, CodePostal = 75001, Ville = "Paris" },
-                new Adresse { Id = 8, Rue = "chemin de l'école buissonnière", Numero = 27, CodePostal = 20169, Ville = "Bonifacio" },
-                new Adresse { Id = 9, Rue = "allée du côté de chez Swann", Numero = 43, CodePostal = 28120, Ville = "'Illiers-Combray. " },
-                new Adresse { Id = 10, Rue = "rue de la pointe du jour", Numero = 17, CodePostal = 92100, Ville = " Boulogne" }
+                new Adresse { Id = 1, Rue = "avenue des Roses", NumeroRue = 50, CodePostal = 38000, Ville = "Grenoble" },
+                new Adresse { Id = 2, Rue = "chemin des marais", NumeroRue = 2, CodePostal = 51290, Ville = "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson" },
+                new Adresse { Id = 3, Rue = "impasse de l'espoir", NumeroRue = 150, CodePostal = 67000, Ville = "Strasbourg"},
+                new Adresse { Id = 5, Rue = "rue des pommiers en fleurs", NumeroRue = 8, CodePostal = 80132, Ville = " Vauchelles-les-Quesnoy" },
+                new Adresse { Id = 6, Rue = "rue des neiges éternelles", NumeroRue = 1, CodePostal = 04000, Ville = "Digne-Les-Bains" },
+                new Adresse { Id = 7, Rue = "rue de l'instant suspendu", NumeroRue = 5, CodePostal = 75001, Ville = "Paris" },
+                new Adresse { Id = 8, Rue = "chemin de l'école buissonnière", NumeroRue = 27, CodePostal = 20169, Ville = "Bonifacio" },
+                new Adresse { Id = 9, Rue = "allée du côté de chez Swann", NumeroRue = 43, CodePostal = 28120, Ville = "'Illiers-Combray. " },
+                new Adresse { Id = 10, Rue = "rue de la pointe du jour", NumeroRue = 17, CodePostal = 92100, Ville = " Boulogne" }
 
                 );
 
@@ -175,8 +175,8 @@ namespace AileLeve.Models
             );
 
             this.Etudie.AddRange(
-                new Etudie { EleveId = 1, CoursId = 12},
-                new Etudie { EleveId = 2, CoursId = 5},
+                new Etudie { EleveId = 1, CoursId = 12 },
+                new Etudie { EleveId = 2, CoursId = 5 },
                 new Etudie { EleveId = 3, CoursId = 2 },
                 new Etudie { EleveId = 4, CoursId = 10 },
                 new Etudie { EleveId = 5, CoursId = 11 },
@@ -184,17 +184,17 @@ namespace AileLeve.Models
                 new Etudie { EleveId = 2, CoursId = 1 },
                 new Etudie { EleveId = 3, CoursId = 4 },
                 new Etudie { EleveId = 4, CoursId = 14 },
-                new Etudie { EleveId = 5, CoursId = 26 },
+                new Etudie { EleveId = 5, CoursId = 18 },
                 new Etudie { EleveId = 1, CoursId = 15 },
-                new Etudie { EleveId = 2, CoursId = 8},
+                new Etudie { EleveId = 2, CoursId = 8 },
                 new Etudie { EleveId = 3, CoursId = 9 },
                 new Etudie { EleveId = 4, CoursId = 5 },
                 new Etudie { EleveId = 5, CoursId = 1 },
-                new Etudie { EleveId = 1, CoursId = 25 },
-                new Etudie { EleveId = 2, CoursId = 1 },
+                new Etudie { EleveId = 1, CoursId = 14 },
+                new Etudie { EleveId = 2, CoursId = 18 },
                 new Etudie { EleveId = 3, CoursId = 3 },
-                new Etudie { EleveId = 4, CoursId = 13 },
-                new Etudie { EleveId = 5, CoursId = 19}
+                 new Etudie { EleveId = 4, CoursId = 13 },
+                 new Etudie { EleveId = 5, CoursId = 19 }
                 );
 
             this.SaveChanges();
