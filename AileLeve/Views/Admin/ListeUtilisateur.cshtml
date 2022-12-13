@@ -1,11 +1,12 @@
 @model AileLeve.ViewModels.ComptesViewModel;
 @{
     ViewBag.Title = "Liste des utilisateurs";
-    Layout = "~/Views/Shared/_Layout.cshtml";  
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+    String valeurClass=""; 
     
 }
 <h1 class="text-center mb-4">Liste des utilisateurs</h1>
-
+<i class="fa-light fa-books"></i>
 <table class="table table-striped">
     <thead class="thead-light">
         <tr>
@@ -25,6 +26,11 @@
                 <td>
                     @{String cheminModifier = String.Format("/Profil/Modifier/{0}", @item.Id);}
                     <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2"></a>
+                    
+                    @{String cheminSuspendre = String.Format("/Admin/Suspendre/{0}", @item.Id);}
+
+                    @{valeurClass = item.StatusActif ? "fas fa-pause" : "fas fa-play";}
+                    <a type="button" href=@cheminSuspendre class="text-warning p-2 @valeurClass"></a>
                     
                     @{String cheminSupprimer = String.Format("/Admin/Supprimer/{0}", @item.Id);}
                     <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>

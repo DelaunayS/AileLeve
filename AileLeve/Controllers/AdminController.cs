@@ -11,29 +11,38 @@ using Microsoft.Extensions.Logging;
 
 namespace AileLeve.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private Dal dal = new Dal();
-        [Authorize]
         public IActionResult ListeUtilisateur()
         {
             ComptesViewModel cvm = new ComptesViewModel
             {
                 Comptes = dal.ObtenirTousLesComptes()
             };
-                                                   
+
             return View(cvm);
         }
-        [Authorize]
+
 
         public IActionResult Supprimer(int id)
         {
             Compte compteASupprimer = dal.ObtenirCompte(id);
             dal.SupprimerCompte(compteASupprimer);
-                                                   
+
             return Redirect("/Admin/ListeUtilisateur");
         }
+
+
+        public IActionResult Suspendre(int id)
+        {
+            Compte compteASuspendre = dal.ObtenirCompte(id);
+            dal.SuspendreCompte(compteASuspendre);
+
+            return Redirect("/Admin/ListeUtilisateur");
+        }
+
 
 
     }

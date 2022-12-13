@@ -1,5 +1,6 @@
 using AileLeve.ViewModels;
 using Microsoft.AspNetCore.Server.IIS.Core;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,14 +26,16 @@ namespace AileLeve.Models
         {
             _bddContext.Dispose();
         }
+
+
         public int CreerUtilisateur(string nom, string prenom, int adresseId)
         {
-            Utilisateur utilisateur = new Utilisateur() { Nom = nom, Prenom = prenom, AdresseId=adresseId };
+            Utilisateur utilisateur = new Utilisateur() { Nom = nom, Prenom = prenom, AdresseId = adresseId };
             _bddContext.Utilisateurs.Add(utilisateur);
             _bddContext.SaveChanges();
             return utilisateur.Id;
         }
-        public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId)
+        public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId, string role)
         {
             string motDePasse = EncodeMD5(password);
             Compte compte = new Compte()
@@ -40,12 +43,17 @@ namespace AileLeve.Models
                 Identifiant = identifiant,
                 Password = motDePasse,
                 UtilisateurId = utilisateurId,
-                ProfilId = profilId
+                ProfilId = profilId,   
+                StatusActif = true,
+                Role=role
+
             };
             _bddContext.Comptes.Add(compte);
             _bddContext.SaveChanges();
             return compte.Id;
         }
+
+      
         public int CreerProfil(string telephone, string image, string email)
         {
             Profil profil = new Profil() { Telephone = telephone, Image = image, Email = email };
@@ -53,29 +61,58 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return profil.Id;
         }
+
         public int CreerAdresse (int numeroRue, string rue, int codePostal, string ville)
         {
             Adresse adresse = new Adresse() { NumeroRue = numeroRue, Rue=rue, CodePostal = codePostal, Ville =ville};
+
             _bddContext.Adresses.Add(adresse);
             _bddContext.SaveChanges();
             return adresse.Id;
         }
         public int CreerEleve(DateTime date, int utilisateurId)
         {
-            Eleve eleve = new Eleve() { DateDeNaissance = date, UtilisateurId=utilisateurId };
+            Eleve eleve = new Eleve() { DateDeNaissance = date, UtilisateurId = utilisateurId };
             _bddContext.Eleves.Add(eleve);
             _bddContext.SaveChanges();
-            return eleve.Id;            
+            return eleve.Id;
 
         }
+
+        public void AjouterAdresse(int id, Adresse adresse)
+        {
+            Compte compte = ObtenirCompte(id);
+            compte.Utilisateur.AdresseId = CreerAdresse(adresse.NumeroRue, adresse.Rue, adresse.CodePostal, adresse.Ville);
+            _bddContext.SaveChanges();
+        }
+
+        public int CreerCours(TypeCours typeCours, string matiere, string niveau, string enseignant)
+        {
+            Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
+            Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
+            Enseignant ens = new Enseignant();
+
+            Cours cours = new Cours
+            {
+                TypeCours = typeCours,
+                Matiere = mat,
+                Niveau = niv,
+                Enseignant = ens
+            };
+            _bddContext.Cours.Add(cours);
+            _bddContext.SaveChanges();
+            return cours.Id;
+        }
+
+
         public List<Utilisateur> ObtenirTousLesUtilisateurs()
         {
             return _bddContext.Utilisateurs.ToList();
         }
         public List<Compte> ObtenirTousLesComptes()
         {
-            return _bddContext.Comptes.Include(c=>c.Profil).Include(c=>c.Utilisateur)
-                        .ThenInclude(u=>u.Adresse).ToList();
+            return _bddContext.Comptes.Include(c => c.Profil).Include(c => c.Utilisateur)
+                        .ThenInclude(u => u.Adresse).ToList();
         }
         public List<Profil> ObtenirTousLesProfils()
         {
@@ -86,6 +123,96 @@ namespace AileLeve.Models
         {
             return _bddContext.Adresses.ToList();
         }
+
+        public List<Cours> ObtenirTousLesCours()
+        {
+
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
+        }
+
+        public List<Enseignant> ObtenirTousLesEnseignants()
+        {
+            return _bddContext.Enseignants.ToList();
+
+        }
+        
+        public void SuspendreCompte(Compte compte)
+        {
+            compte.StatusActif = !compte.StatusActif;
+            _bddContext.Comptes.Update(compte);
+            _bddContext.SaveChanges();
+
+        }
+
+
+
+        public Utilisateur ObtenirUtilisateur(int id)
+        {
+            return this._bddContext.Utilisateurs.Find(id);
+        }
+        public Profil ObtenirProfil(int id)
+        {
+            return this._bddContext.Profils.Find(id);
+        }
+        public Adresse ObtenirAdresse(int id)
+        {
+            return this._bddContext.Adresses.Find(id);
+        }
+        public Compte ObtenirCompte(int id)
+        {
+            return this._bddContext.Comptes.Include(c => c.Profil).Include(c => c.Utilisateur)
+                        .ThenInclude(u => u.Adresse).FirstOrDefault(c => c.Id == id);
+        }
+        public Compte ObtenirCompte(string idStr)
+        {
+            int id;
+            if (int.TryParse(idStr, out id))
+            {
+                return this.ObtenirCompte(id);
+            }
+            return null;
+        }
+
+        public Cours ObtenirCours(int id)
+        {
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).FirstOrDefault(c => c.Id == id);
+        }
+        public List<Cours> ObtenirCoursParEnseignant(int id)
+        {
+            return this._bddContext.Cours.Where(u => u.EnseignantId == id).Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
+        }
+
+        public Cours ObtenirCours(string idStr)
+        {
+            int id;
+            if (int.TryParse(idStr, out id))
+            {
+                return this.ObtenirCours(id);
+            }
+            return null;
+        }
+
+        public Matiere ObtenirMatiere(int id)
+        {
+            return this._bddContext.Matieres.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Niveau ObtenirNiveau(int id)
+        {
+            return this._bddContext.Niveaux.FirstOrDefault(c => c.Id == id);
+        }
+        public static string EncodeMD5(string motDePasse)
+        {
+            string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";
+            return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
+        }
+
+
+
+
         public void ModifierProfil(Profil profil)
         {
             _bddContext.Profils.Update(profil);
@@ -107,18 +234,35 @@ namespace AileLeve.Models
             _bddContext.Adresses.Update(adresse);
             _bddContext.SaveChanges();
         }
-        public void AjouterAdresse(int id, Adresse adresse)
+
+        public void ModifierPassword(int id, string nouveauMDP)
         {
-            Compte compte = ObtenirCompte(id);
-            compte.Utilisateur.AdresseId = CreerAdresse(adresse.NumeroRue, adresse.Rue, adresse.CodePostal, adresse.Ville);
+            string mdp = EncodeMD5(nouveauMDP);
+            Compte compte = this.ObtenirCompte(id);
+            compte.Password = nouveauMDP;
             _bddContext.SaveChanges();
         }
+
+        
         public void SupprimerCompte(Compte compte)
         {
-
             _bddContext.Comptes.Remove(compte);
             _bddContext.SaveChanges();
         }
+
+        public void SupprimerCours(Cours cours)
+        {
+            _bddContext.Cours.Remove(cours);
+            _bddContext.SaveChanges();
+        }
+        public void SuspendreCompte(Compte compte)
+        {
+            compte.StatusActif = !compte.StatusActif;
+            _bddContext.Comptes.Update(compte);
+            _bddContext.SaveChanges();
+        }
+
+       
 
         public Compte Authentifier(string identifiant, string password)
         {
@@ -127,43 +271,6 @@ namespace AileLeve.Models
                 c => c.Identifiant == identifiant && c.Password == motDePasse);
             return compte;
         }
-        public Utilisateur ObtenirUtilisateur(int id)
-        {
-            return this._bddContext.Utilisateurs.Find(id);
-        }
-        public Profil ObtenirProfil(int id)
-        {
-            return this._bddContext.Profils.Find(id);
-        }
-        public Adresse ObtenirAdresse(int id)
-        {
-            return this._bddContext.Adresses.Find(id);
-        }
-        public Compte ObtenirCompte(int id)
-        {
-            return this._bddContext.Comptes.Include(c=>c.Profil).Include(c=>c.Utilisateur)
-                        .ThenInclude(u=>u.Adresse).FirstOrDefault(c=>c.Id==id);
-        }
-        public Compte ObtenirCompte(string idStr)
-        {
-            int id;
-            if (int.TryParse(idStr, out id))
-            {
-                return this.ObtenirCompte(id);
-            }
-            return null;
-        }
-        public static string EncodeMD5(string motDePasse)
-        {
-            string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";
-            return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
-        }
-        public void ModifierPassword(int id, string nouveauMDP)
-        {
-            string mdp = EncodeMD5(nouveauMDP);
-            Compte compte = this.ObtenirCompte(id);
-            compte.Password = nouveauMDP;
-            _bddContext.SaveChanges();
-        }
+       
     }
 }

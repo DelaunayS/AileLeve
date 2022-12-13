@@ -1,21 +1,90 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+using AileLeve.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System;
+using AileLeve.ViewModels;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AileLeve.Controllers
 {
     public class CoursController : Controller
     {
+
+
+        Dal dal = new Dal();
+
+        public IActionResult Ajouter()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau, string enseignant)
+        {
+            CompteViewModel viewModel = new CompteViewModel
+            {
+                Authentifie = HttpContext.User.Identity.IsAuthenticated
+            };
+
+            
+            dal.CreerCours(typeCours, matiere, niveau, enseignant);
+            return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult ListeCours()
+
+        [HttpGet]
+        public IActionResult Supprimer(int id)
         {
-            return View();
+            CoursViewModel cvm = new CoursViewModel
+            {
+                Authentifie = HttpContext.User.Identity.IsAuthenticated
+                 
+            };
+            string idUserStr = HttpContext.User.Identity.Name;
+            int.TryParse(idUserStr, out int idUser);
+            Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
+            cvm.CoursListe = dal.ObtenirCoursParEnseignant(enseignant.Id);
+
+            return View(cvm);
+
         }
-    }
+
+
+        public IActionResult SupprimerCours (int id, CoursViewModel coursASupprimer, TypeCours typeCours, string matiere, string niveau, string enseignant)
+        {
+            CoursViewModel viewModel = new CoursViewModel
+            {
+                Authentifie = HttpContext.User.Identity.IsAuthenticated
+            };
+            if (viewModel.Authentifie)
+            {
+
+                viewModel.Cours = dal.ObtenirCours(id);
+                 Cours cours = dal.ObtenirTousLesCours().Where(p => p.Id == viewModel.Cours.Id).FirstOrDefault();
+                string idUserStr = HttpContext.User.Identity.Name;
+                int.TryParse(idUserStr, out int idUser);
+               
+
+                dal.SupprimerCours(cours);
+
+                
+                return RedirectToAction("Supprimer", "Cours", new {@id = idUser});
+            }
+            return View();
+
+        }
+
+
+       
+        }
+
 }
+
+   

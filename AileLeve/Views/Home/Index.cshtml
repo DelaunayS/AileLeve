@@ -5,6 +5,8 @@
     ViewBag.Title = "Accueil";
     Layout = "~/Views/Shared/_Layout.cshtml";
     String chemin = String.Format("/profil/modifier/{0}", @Model.Profil.Id);
+    String chemin2 = String.Format("/cours/ajouter");
+    String chemin3 = String.Format("/cours/supprimer/{0}", @Model.Profil.Id);
 }
 
 <div class="container">
@@ -24,7 +26,13 @@
                     @Model.Utilisateur.Adresse.Ville</p>
             }
 
-          
+
+            <div class="row h-100 justify-content-center align-items-center mt-5">
+                <a href=@chemin2 class="btn">Ajouter un cours</a>
+            </div>
+            <div class="row h-100 justify-content-center align-items-center mt-5">
+                <a href=@chemin3 class="btn">Supprimer un cours</a>
+            </div>
 
             <div class="row h-100 justify-content-center align-items-center mt-5">
                 <a href=@chemin class="btn">Modifier le profil</a>
