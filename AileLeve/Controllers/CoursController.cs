@@ -38,6 +38,7 @@ namespace AileLeve.Controllers
             return View();
         }
 
+
         [HttpGet]
         public IActionResult Supprimer(int id)
         {
@@ -86,9 +87,4 @@ namespace AileLeve.Controllers
 
 }
 
-     
-
-    
-
-
-
+   
