@@ -137,16 +137,7 @@ namespace AileLeve.Models
 
         }
         
-        public void SuspendreCompte(Compte compte)
-        {
-            compte.StatusActif = !compte.StatusActif;
-            _bddContext.Comptes.Update(compte);
-            _bddContext.SaveChanges();
-
-        }
-
-
-
+     
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return this._bddContext.Utilisateurs.Find(id);
@@ -243,7 +234,13 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
-        
+        public void ModifierCours(Cours cours)
+        {
+           
+            _bddContext.Cours.Update(cours);
+            _bddContext.SaveChanges();
+        }
+
         public void SupprimerCompte(Compte compte)
         {
             _bddContext.Comptes.Remove(compte);
