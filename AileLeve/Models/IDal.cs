@@ -34,11 +34,15 @@ namespace AileLeve.Models
         Matiere ObtenirMatiere(int id);
 
         Niveau ObtenirNiveau(int id);
+        Cours ObtenirCours(int id);
 
         void ModifierProfil(Profil profil);
         void ModifierCompte(Compte compte);
         void ModifierUtilisateur(Utilisateur utilisateur);
         void ModifierPassword(int id, string nouveauMDP);
         void ModifierAdresse(Adresse adresse);
+
+        void SupprimerCours(Cours cours);
+        void SupprimerCompte(Compte compte);
     }
 }
