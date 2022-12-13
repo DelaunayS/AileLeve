@@ -29,12 +29,29 @@
 
                             <a class="nav-link text-light" href="/Home/Index">Accueil</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated) {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Cours
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="/Cours/ListeCours">Liste de cours</a>
+
+                                    @if (User.IsInRole("Admin")||(User.IsInRole("Enseignant")))
+                                    {
+                                        <a class="dropdown-item" href="/Cours/Ajouter">Proposer un cours</a>
+                                    }
+                                    </div>
+                            </li>
+                        }
 
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Gestion
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">

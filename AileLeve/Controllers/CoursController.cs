@@ -81,9 +81,13 @@ namespace AileLeve.Controllers
 
         }
 
-
-       
+        public IActionResult ListeCours()
+        {
+            return View();
         }
+
+
+    }
 
 }
 
