@@ -71,7 +71,7 @@ namespace AileLeve.Controllers
             if (ModelState.IsValid)
             {
                 Compte compte = dal.Authentifier(identifiant, password);
-                if (compte.statusActif==false){
+                if (compte.StatusActif==false){
                     return View();
                 }
                 if (compte != null)

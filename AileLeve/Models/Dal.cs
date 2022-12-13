@@ -1,5 +1,6 @@
 using AileLeve.ViewModels;
 using Microsoft.AspNetCore.Server.IIS.Core;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace AileLeve.Models
         {
             _bddContext.Dispose();
         }
+
+
         public int CreerUtilisateur(string nom, string prenom, int adresseId)
         {
             Utilisateur utilisateur = new Utilisateur() { Nom = nom, Prenom = prenom, AdresseId = adresseId };
@@ -41,7 +44,7 @@ namespace AileLeve.Models
                 Password = motDePasse,
                 UtilisateurId = utilisateurId,
                 ProfilId = profilId,
-                statusActif = true
+                StatusActif = true
             };
             _bddContext.Comptes.Add(compte);
             _bddContext.SaveChanges();
@@ -73,6 +76,33 @@ namespace AileLeve.Models
             return eleve.Id;
 
         }
+
+        public void AjouterAdresse(int id, Adresse adresse)
+        {
+            Compte compte = ObtenirCompte(id);
+            compte.Utilisateur.AdresseId = CreerAdresse(adresse.NumeroRue, adresse.Rue, adresse.CodePostal, adresse.Ville);
+            _bddContext.SaveChanges();
+        }
+
+        public int CreerCours(TypeCours typeCours, string matiere, string niveau, string enseignant)
+        {
+            Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
+            Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
+            Enseignant ens = new Enseignant();
+
+            Cours cours = new Cours
+            {
+                TypeCours = typeCours,
+                Matiere = mat,
+                Niveau = niv,
+                Enseignant = ens
+            };
+            _bddContext.Cours.Add(cours);
+            _bddContext.SaveChanges();
+            return cours.Id;
+        }
+
+
         public List<Utilisateur> ObtenirTousLesUtilisateurs()
         {
             return _bddContext.Utilisateurs.ToList();
@@ -91,61 +121,20 @@ namespace AileLeve.Models
         {
             return _bddContext.Adresses.ToList();
         }
-        public void ModifierProfil(Profil profil)
+
+        public List<Cours> ObtenirTousLesCours()
         {
-            _bddContext.Profils.Update(profil);
-            _bddContext.SaveChanges();
-        }
-        public void ModifierCompte(Compte compte)
-        {
-            _bddContext.Comptes.Update(compte);
-            _bddContext.SaveChanges();
-        }
-        public void ModifierUtilisateur(Utilisateur utilisateur)
-        {
-            _bddContext.Utilisateurs.Update(utilisateur);
-            _bddContext.SaveChanges();
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
         }
 
-        public void ModifierAdresse(Adresse adresse)
+        public List<Enseignant> ObtenirTousLesEnseignants()
         {
-            _bddContext.Adresses.Update(adresse);
-            _bddContext.SaveChanges();
-        }
-        public void AjouterAdresse(int id, Adresse adresse)
-        {
-            Compte compte = ObtenirCompte(id);
-            compte.Utilisateur.AdresseId = CreerAdresse(adresse.NumeroRue, adresse.Rue, adresse.CodePostal, adresse.Ville);
-            _bddContext.SaveChanges();
-        }
-        public void SupprimerCompte(Compte compte)
-        {
-            _bddContext.Comptes.Remove(compte);
-            _bddContext.SaveChanges();
-        }
-         public void SuspendreCompte(Compte compte)
-        {
-            compte.StatusActif = !compte.StatusActif;
-            _bddContext.Comptes.Update(compte);
-            _bddContext.SaveChanges();
-        }
-
-        public void SuspendreCompte(Compte compte)
-        {
-            compte.statusActif = !compte.statusActif;
-            _bddContext.Comptes.Update(compte);
-            _bddContext.SaveChanges();
+            return _bddContext.Enseignants.ToList();
         }
 
 
 
-        public Compte Authentifier(string identifiant, string password)
-        {
-            string motDePasse = EncodeMD5(password);
-            Compte compte = this._bddContext.Comptes.FirstOrDefault(
-                c => c.Identifiant == identifiant && c.Password == motDePasse);
-            return compte;
-        }
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return this._bddContext.Utilisateurs.Find(id);
@@ -172,35 +161,26 @@ namespace AileLeve.Models
             }
             return null;
         }
-        public static string EncodeMD5(string motDePasse)
+
+        public Cours ObtenirCours(int id)
         {
-            string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";
-            return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).FirstOrDefault(c => c.Id == id);
         }
-        public void ModifierPassword(int id, string nouveauMDP)
+        public List<Cours> ObtenirCoursParEnseignant(int id)
         {
-            string mdp = EncodeMD5(nouveauMDP);
-            Compte compte = this.ObtenirCompte(id);
-            compte.Password = nouveauMDP;
-            _bddContext.SaveChanges();
+            return this._bddContext.Cours.Where(u => u.EnseignantId == id).Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
         }
 
-        public int CreerCours(TypeCours typeCours, string matiere, string niveau, string enseignant)
+        public Cours ObtenirCours(string idStr)
         {
-            Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
-            Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
-            Enseignant ens = new Enseignant();
-
-            Cours cours = new Cours
+            int id;
+            if (int.TryParse(idStr, out id))
             {
-                TypeCours = typeCours,
-                Matiere = mat,
-                Niveau = niv,
-                Enseignant = ens
-            };
-            _bddContext.Cours.Add(cours);
-            _bddContext.SaveChanges();
-            return cours.Id;
+                return this.ObtenirCours(id);
+            }
+            return null;
         }
 
         public Matiere ObtenirMatiere(int id)
@@ -212,5 +192,73 @@ namespace AileLeve.Models
         {
             return this._bddContext.Niveaux.FirstOrDefault(c => c.Id == id);
         }
+        public static string EncodeMD5(string motDePasse)
+        {
+            string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";
+            return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
+        }
+
+
+
+
+        public void ModifierProfil(Profil profil)
+        {
+            _bddContext.Profils.Update(profil);
+            _bddContext.SaveChanges();
+        }
+        public void ModifierCompte(Compte compte)
+        {
+            _bddContext.Comptes.Update(compte);
+            _bddContext.SaveChanges();
+        }
+        public void ModifierUtilisateur(Utilisateur utilisateur)
+        {
+            _bddContext.Utilisateurs.Update(utilisateur);
+            _bddContext.SaveChanges();
+        }
+
+        public void ModifierAdresse(Adresse adresse)
+        {
+            _bddContext.Adresses.Update(adresse);
+            _bddContext.SaveChanges();
+        }
+
+        public void ModifierPassword(int id, string nouveauMDP)
+        {
+            string mdp = EncodeMD5(nouveauMDP);
+            Compte compte = this.ObtenirCompte(id);
+            compte.Password = nouveauMDP;
+            _bddContext.SaveChanges();
+        }
+
+        
+        public void SupprimerCompte(Compte compte)
+        {
+            _bddContext.Comptes.Remove(compte);
+            _bddContext.SaveChanges();
+        }
+
+        public void SupprimerCours(Cours cours)
+        {
+            _bddContext.Cours.Remove(cours);
+            _bddContext.SaveChanges();
+        }
+        public void SuspendreCompte(Compte compte)
+        {
+            compte.StatusActif = !compte.StatusActif;
+            _bddContext.Comptes.Update(compte);
+            _bddContext.SaveChanges();
+        }
+
+       
+
+        public Compte Authentifier(string identifiant, string password)
+        {
+            string motDePasse = EncodeMD5(password);
+            Compte compte = this._bddContext.Comptes.FirstOrDefault(
+                c => c.Identifiant == identifiant && c.Password == motDePasse);
+            return compte;
+        }
+       
     }
 }
