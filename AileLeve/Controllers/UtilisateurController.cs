@@ -26,7 +26,7 @@ namespace AileLeve.Controllers
         }
 
         [HttpPost()]
-        public IActionResult Inscription(string nom, string prenom, string identifiant, string password,
+        public IActionResult Inscription(string role,string nom, string prenom, string identifiant, string password,
          string email, string tel, DateTime dateNaissance, int numeroRue, string rue, int codePostal, string ville )
         {
 
@@ -36,13 +36,12 @@ namespace AileLeve.Controllers
                 int adresseId=dal.CreerAdresse(numeroRue, rue, codePostal, ville);
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom, adresseId);
                 dal.CreerEleve(dateNaissance,utilisateurId);
-                int profilId = dal.CreerProfil(tel, "/img/profil.jpg", email);
-                string Role="Eleve";
-                int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId,Role);
+                int profilId = dal.CreerProfil(tel, "/img/profil.jpg", email);                
+                int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId,role);
                 var userClaims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name, compteId.ToString()),
-                    new Claim(ClaimTypes.Role,Role)
+                    new Claim(ClaimTypes.Role,role)
                 };
                 var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
 
