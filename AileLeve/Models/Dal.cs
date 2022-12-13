@@ -129,12 +129,7 @@ namespace AileLeve.Models
             _bddContext.Adresses.Update(adresse);
             _bddContext.SaveChanges();
         }
-        public void AjouterAdresse(int id, Adresse adresse)
-        {
-            Compte compte = ObtenirCompte(id);
-            compte.Utilisateur.AdresseId = CreerAdresse(adresse.NumeroRue, adresse.Rue, adresse.CodePostal, adresse.Ville);
-            _bddContext.SaveChanges();
-        }
+        
         public void SupprimerCompte(Compte compte)
         {
             _bddContext.Comptes.Remove(compte);
@@ -288,11 +283,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
-        public void ModifierAdresse(Adresse adresse)
-        {
-            _bddContext.Adresses.Update(adresse);
-            _bddContext.SaveChanges();
-        }
+       
 
         public void ModifierPassword(int id, string nouveauMDP)
         {
@@ -301,13 +292,12 @@ namespace AileLeve.Models
             compte.Password = nouveauMDP;
             _bddContext.SaveChanges();
         }
-
-        
-        public void SupprimerCompte(Compte compte)
+     public List<Cours> ObtenirTousLesCours()
         {
-            _bddContext.Comptes.Remove(compte);
-            _bddContext.SaveChanges();
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
         }
+       
 
         public void SupprimerCours(Cours cours)
         {
