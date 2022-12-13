@@ -137,16 +137,7 @@ namespace AileLeve.Models
 
         }
         
-        public void SuspendreCompte(Compte compte)
-        {
-            compte.StatusActif = !compte.StatusActif;
-            _bddContext.Comptes.Update(compte);
-            _bddContext.SaveChanges();
-
-        }
-
-
-
+       
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return this._bddContext.Utilisateurs.Find(id);
