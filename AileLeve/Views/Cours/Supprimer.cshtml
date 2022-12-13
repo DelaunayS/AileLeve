@@ -1,0 +1,45 @@
+﻿@model AileLeve.ViewModels.CoursViewModel;
+@{
+    ViewBag.Title = "Liste des cours";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+ }
+ 
+
+<h1 class="text-center mb-4">Liste des cours</h1>
+
+<!--<form action="/Cours/Supprimer/{0}", method="post">-->
+
+
+
+<table class="table table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Type de cours</th>
+            <th scope="col">Matière</th>
+            <th scope="col">Niveau</th>
+            <th scope="col">Enseignant</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.CoursListe)
+        {
+            <tr>
+                <td>@item.TypeCours</td>
+                <td>@item.Matiere.Nom</td>
+                <td>@item.Niveau.Nom</td>
+                <td>@item.Enseignant.Id</td>
+              
+                <td>
+
+                    
+                    <a type="button" href=@Url.Action("SupprimerCours", "Cours", new { id = item.Id }) class="fas fa-trash text-danger p-2"></a>
+                    
+
+                   </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    <!-- </form>-->
