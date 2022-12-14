@@ -6,14 +6,14 @@ namespace AileLeve.Models
     {
         public int Id { get; set; }
 
-        //[MaxLength(5)]
+    
         
         public int NumeroRue { get; set; }
 
         [MaxLength(30)]
         public string Rue { get; set; }
 
-        //[MaxLength(5)]
+   
         public int CodePostal { get; set; }
 
         [MaxLength(50)]
