@@ -110,6 +110,12 @@ namespace AileLeve.Models
             return notif.Id;
         }
 
+        public void SupprimerNotification(Notification notification)
+        {
+            this._bddContext.Notifications.Remove(notification);
+            this._bddContext.SaveChanges();
+        }
+
         public void AjouterAdresse(int id, Adresse adresse)
         {
             Compte compte = ObtenirCompte(id);

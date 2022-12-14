@@ -7,7 +7,7 @@ namespace AileLeve.ViewModels
     {
 
         public List<Notification> NotificationsListe { get; set; }
-      
+        public Notification Notification { get; set; }
 
     }
 }
