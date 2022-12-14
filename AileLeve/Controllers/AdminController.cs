@@ -55,5 +55,17 @@ namespace AileLeve.Controllers
 
             return Redirect("/Admin/ListeUtilisateur");
         }
+        public IActionResult Valider(int id)
+        {
+            Compte compteAValider=dal.ObtenirCompte(id);
+            return View(compteAValider);
+        }
+        public IActionResult ValiderEnseignant(int id)
+        {
+            Compte compteAValider=dal.ObtenirCompte(id);           
+            compteAValider.Role="Enseignant";
+            dal.ModifierCompte(compteAValider);
+            return Redirect("/Admin/ListeUtilisateur");
+        }
     }
 }
