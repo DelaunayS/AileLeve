@@ -17,7 +17,7 @@ namespace AileLeve.Models
         public DbSet<Enseignant> Enseignants { get; set; }
         public DbSet<Etudie> Etudie { get; set; }
         public DbSet<Cours> Cours { get; set; }
-
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -201,6 +201,14 @@ namespace AileLeve.Models
                  new Etudie { EleveId = 5, CoursId = 19}
 
                 );
+
+            this.Notifications.AddRange(
+                new Notification { Id = 1, Lu = true, TypeNotification = "creationEleve" },
+                new Notification { Id = 2, Lu = false, TypeNotification = "creationEnseignant" },
+                new Notification { Id = 3, Lu = true, TypeNotification = "creationEleve" },
+                new Notification { Id = 4, Lu = false, TypeNotification = "creationCours" }
+            );
+
 
             this.SaveChanges();
         }

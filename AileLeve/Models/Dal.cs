@@ -96,6 +96,19 @@ namespace AileLeve.Models
             return cours.Id;
         }
 
+        public int CreerNotification(string nom)
+        {
+           
+            Notification notif = new Notification
+            {
+                Lu = false,
+                TypeNotification = nom
+            };
+
+            _bddContext.Notifications.Add(notif);
+            _bddContext.SaveChanges();
+            return notif.Id;
+        }
 
         public void AjouterAdresse(int id, Adresse adresse)
         {
@@ -219,7 +232,12 @@ namespace AileLeve.Models
             return _bddContext.Enseignants.ToList();
         }
         
-       
+
+
+       public List<Notification> ObtenirNotifications()
+        {
+            return this._bddContext.Notifications.ToList();
+        }
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return this._bddContext.Utilisateurs.Find(id);
