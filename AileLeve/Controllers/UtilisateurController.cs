@@ -46,11 +46,18 @@ namespace AileLeve.Controllers
                 };
                 var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
 
-                DateTime date = DateTime.Now;
-                dal.CreerNotification(nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                    date.ToString("MM/dd/yyyy h:mm tt"));
-
-
+                if (role=="Eleve")
+                {
+                    DateTime date = DateTime.Now;
+                    dal.CreerNotification("Nouvel élève : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
+                        date.ToString("MM/dd/yyyy f HH:mm"));
+                } else
+                {
+                    DateTime date = DateTime.Now;
+                    dal.CreerNotification("Nouvel enseignant : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
+                        date.ToString("MM/dd/yyyy f HH:mm"));
+                }
+             
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
                 HttpContext.SignInAsync(userPrincipal);
                 return RedirectToAction("Index", "Home", new { @id = compteId });
