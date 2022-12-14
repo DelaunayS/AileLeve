@@ -302,8 +302,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
-        public void SupprimerCompte(Compte compte)
-
+        public List<Cours> ObtenirTousLesCours()
         {
             return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
                        .Include(u => u.Enseignant).ToList();
