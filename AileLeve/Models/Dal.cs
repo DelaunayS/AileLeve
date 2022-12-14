@@ -130,6 +130,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
         
+
         public void SupprimerCompte(Compte compte)
         {
             _bddContext.Comptes.Remove(compte);
@@ -191,8 +192,8 @@ namespace AileLeve.Models
         {
             return _bddContext.Enseignants.ToList();
         }
-        
-       
+               
+
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return this._bddContext.Utilisateurs.Find(id);
@@ -292,7 +293,17 @@ namespace AileLeve.Models
             compte.Password = nouveauMDP;
             _bddContext.SaveChanges();
         }
-     public List<Cours> ObtenirTousLesCours()
+
+
+        public void ModifierCours(Cours cours)
+        {
+           
+            _bddContext.Cours.Update(cours);
+            _bddContext.SaveChanges();
+        }
+
+        public void SupprimerCompte(Compte compte)
+
         {
             return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
                        .Include(u => u.Enseignant).ToList();
