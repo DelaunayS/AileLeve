@@ -77,6 +77,13 @@ namespace AileLeve.Models
             return eleve.Id;
 
         }
+        public int CreerEnseignant(int utilisateurId)
+        {
+            Enseignant enseignant = new Enseignant() { UtilisateurId = utilisateurId };
+            _bddContext.Enseignants.Add(enseignant);
+            _bddContext.SaveChanges();
+            return enseignant.Id;
+        }
 
         public void AjouterAdresse(int id, Adresse adresse)
         {
