@@ -30,9 +30,9 @@ namespace AileLeve.Controllers
          string email, string tel, DateTime dateNaissance, int numeroRue, string rue, int codePostal, string ville )
         {
 
-            if (ModelState.IsValid)
+            if (nom != null && prenom != null && identifiant != null && password != null)
             {
-              
+
                 int adresseId=dal.CreerAdresse(numeroRue, rue, codePostal, ville);
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom, adresseId);
                 dal.CreerEleve(dateNaissance,utilisateurId);
@@ -53,6 +53,7 @@ namespace AileLeve.Controllers
             return Redirect("/Utilisateur/Connexion"); 
         }
 
+
         public ActionResult Deconnexion()
         {
             HttpContext.SignOutAsync();
@@ -68,7 +69,7 @@ namespace AileLeve.Controllers
 
         [HttpPost]
         public IActionResult Connexion(string identifiant, string password)
-        {
+        {  
             if (ModelState.IsValid)
             {
                 Compte compte = dal.Authentifier(identifiant, password);

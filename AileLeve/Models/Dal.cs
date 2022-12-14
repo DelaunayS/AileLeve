@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -77,6 +78,24 @@ namespace AileLeve.Models
             return eleve.Id;
 
         }
+        public int CreerCours(TypeCours typeCours, string matiere, string niveau, int id)
+        {
+            Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
+            Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
+            Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == id).FirstOrDefault();
+
+            Cours cours = new Cours
+            {
+                TypeCours = typeCours,
+                Matiere = mat,
+                Niveau = niv,
+                Enseignant = ens
+            };
+            _bddContext.Cours.Add(cours);
+            _bddContext.SaveChanges();
+            return cours.Id;
+        }
+
 
         public void AjouterAdresse(int id, Adresse adresse)
         {
@@ -121,6 +140,14 @@ namespace AileLeve.Models
         public List<Adresse> ObtenirToutesLesAdresses()
         {
             return _bddContext.Adresses.ToList();
+        }
+
+        public void ModifierDateNaissance(int id, string dateDeNaissance)
+        {
+            Eleve elv = _bddContext.Eleves.Where(c => c.Id == id).FirstOrDefault();
+            CultureInfo culture = new CultureInfo("fr-FR");
+            elv.DateDeNaissance = DateTime.Parse(dateDeNaissance, provider: culture);
+            _bddContext.SaveChanges();
         }
 
 
@@ -210,9 +237,7 @@ namespace AileLeve.Models
         {
             return this._bddContext.Adresses.Find(id);
         }
-        public Eleve ObtenirEleve(int id){
-            return this._bddContext.Eleves.Include(e=>e.Utilisateur).FirstOrDefault();
-        }
+       
       public Compte ObtenirCompte(int id)
         {
             return this._bddContext.Comptes.Include(c => c.Profil).Include(c => c.Utilisateur)
@@ -265,6 +290,19 @@ namespace AileLeve.Models
         }
 
 
+        public List<Eleve> ObtenirTousLesEleves()
+        {
+            return this._bddContext.Eleves.ToList();
+        }
+
+        public Eleve ObtenirEleve(int id)
+        {
+            return this._bddContext.Eleves.FirstOrDefault(c => c.Id == id);
+        }
+        public List<Compte> ObtenirCompteEleves()
+        {
+            return this._bddContext.Comptes.Where(c => c.Role.Equals("Eleve")).ToList();
+        }
 
 
         public void ModifierProfil(Profil profil)
