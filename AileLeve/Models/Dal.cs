@@ -46,14 +46,13 @@ namespace AileLeve.Models
                 ProfilId = profilId,   
                 StatusActif = true,
                 Role=role
-
             };
             _bddContext.Comptes.Add(compte);
             _bddContext.SaveChanges();
             return compte.Id;
         }
 
-      
+
         public int CreerProfil(string telephone, string image, string email)
         {
             Profil profil = new Profil() { Telephone = telephone, Image = image, Email = email };
@@ -62,9 +61,9 @@ namespace AileLeve.Models
             return profil.Id;
         }
 
-        public int CreerAdresse (int numeroRue, string rue, int codePostal, string ville)
+        public int CreerAdresse(int numeroRue, string rue, int codePostal, string ville)
         {
-            Adresse adresse = new Adresse() { NumeroRue = numeroRue, Rue=rue, CodePostal = codePostal, Ville =ville};
+            Adresse adresse = new Adresse() { NumeroRue = numeroRue, Rue = rue, CodePostal = codePostal, Ville = ville };
 
             _bddContext.Adresses.Add(adresse);
             _bddContext.SaveChanges();
@@ -124,24 +123,86 @@ namespace AileLeve.Models
             return _bddContext.Adresses.ToList();
         }
 
-        public List<Cours> ObtenirTousLesCours()
+
+        public void ModifierAdresse(Adresse adresse)
         {
-
-            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
-                       .Include(u => u.Enseignant).ToList();
+            _bddContext.Adresses.Update(adresse);
+            _bddContext.SaveChanges();
         }
+        
 
+        public void SupprimerCompte(Compte compte)
+        {
+            _bddContext.Comptes.Remove(compte);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerProfil(Profil profil)
+        {
+            _bddContext.Profils.Remove(profil);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerUtilisateur(Utilisateur utilisateur)
+        {
+            _bddContext.Utilisateurs.Remove(utilisateur);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerAdresse(Adresse adresse)
+        {
+            _bddContext.Adresses.Remove(adresse);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerEleve(Eleve eleve)
+        {
+            _bddContext.Eleves.Remove(eleve);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerEleveParId(int eleveId)
+        {
+            Eleve eleve=_bddContext.Eleves.Find(eleveId);
+            _bddContext.Eleves.Remove(eleve);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerEnseignant(Enseignant enseignant)
+        {
+            _bddContext.Enseignants.Remove(enseignant);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerEnseignantParId(int userId)
+        {
+            Enseignant enseignant=_bddContext.Enseignants.Where(e=>e.UtilisateurId == userId).FirstOrDefault();
+            _bddContext.Enseignants.Remove(enseignant);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerCoursParIdEnseignant(int enseignantId){
+            List<Cours> cours=_bddContext.Cours.Where(c => c.EnseignantId==enseignantId).ToList();
+            _bddContext.Cours.RemoveRange(cours);
+            _bddContext.SaveChanges();
+        }
+        public void SupprimerEtudieParIdEleve(int eleveId){
+            List<Etudie> etudies=_bddContext.Etudie.Where(e => e.EleveId==eleveId).ToList();
+            _bddContext.Etudie.RemoveRange(etudies);
+            _bddContext.SaveChanges();
+        }
+        public int ObtenirEleveParUserId(int userId){
+            Eleve eleve=_bddContext.Eleves.Where(e=>e.UtilisateurId == userId).FirstOrDefault();
+            return eleve.Id;
+        }
+       
         public List<Enseignant> ObtenirTousLesEnseignants()
         {
             return _bddContext.Enseignants.ToList();
-
         }
-        
-     
+               
+
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return this._bddContext.Utilisateurs.Find(id);
         }
+        public void EffacerUtilisateur(int id, string role)
+        {
+            this._bddContext.Utilisateurs.Find(id);  
+        }
+        
         public Profil ObtenirProfil(int id)
         {
             return this._bddContext.Profils.Find(id);
@@ -150,7 +211,10 @@ namespace AileLeve.Models
         {
             return this._bddContext.Adresses.Find(id);
         }
-        public Compte ObtenirCompte(int id)
+        public Eleve ObtenirEleve(int id){
+            return this._bddContext.Eleves.Include(e=>e.Utilisateur).FirstOrDefault();
+        }
+      public Compte ObtenirCompte(int id)
         {
             return this._bddContext.Comptes.Include(c => c.Profil).Include(c => c.Utilisateur)
                         .ThenInclude(u => u.Adresse).FirstOrDefault(c => c.Id == id);
@@ -220,11 +284,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
-        public void ModifierAdresse(Adresse adresse)
-        {
-            _bddContext.Adresses.Update(adresse);
-            _bddContext.SaveChanges();
-        }
+       
 
         public void ModifierPassword(int id, string nouveauMDP)
         {
@@ -234,6 +294,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+
         public void ModifierCours(Cours cours)
         {
            
@@ -242,10 +303,12 @@ namespace AileLeve.Models
         }
 
         public void SupprimerCompte(Compte compte)
+
         {
-            _bddContext.Comptes.Remove(compte);
-            _bddContext.SaveChanges();
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
         }
+       
 
         public void SupprimerCours(Cours cours)
         {

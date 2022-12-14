@@ -6,6 +6,22 @@
 
 <div class="container">
     <form action="/Utilisateur/Inscription" method="post">
+        <div class="row h-100 justify-content-center align-items-center form-group">
+            <div class="form-check m-2">
+                <input class="form-check-input" type="radio" onclick="blocDate_show();" name="role" value="Eleve"
+                    checked>
+                <label class="form-check-label" for="choixEleve">
+                    Eleve
+                </label>
+            </div>
+            <div class="form-check m-2">
+                <input class="form-check-input" type="radio" onclick="blocDate_hide();" name="role" id="enseignantRadio"
+                    value="Enseignant">
+                <label class="form-check-label" for="choixEnseignant">
+                    Enseignant
+                </label>
+            </div>
+        </div>
 
         <div class="row h-100 justify-content-center align-items-center form-group">
             <label for="nom" class="col-2">Nom</label>
@@ -21,18 +37,19 @@
             </div>
         </div>
 
-        <div class="row h-100 justify-content-center align-items-center form-group">
+        <div id="blocDate" class="row h-100 justify-content-center align-items-center form-group">
             <label for="dateNaissance" class="col-2">Date de Naissance</label>
             <div class="col-4">
                 <input type="date" class="form-control" name="dateNaissance" id="DateNaissanceForm" required>
             </div>
         </div>
 
+
         <div class="row h-100 justify-content-center align-items-center form-group">
             <label for="identifiant" class="col-2">Identifiant</label>
             <div class="col-4">
                 <input type="text" class="form-control" name="identifiant" id="IdentifiantForm"
-                       placeholder="Identifiant" required>
+                    placeholder="Identifiant" required>
             </div>
         </div>
 
@@ -97,9 +114,11 @@
             <button type="submit" class="btn">Enregistrer</button>
         </div>
 
-       
+
 
     </form>
 </div>
 
+
 <script src="/Scripts/password_show_hide.js"></script>
+<script src="/Scripts/blocDate_show_hide.js"></script>

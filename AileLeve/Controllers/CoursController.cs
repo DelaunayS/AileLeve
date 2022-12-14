@@ -39,6 +39,7 @@ namespace AileLeve.Controllers
             return View();
         }
 
+
         [HttpGet]
         public IActionResult Supprimer(int id)
         {
@@ -80,6 +81,7 @@ namespace AileLeve.Controllers
             return View();
 
         }
+
 
 
         [HttpGet]
@@ -140,5 +142,15 @@ namespace AileLeve.Controllers
 
     
 
+        public IActionResult ListeCours()
+        {
+            return View();
+        }
 
 
+
+    }
+
+}
+
+   

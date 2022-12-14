@@ -26,7 +26,7 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-        optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+        optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
 
         }
         public void InitializeDb()
@@ -131,7 +131,6 @@ namespace AileLeve.Models
                 new Adresse { Id = 9, Rue = "allée du côté de chez Swann", NumeroRue = 43, CodePostal = 28120, Ville = "'Illiers-Combray. " },
                 new Adresse { Id = 10, Rue = "rue de la pointe du jour",NumeroRue = 17, CodePostal = 92100, Ville = " Boulogne" },
                 new Adresse { Id = 11, Rue = "Rue Danton",NumeroRue = 3, CodePostal = 92240, Ville = " Malakoff" }
-
                 );
 
             this.Enseignants.AddRange(
@@ -178,6 +177,7 @@ namespace AileLeve.Models
 
             );
 
+
            this.Etudie.AddRange(
                 new Etudie { EleveId = 1, CoursId = 12},
                 new Etudie { EleveId = 2, CoursId = 5},
@@ -190,7 +190,7 @@ namespace AileLeve.Models
                 new Etudie { EleveId = 4, CoursId = 14 },
                 new Etudie { EleveId = 5, CoursId = 18 },
                 new Etudie { EleveId = 1, CoursId = 15 },
-                new Etudie { EleveId = 2, CoursId = 8},
+                new Etudie { EleveId = 2, CoursId = 8 },
                 new Etudie { EleveId = 3, CoursId = 9 },
                 new Etudie { EleveId = 4, CoursId = 5 },
                 new Etudie { EleveId = 5, CoursId = 1 },
@@ -199,6 +199,7 @@ namespace AileLeve.Models
                 new Etudie { EleveId = 3, CoursId = 3 },
                  new Etudie { EleveId = 4, CoursId = 13 },
                  new Etudie { EleveId = 5, CoursId = 19}
+
                 );
 
             this.SaveChanges();

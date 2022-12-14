@@ -1,1 +1,581 @@
-﻿
+﻿@model AileLeve.ViewModels.ComptesViewModel;
+@{
+    ViewBag.Title = "Liste des cours";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<h2 class="text-center mb-4">Choisissez un niveau puis sélectionnez la ou les matières</h2>
+
+
+
+<div id="accordion">
+
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    CE1
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/ce1/mathematiques" target="_blank"> <img src="~/img/boulier.png" class="iconeMatiere"> </a> Mathématiques
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/ce1/francais" target="_blank"><img src="~/img/france.png" class="iconeMatiere"> </a> Français
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/ce1/questionner-le-monde" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Questionner le monde
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    CE2
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/ce2/mathematiques" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/ce2/francais" target="_blank"><img src="~/img/france.png" class="iconeMatiere"></a> Français
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/ce2/questionner-le-monde" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a>  Questionner le monde
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    CM1
+                </button>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                   <a href ="https://www.lumni.fr/primaire/cm1/mathematiques" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/cm1/francais" target="_blank"><img src="~/img/france.png" class="iconeMatiere"></a>Français
+</div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/cm1/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a> Histoire
+</div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/cm1/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    CM2
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/cm2/mathematiques" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/cm2/francais"><img src="~/img/france.png" class="iconeMatiere"></a> Français
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/cm2/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a> Histoire
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/primaire/cm2/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    6ème
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/sixieme/mathematiques" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+</div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/sixieme/francais" target="_blank"><img src="~/img/france.png" class="iconeMatiere"></a> Français
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/sixieme/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a> Histoire
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/sixieme/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/sixieme/sciences-et-technologie" target="_blank"><img src="~/img/aimant.png" class="iconeMatiere"></a> Physique
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/sixieme/sciences-et-technologie" target="_blank"><img src="~/img/chimie.png" class="iconeMatiere"></a> Chimie
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/sixieme/sciences-et-technologie" target="_blank"><img src="~/img/adn.png" class="iconeMatiere"></a> SVT
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/sixieme/anglais" target="_blank"><img src="~/img/royaume-uni.png" class="iconeMatiere"></a> Anglais
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingSix">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    5ème
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseSix" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/mathematiques" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/francais" target="_blank"><img src="~/img/france.png" class="iconeMatiere"></a> Français
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a> Histoire
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+            </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/physique-chimie" target="_blank"><img src="~/img/aimant.png" class="iconeMatiere"></a> Physique
+</div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/physique-chimie" target="_blank"><img src="~/img/chimie.png" class="iconeMatiere"></a> Chimie
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/sciences-de-la-vie-et-de-la-terre" target="_blank"><img src="~/img/adn.png" class="iconeMatiere"></a> SVT
+</div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/langues-vivantes" target="_blank"><img src="~/img/royaume-uni.png" class="iconeMatiere"></a> Anglais
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/langues-vivantes" target="_blank"><img src="~/img/drapeau-allemand.png" class="iconeMatiere"></a> Allemand
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/langues-vivantes" target="_blank"><img src="~/img/espagne.png" class="iconeMatiere"></a> Espagnol
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/cinquieme/enseignement-moral-et-civique" target="_blank"><img src="~/img/balance.png" class="iconeMatiere"></a> EMC
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingSeven">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    4ème
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/mathematiques" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/francais" target="_blank"><img src="~/img/france.png" class="iconeMatiere"></a> Français
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a> Histoire
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/physique-chimie" target="_blank"><img src="~/img/aimant.png" class="iconeMatiere"></a> Physique
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/physique-chimie" target="_blank"><img src="~/img/chimie.png" class="iconeMatiere"></a> Chimie
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/sciences-de-la-vie-et-de-la-terre" target="_blank"><img src="~/img/adn.png" class="iconeMatiere"></a> SVT
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/langues-vivantes" target="_blank"><img src="~/img/royaume-uni.png" class="iconeMatiere"></a> Anglais
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/langues-vivantes" target="_blank"><img src="~/img/drapeau-allemand.png" class="iconeMatiere"></a> Allemand
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/langues-vivantes" target="_blank"><img src="~/img/espagne.png" class="iconeMatiere"></a> Espagnol
+            </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/quatrieme/enseignement-moral-et-civique" target="_blank"><img src="~/img/balance.png" class="iconeMatiere"></a> EMC
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingEight">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                    3ème
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/mathematiques" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/francaise" target="_blank"><img src="~/img/france.png" class="iconeMatiere"></a> Français
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a>  Histoire
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/physique-chimie" target="_blank"><img src="~/img/aimant.png" class="iconeMatiere"></a> Physique
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/physique-chimie" target="_blank"><img src="~/img/chimie.png" class="iconeMatiere"></a> Chimie
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/sciences-de-la-vie-et-de-la-terre" target="_blank"><img src="~/img/adn.png" class="iconeMatiere"></a> SVT
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/langues-vivantes" target="_blank"><img src="~/img/royaume-uni.png" class="iconeMatiere"></a> Anglais
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/langues-vivantes" target="_blank"><img src="~/img/drapeau-allemand.png" class="iconeMatiere"></a> Allemand
+                </div>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/langues-vivantes" target="_blank"><img src="~/img/espagne.png" class="iconeMatiere"></a> Espagnol
+                </div>
+
+                <div class="col-4">
+                    <a href="https://www.lumni.fr/college/troisieme/enseignement-moral-et-civique" target="_blank"><img src="~/img/balance.png" class="iconeMatiere"></a> EMC
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="card">
+    <div class="card-header" id="headingNine">
+        <h5 class="mb-0">
+            <button class="btn" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                Seconde
+            </button>
+        </h5>
+    </div>
+
+    <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/mathematiques" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/francais" target="_blank"><img src="~/img/france.png" class="iconeMatiere"></a> Français
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a> Histoire
+            </div>
+        </div>
+
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+        </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/physique-chimie" target="_blank"><img src="~/img/aimant.png" class="iconeMatiere"></a> Physique
+           </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/physique-chimie" target="_blank"><img src="~/img/chimie.png" class="iconeMatiere"></a> Chimie
+            </div>
+        </div>
+
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/sciences-de-la-vie-et-de-la-terre" target="_blank"><img src="~/img/adn.png" class="iconeMatiere"></a> SVT
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/sciences-economiques-et-sociales" target="_blank"><img src="~/img/euro.png" class="iconeMatiere"></a> SES
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/langues-vivantes" target="_blank"><img src="~/img/royaume-uni.png" class="iconeMatiere"></a> Anglais
+            </div>
+        </div>
+
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/langues-vivantes" target="_blank"><img src="~/img/drapeau-allemand.png" class="iconeMatiere"></a> Allemand
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/seconde/langues-vivantes" target="_blank"><img src="~/img/espagne.png" class="iconeMatiere"></a> Espagnol
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header" id="headingTen">
+        <h5 class="mb-0">
+            <button class="btn" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                Première
+            </button>
+        </h5>
+    </div>
+
+    <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/maths-voie-techno" target="_blank"><img src="~/img/boulier.png" class="iconeMatiere"></a> Mathématiques
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/francais" target="_blank"><img src="~/img/france.png" class="iconeMatiere"></a> Français
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a> Histoire
+            </div>
+        </div>
+
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/enseignement-scientifique" target="_blank"><img src="~/img/aimant.png" class="iconeMatiere"></a> Physique
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/enseignement-scientifique" target="_blank"><img src="~/img/chimie.png" class="iconeMatiere"></a> Chimie
+            </div>
+        </div>
+       
+        <div class="card-body row">
+             <div class="col-4">
+                 <a href="https://www.lumni.fr/lycee/premiere/enseignement-scientifique" target="_blank"><img src="~/img/ingenieur.png" class="iconeMatiere"></a> Enseignement scientifique
+        </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/enseignement-scientifique" target="_blank"><img src="~/img/adn.png" class="iconeMatiere"></a> SVT
+        </div>
+
+             <div class="col-4">
+                 <a href="https://www.lumni.fr/lycee/premiere/voie-generale" target="_blank"><img src="~/img/euro.png" class="iconeMatiere"></a> SES
+            </div>
+        </div>
+          
+
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/langues-vivantes" target="_blank"><img src="~/img/royaume-uni.png" class="iconeMatiere"></a> Anglais
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/langues-vivantes" target="_blank"><img src="~/img/espagne.png" class="iconeMatiere"></a> Espagnol
+            </div>
+
+             <div class="col-4">
+                 <a href="https://www.lumni.fr/lycee/premiere/voie-generale" target="_blank"><img src="~/img/geopolitique.png" class="iconeMatiere"></a> Géopolitique
+              </div>
+         </div>
+
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/premiere/francais" target="_blank"><img src="~/img/poesie.png" class="iconeMatiere"></a> Humanités
+        </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/quiz/anglais-identites-et-echanges" target="_blank"><img src="~/img/anglais.png" class="iconeMatiere"></a> LLCE Anglais
+            </div>
+        </div>
+    </div>
+ </div>                     
+
+<div class="card">
+    <div class="card-header" id="headingEleven">
+        <h5 class="mb-0">
+            <button class="btn" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                Terminale
+            </button>
+        </h5>
+    </div>
+
+    <div id="collapseEleven" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion">
+
+        <div class="card-body row">
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/terminale/histoire" target="_blank"><img src="~/img/couronne.png" class="iconeMatiere"></a>  Histoire
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/terminale/geographie" target="_blank"><img src="~/img/globe.png" class="iconeMatiere"></a> Géographie
+            </div>
+
+            <div class="col-4">
+                <a href="https://www.lumni.fr/lycee/terminale/enseignement-scientifique" target="_blank"><img src="~/img/innovation.png" class="iconeMatiere"></a> Enseignement scientifique
+            </div>
+        </div>
+
+    <div class="card-body row">
+        <div class="col-4">
+            <a href="https://www.lumni.fr/lycee/terminale/langues-vivantes" target="_blank"><img src="~/img/royaume-uni.png" class="iconeMatiere"></a> Anglais
+        </div>
+
+        <div class="col-4">
+            <a href="https://www.lumni.fr/lycee/terminale/langues-vivantes" target="_blank"><img src="~/img/drapeau-allemand.png" class="iconeMatiere"></a> Allemand
+        </div>
+
+        <div class="col-4">
+            <a href="https://www.lumni.fr/lycee/terminale/langues-vivantes" target="_blank"><img src="~/img/espagne.png" class="iconeMatiere"></a> Espagnol
+        </div>
+    </div>
+
+    <div class="card-body row">
+        <div class="col-4">
+            <a href="https://www.lumni.fr/lycee/terminale/voie-generale" target="_blank"><img src="~/img/poesie.png" class="iconeMatiere"></a> Humanités
+        </div>
+
+        <div class="col-4">
+            <a href="https://www.lumni.fr/lycee/terminale/philosophie" target="_blank"><img src="~/img/philosopher.png" class="iconeMatiere"></a> Philosophie
+        </div>
+    </div>
+ </div>
+</div>
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
