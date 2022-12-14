@@ -7,6 +7,8 @@ namespace AileLeve.Models
         public int Id { get; set; }
         public int? UtilisateurId { get; set; }
         public virtual Utilisateur Utilisateur { get; set; }
+        
+        //public int CoursId { get; set; }
 
     }
 }
