@@ -39,7 +39,8 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="/Cours/ListeCours">Liste de cours</a>
+                                    <a class="dropdown-item" href="/Cours/ListeCours">Contenu pédagogique en ligne</a>
+                                    <a class="dropdown-item" href="/Enseignant/EmploiDuTempsEnseignant">Liste des cours synchrones</a>
 
                                     @if (User.IsInRole("Admin")||(User.IsInRole("Enseignant")))
                                     {
@@ -57,8 +58,10 @@
                                     Gestion
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/Admin/ListeUtilisateur">Liste des Utilisateurs</a>
+                                    <a class="dropdown-item" href="/Admin/ListeUtilisateur">Liste des utilisateurs</a>
+                                   
                                 </div>
+                               
                             </li>
              
                         }
