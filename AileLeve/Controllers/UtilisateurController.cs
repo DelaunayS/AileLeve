@@ -162,5 +162,15 @@ namespace AileLeve.Controllers
             }
             return Redirect("/Utilisateur/Connexion");
         }
+
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
     }
 }

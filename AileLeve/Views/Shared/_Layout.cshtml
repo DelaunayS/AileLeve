@@ -33,7 +33,7 @@
                         </li>
                         @if (User.Identity.IsAuthenticated) {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Cours
                                 </a>
@@ -54,7 +54,7 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Gestion
                                 </a>
@@ -68,9 +68,9 @@
                         }
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Paramètres
+                                Compte
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/Utilisateur/Inscription">Inscription</a>
@@ -85,8 +85,20 @@
                                     <a class="dropdown-item" href="/Utilisateur/Connexion">Connexion</a>
                                 }
                             </div>
+
+                        <li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Utilisateur/About">About</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
+                        </li>
+                        @*<li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
+                        </li>*@
+                      </ul>
                 </div>
 
                 @if (User.IsInRole("Admin"))
@@ -108,7 +120,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022
+            &copy; Aile'Lève 2022
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
