@@ -7,12 +7,12 @@
 
 @* <input type="hidden" name="Notification.Id" value="@Model.Notification.Id" />
 *@
-<h1 class="text-center mb-4">Centre des notifications</h1>
+<h1 class="text-center mb-4">Centre de notifications</h1>
 
 <table class="table table-striped">
     <thead class="thead-light">
         <tr>
-            <th scope="col">Description</th>
+            <th scope="col" class="text-center">Description</th>
             <th scope="col"></th>
     </tr>
     </thead>
@@ -24,15 +24,11 @@
 
         <tr>
              <td id="notif" class="notif-ligne">
-                 <strong> 
                         @item.TypeNotification
-                 </strong>
              </td>
              <td>
-                 <a type="button" id="lu-btn" class="fas fa-pen text-info p-2" onclick="lu();"></a>
-             </td>
-             <td>
-              <a type="button" href=@Url.Action("SupprimerNotif", "Notification", new { id = item.Id }) class="fas fa-trash text-danger p-2"></a>
+             <a type="button" href=@Url.Action("ListeUtilisateur", "Admin") class="fas fa-eye p-2" id="show_eye"></a>
+                 <a type="button" href=@Url.Action("SupprimerNotif", "Notification", new { id = item.Id }) class="fas fa-trash text-danger p-2"></a>
              </td>
         </tr>
 

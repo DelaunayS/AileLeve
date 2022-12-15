@@ -60,13 +60,13 @@ namespace AileLeve.Controllers
                 if (role=="Eleve")
                 {
                     DateTime date = DateTime.Now;
-                    dal.CreerNotification("Nouvel élève : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                        date.ToString("MM/dd/yyyy f HH:mm"));
+                    dal.CreerNotification("L'élève" + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
+                        date.ToString("MM/dd/yyyy HH:mm"));
                 } else
                 {
                     DateTime date = DateTime.Now;
-                    dal.CreerNotification("Nouvel enseignant : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                        date.ToString("MM/dd/yyyy f HH:mm"));
+                    dal.CreerNotification("L'enseignant " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
+                        date.ToString("MM/dd/yyyy HH:mm"));
                 }
              
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
@@ -86,8 +86,7 @@ namespace AileLeve.Controllers
         [HttpGet]
         public IActionResult Connexion()
         {
-
-            return View();
+      return View();
         }
 
         [HttpPost]
