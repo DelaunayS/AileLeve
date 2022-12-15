@@ -6,10 +6,12 @@ using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using AileLeve.Models;
 using AileLeve.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 namespace AileLeve.Controllers
 {
+    [Authorize]     
     public class ProfilController : Controller
     {
         private Dal dal = new Dal();
@@ -32,7 +34,7 @@ namespace AileLeve.Controllers
             }
             return View("Error");
         }
-        [HttpPost]
+        
         [HttpPost]
         public IActionResult Modifier(UtilisateurCompletViewModel utilisateurAmodifier, int numeroRue, string rue, int codePostal, string ville)
         {
