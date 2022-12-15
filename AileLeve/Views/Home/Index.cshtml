@@ -14,19 +14,24 @@
     <div class="card w-25">
         <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
         <div class="card-body">
-            <h5 class="card-title">@Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
-            <p class="card-text">@Model.Profil.Email</p>
-            <p class="card-text">@Model.Profil.Telephone</p>
-            <p class="card-text">@Model.Identifiant</p>
+            <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
+            <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
+            <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
+            <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Identifiant</p>
             @if (@Model.Utilisateur.Adresse != null)
             {
-                     <p class="card-text">@Model.Utilisateur.Adresse.NumeroRue
-                    @Model.Utilisateur.Adresse.Rue
-                </p>
-                <p class="card-text">@Model.Utilisateur.Adresse.CodePostal
-                    @Model.Utilisateur.Adresse.Ville</p>
+                @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
+                {
+                    <p class="card-text"><i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
+                        @Model.Utilisateur.Adresse.Rue
+                    </p>
+                }
+                @if (@Model.Utilisateur.Adresse.CodePostal > 0)
+                {
+                    <p class="card-text"><i class="fas fa-city"></i> @Model.Utilisateur.Adresse.CodePostal
+                        @Model.Utilisateur.Adresse.Ville</p>
+                }
             }
-
 
             <div class="row h-100 justify-content-center align-items-center mt-5">
                 <a href=@chemin2 class="btn">Ajouter un cours</a>
@@ -34,30 +39,30 @@
             <div class="row h-100 justify-content-center align-items-center mt-5">
                 <a href=@chemin3 class="btn">Supprimer un cours</a>
             </div>
-           @* <div class="row h-100 justify-content-center align-items-center mt-5">
-            <a href=@chemin4 class="btn">Modifier un cours</a>*@
-            </div>
-
-            <div class="row h-100 justify-content-center align-items-center mt-5">
-                <a href=@chemin class="btn">Modifier le profil</a>
-            </div>
-          
-           
+            @* <div class="row h-100 justify-content-center align-items-center mt-5">
+                <a href=@chemin4 class="btn">Modifier un cours</a>*@
         </div>
-        <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
-        <input type="hidden" name="Compte.Id" value="@Model.Id" />
-        <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
-        <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
-        <input type="hidden" name="Compte.UtilisateurId" value="@Model.UtilisateurId" />
-        <input type="hidden" name="Compte.ProfilId" value="@Model.ProfilId" />
-        @if (@Model.Utilisateur.Adresse != null)
-        {
-                <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
-                <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
-        }
-        
+
+        <div class="row h-100 justify-content-center align-items-center mt-5">
+            <a href=@chemin class="btn">Modifier le profil</a>
+        </div>
+
 
     </div>
+    <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
+    <input type="hidden" name="Compte.Id" value="@Model.Id" />
+    <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
+    <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
+    <input type="hidden" name="Compte.UtilisateurId" value="@Model.UtilisateurId" />
+    <input type="hidden" name="Compte.ProfilId" value="@Model.ProfilId" />
+    @if (@Model.Utilisateur.Adresse != null)
+    {
+        <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
+        <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
+    }
+
+
+</div>
 </div>
 
 <div class="container">

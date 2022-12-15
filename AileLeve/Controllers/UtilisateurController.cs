@@ -33,10 +33,8 @@ namespace AileLeve.Controllers
                    dateNaissance=new DateTime(1970,1,1);
                 }
 
-            if (nom != null && prenom != null && identifiant != null && password != null)
+            if (ModelState.IsValid)
             {
-
-
                 int adresseId = dal.CreerAdresse(numeroRue, rue, codePostal, ville);
 
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom, adresseId);
