@@ -15,6 +15,7 @@
         <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
         <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
         <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
+        <input type="hidden" name="Compte.Role" value="@Model.Compte.Role" />
         @if (@Model.Utilisateur.Adresse != null)
         {
             <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
@@ -37,8 +38,8 @@
 
         @if (User.IsInRole("Eleve"))
         {
-            < input type = "hidden" name = "Eleve.Id" value = "@Model.Eleve.Id" />
-            < input type = "hidden" name = "Eleve.UtilisateurId" value = "@Model.Eleve.UtilisateurId" />
+            <input type="hidden" name="Eleve.Id" value=@Model.Eleve.Id/>
+            <input type="hidden" name="Eleve.UtilisateurId" value=@Model.Eleve.UtilisateurId/>
 
 
             <div class="row h-100 justify-content-center align-items-center form-group">
