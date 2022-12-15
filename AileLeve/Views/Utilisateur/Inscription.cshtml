@@ -16,7 +16,7 @@
             </div>
             <div class="form-check m-2">
                 <input class="form-check-input" type="radio" onclick="blocDate_hide();" name="role" id="enseignantRadio"
-                    value="Recrutement">
+                    value="Recrutement" required>
                 <label class="form-check-label" for="choixEnseignant">
                     Enseignant
                 </label>
@@ -77,28 +77,28 @@
         <div class="row h-100 justify-content-center align-items-center form-group">
             <label for="tel" class="col-2">Téléphone</label>
             <div class="col-4">
-                <input type="text" class="form-control" name="tel" id="TelForm" placeholder="Téléphone">
+                <input type="text" class="form-control" name="tel" id="TelForm" placeholder="Téléphone" value="">
             </div>
         </div>
 
         <div class="row h-100 justify-content-center align-items-center form-group">
             <label for="numeroRue" class="col-2">Numéro</label>
             <div class="col-4">
-                <input type="text" class="form-control" name="numeroRue" id="NumeroRueForm">
+                <input type="number" class="form-control" name="numeroRue" id="NumeroRueForm" value=0>
             </div>
         </div>
 
         <div class="row h-100 justify-content-center align-items-center form-group">
             <label for="rue" class="col-2">Rue</label>
             <div class="col-4">
-                <input type="text" class="form-control" name="rue" id="RueForm">
+                <input type="text" class="form-control" name="rue" id="RueForm" value="">
             </div>
         </div>
 
         <div class="row h-100 justify-content-center align-items-center form-group">
             <label for="codePostal" class="col-2">Code Postal</label>
             <div class="col-4">
-                <input type="text" class="form-control" name="codePostal" id="CodePostalForm">
+                <input type="number" class="form-control" name="codePostal" id="CodePostalForm" value=0>
             </div>
         </div>
 
@@ -106,7 +106,7 @@
         <div class="row h-100 justify-content-center align-items-center form-group">
             <label for="ville" class="col-2">Ville</label>
             <div class="col-4">
-                <input type="text" class="form-control" name="ville" id="VilleForm">
+                <input type="text" class="form-control" name="ville" id="VilleForm" value="">
             </div>
         </div>
 
