@@ -13,7 +13,7 @@ namespace AileLeve.Models
         [Display(Name = "Téléphone")]
         public string Telephone { get; set; }
         public string Image { get; set; }
-        [MaxLength(30)]
+        [MaxLength(40)]
         [Required(ErrorMessage = "Le champ Email doit être rempli.")]
         public string Email { get; set; }
     }
