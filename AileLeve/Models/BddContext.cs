@@ -112,11 +112,11 @@ namespace AileLeve.Models
                 new Profil { Id = 4, Telephone = "0600548552", Image = "/img/profil.jpg", Email = "bibbjustine@hotmail.fr" },
                 new Profil { Id = 5, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "pierre.durand@gmail.com" },
                 new Profil { Id = 6, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "robert.frost@gmail.com" },
-                new Profil { Id = 7, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "john.ruskin@gmail.com" },
+                new Profil { Id = 7, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "utilisateur.aileleve@gmail.com" },
                 new Profil { Id = 8, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "christian.bobin@gmail.com" },
                 new Profil { Id = 9, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "marcel.proust@gmail.com" },
                 new Profil { Id = 10, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "jeanmichel.maulpoix@gmail.com" },
-                new Profil { Id = 11, Telephone = "0102030405", Image = "/img/profil.jpg", Email = "admin@isika-project.com" }
+                new Profil { Id = 11, Telephone = "0102030405", Image = "/img/profil.jpg", Email = "aileleve.soutienscolaire@gmail.com" }
             );
             this.Comptes.AddRange(
 
