@@ -212,7 +212,13 @@ namespace AileLeve.Models
         {
             return _bddContext.Enseignants.ToList();
         }
-               
+
+      //  public List<Enseignant> ObtenirTousLesEnseignants2()
+       // {
+      //      return _bddContext.Enseignants.Include(e=> e.) ;
+        //}
+
+
 
         public Utilisateur ObtenirUtilisateur(int id)
         {
@@ -261,12 +267,19 @@ namespace AileLeve.Models
         public Cours ObtenirCours(string idStr)
         {
             int id;
-            if (int.TryParse(idStr, out id))
             {
+            if (int.TryParse(idStr, out id))
                 return this.ObtenirCours(id);
             }
             return null;
         }
+
+        public List<EmploiDuTempsEnseignant> ObtenirTousLesEmploisDuTemps()
+        {
+            return _bddContext.EmploiDuTempsEnseignants.ToList();
+        }
+
+
 
         public Matiere ObtenirMatiere(int id)
         {
@@ -361,6 +374,6 @@ namespace AileLeve.Models
                 c => c.Identifiant == identifiant && c.Password == motDePasse);
             return compte;
         }
-       
+        
     }
 }

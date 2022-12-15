@@ -1,0 +1,33 @@
+﻿@model AileLeve.ViewModels.EmploiDuTempsEnseignantViewModel;
+
+@{
+    ViewBag.Title = "Emploi du temps enseignant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1 class="text-center mb-4">Liste des créneaux disponibles</h1>
+
+
+
+<table class="table table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Disponible</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in @Model.ListeEmploiDuTempsEnseignants)
+            
+        {
+            <tr>
+                <td>@item.DateTime</td>
+                <td>@item.Disponible</td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
