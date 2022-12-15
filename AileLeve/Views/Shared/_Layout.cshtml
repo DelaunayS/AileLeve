@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
+
 <html lang="fr">
 
 <head>
@@ -93,13 +94,21 @@
                     </ul>
                 </div>
 
-                @if (User.IsInRole("Admin"))
-                {
-                    <a class="notification" href="/Notification/Index">
-                        <h3><i class="far fa-bell" id="notif"></i></h3>
-                    </a>
 
+                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin"))) 
+                {
+
+
+                     <div class="navbar-collapse justify-content-end h-100 w-100">
+                        <a class="notification" href="/Notification/Index">
+                            <h3 class="justify-content-center"><i class="far fa-bell text-light mw-100 mh-100" id="notif"></i></h3>
+                        </a>
+                    </div>
                 }
+               
+        
+               
+             
 
             </div>
         </nav>
