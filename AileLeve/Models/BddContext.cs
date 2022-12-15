@@ -32,7 +32,9 @@ namespace AileLeve.Models
         {
 
 
+
         optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+
 
 
         }
