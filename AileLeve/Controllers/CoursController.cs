@@ -7,22 +7,23 @@ using System;
 using AileLeve.ViewModels;
 using System.Linq;
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AileLeve.Controllers
 {
     public class CoursController : Controller
     {
 
-
-        Dal dal = new Dal();
-       BddContext bdd= new BddContext();
-
+        private Dal dal = new Dal();
+        
+        [Authorize(Roles = "Admin, Enseignant")]        
         public IActionResult Ajouter()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Enseignant")]       
         public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau)
         {
             CompteViewModel viewModel = new CompteViewModel
@@ -30,29 +31,21 @@ namespace AileLeve.Controllers
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
             };
 
-
             string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
 
             dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
 
-           
             DateTime date = DateTime.Now;
-            dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours 
+            dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours
             + " a été créé le " + date.ToString("MM/dd/yyyy f HH:mm"));
-           
-                return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
 
+            return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Enseignant")]     
         public IActionResult Supprimer(int id)
         {
             CoursViewModel cvm = new CoursViewModel
@@ -66,10 +59,9 @@ namespace AileLeve.Controllers
             cvm.CoursListe = dal.ObtenirCoursParEnseignant(enseignant.Id);
 
             return View(cvm);
-
         }
-
-
+       
+        [Authorize(Roles = "Admin, Enseignant")]     
         public IActionResult SupprimerCours(int id, CoursViewModel coursASupprimer, TypeCours typeCours, string matiere, string niveau, string enseignant)
         {
             CoursViewModel viewModel = new CoursViewModel
@@ -91,13 +83,13 @@ namespace AileLeve.Controllers
                 return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
             }
             return View();
-
         }
 
 
-
+       
         [HttpGet]
-        public IActionResult Modifier (int id)
+        [Authorize(Roles = "Admin, Enseignant")]          
+        public IActionResult Modifier(int id)
         {
             string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
@@ -113,7 +105,6 @@ namespace AileLeve.Controllers
 
             };
 
-            
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
             cvm.Cours = dal.ObtenirCours(id);
 
@@ -121,8 +112,8 @@ namespace AileLeve.Controllers
         }
 
         [HttpPost]
-
-        public IActionResult Modifier (int id, CoursViewModel coursAModifier, TypeCours typeCours, string matiere, string niveau, string enseignant)
+        [Authorize(Roles = "Admin, Enseignant")]    
+        public IActionResult Modifier(int id, CoursViewModel coursAModifier, TypeCours typeCours, string matiere, string niveau, string enseignant)
         {
             CoursViewModel viewModel = new CoursViewModel
             {
@@ -130,27 +121,21 @@ namespace AileLeve.Controllers
             };
             if (viewModel.Authentifie)
             {
-                
                 string idUserStr = HttpContext.User.Identity.Name;
                 int.TryParse(idUserStr, out int idUser);
 
-
                 dal.ModifierCours(coursAModifier.Cours);
-
 
                 return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
             }
             return View();
-
         }
-    
+
+        [Authorize]
         public IActionResult ListeCours()
         {
             return View();
         }
-
     }
-
 }
 
-   

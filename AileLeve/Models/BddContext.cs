@@ -248,12 +248,11 @@ namespace AileLeve.Models
             );
 
             this.Notifications.AddRange(
-                new Notification { Id = 1, Lu = true, TypeNotification = "creationEleve" },
-                new Notification { Id = 2, Lu = false, TypeNotification = "creationEnseignant" },
-                new Notification { Id = 3, Lu = true, TypeNotification = "creationEleve" },
-                new Notification { Id = 4, Lu = false, TypeNotification = "creationCours" }
+                new Notification { Id = 1, Lu = true, TypeNotification = "L'élève Proust Marcel s'est inscrite sur la plateforme le 14/12/2022 14:31" },
+                new Notification { Id = 2, Lu = false, TypeNotification = "L'enseignant Dupond Jean s'est inscrit sur la plateforme le 13/12/2022 18:42" }
+  
             );
-
+            
 
             this.SaveChanges();
 

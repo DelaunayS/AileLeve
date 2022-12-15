@@ -62,13 +62,15 @@ namespace AileLeve.Controllers
                 if (role=="Eleve")
                 {
                     DateTime date = DateTime.Now;
+
                     dal.CreerNotification("Nouvel élève : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                        date.ToString("MM/dd/yyyy f HH:mm"));
+                        date.ToString("dd/MM/yyyy HH:mm"));
                 } else
                 {
                     DateTime date = DateTime.Now;
                     dal.CreerNotification("Nouvel enseignant : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                        date.ToString("MM/dd/yyyy f HH:mm"));
+                        date.ToString("dd/MM/yyyy HH:mm"));
+
                 }
 
                 MailMessage message = new MailMessage();
@@ -91,7 +93,7 @@ namespace AileLeve.Controllers
             return Redirect("/Utilisateur/Connexion");
         }
 
-
+        [Authorize]   
         public ActionResult Deconnexion()
         {
             HttpContext.SignOutAsync();
@@ -101,7 +103,9 @@ namespace AileLeve.Controllers
         [HttpGet]
         public IActionResult Connexion()
         {
+
             return View();
+
         }
 
         [HttpPost]
@@ -135,6 +139,7 @@ namespace AileLeve.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Eleve, Enseignant,Recrutement")]   
         public IActionResult Supprimer()
         {
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
@@ -147,13 +152,13 @@ namespace AileLeve.Controllers
                 utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
                 utilisateurCompletViewModel.Adresse = dal.ObtenirToutesLesAdresses().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
 
-
                 return View(utilisateurCompletViewModel);
             }
             return Redirect("/Utilisateur/Connexion");
         }
 
         [HttpPost]
+        [Authorize]   
         public IActionResult Supprimer(UtilisateurCompletViewModel utilisateurASupprimer)
         {
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
@@ -166,9 +171,11 @@ namespace AileLeve.Controllers
                 if (Dal.EncodeMD5(utilisateurASupprimer.Compte.Password) == compte.Password)
 
                 {
-                    dal.SupprimerCompte(compte);
+                    DateTime date = DateTime.Now;
+                    dal.CreerNotification(compte.Utilisateur.Prenom+" "+compte.Utilisateur.Nom+
+                    " a fait une demande de suppression de compte, le : "+date.ToString("dd/MM/yyyy HH:mm"));
 
-                    return RedirectToAction("Deconnexion");
+                    return RedirectToAction("Index","Home",new { @id = compte.Id });
                 }
 
                 return View();
