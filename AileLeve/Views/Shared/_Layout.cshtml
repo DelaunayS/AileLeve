@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -31,23 +29,25 @@
 
                             <a class="nav-link text-light" href="/Home/Index">Accueil</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated) {
+                        @if (User.Identity.IsAuthenticated)
+                        {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Cours
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item" href="/Cours/ListeCours">Contenu pédagogique en ligne</a>
 
-                                    <a class="dropdown-item" href="/Enseignant/EmploiDuTempsEnseignant">Liste des cours synchrones</a>
+                                    <a class="dropdown-item" href="/Enseignant/EmploiDuTempsEnseignant">Liste des cours
+                                        synchrones</a>
 
-                                    @if (User.IsInRole("Admin")||(User.IsInRole("Enseignant")))
+                                    @if (User.IsInRole("Admin") || (User.IsInRole("Enseignant")))
                                     {
                                         <a class="dropdown-item" href="/Cours/Ajouter">Proposer un cours</a>
                                     }
-                                    </div>
+                                </div>
                             </li>
                         }
 
@@ -55,21 +55,21 @@
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Gestion
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/Admin/ListeUtilisateur">Liste des utilisateurs</a>
-                                   
+
                                 </div>
-                               
+
                             </li>
-             
+
                         }
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Paramètres
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -78,7 +78,11 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <a class="dropdown-item" href="/Utilisateur/Deconnexion">Déconnexion</a>
-                                    <a class="dropdown-item" href="/Utilisateur/Supprimer">Supprimer</a>
+                                    @if (!(User.IsInRole("Admin")))
+                                    {
+                                        <a class="dropdown-item" href="/Utilisateur/Supprimer">Supprimer</a>
+                                    }
+
                                 }
                                 @if (!User.Identity.IsAuthenticated)
                                 {
@@ -91,12 +95,12 @@
 
                 @if (User.IsInRole("Admin"))
                 {
-                        <a class="notification" href="/Notification/Index">
-                            <h3><i class="far fa-bell" id="notif"></i></h3>
-                        </a>
- 
+                    <a class="notification" href="/Notification/Index">
+                        <h3><i class="far fa-bell" id="notif"></i></h3>
+                    </a>
+
                 }
-             
+
             </div>
         </nav>
     </header>
