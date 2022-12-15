@@ -30,7 +30,10 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+
+
+        optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+
 
         }
         public void InitializeDb()
@@ -110,17 +113,19 @@ namespace AileLeve.Models
                 new Profil { Id = 11, Telephone = "0102030405", Image = "/img/profil.jpg", Email = "admin@isika-project.com" }
             );
             this.Comptes.AddRange(
-            new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif = true, Role = "Enseignant" },
-                new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2, StatusActif = true, Role = "Enseignant" },
-                new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3, StatusActif = true, Role = "Enseignant" },
-                new Compte { Id = 4, Identifiant = "Juju", Password = Dal.EncodeMD5("jjjjj"), UtilisateurId = 4, ProfilId = 4, StatusActif = true, Role = "Enseignant" },
-                new Compte { Id = 5, Identifiant = "Pierrot", Password = Dal.EncodeMD5("ppppp"), UtilisateurId = 5, ProfilId = 5, StatusActif = true, Role = "Enseignant" },
-                new Compte { Id = 6, Identifiant = "bob", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 6, ProfilId = 6, StatusActif = true, Role = "Eleve" },
-                new Compte { Id = 7, Identifiant = "Jack", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 7, ProfilId = 7, StatusActif = true, Role = "Eleve" },
-                new Compte { Id = 8, Identifiant = "Chris", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 8, ProfilId = 8, StatusActif = false, Role = "Eleve" },
-                new Compte { Id = 9, Identifiant = "Marcelou", Password = Dal.EncodeMD5("mmmmm"), UtilisateurId = 9, ProfilId = 9, StatusActif = true, Role = "Eleve" },
-                new Compte { Id = 10, Identifiant = "JeanMi", Password = Dal.EncodeMD5("jmjmjm"), UtilisateurId = 10, ProfilId = 10, StatusActif = true, Role = "Eleve" },
-                new Compte { Id = 11, Identifiant = "Admin", Password = Dal.EncodeMD5("isika"), UtilisateurId = 11, ProfilId = 11, StatusActif = true, Role = "Admin" }
+
+            new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif=true, Role="Enseignant" },
+                new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2, StatusActif=true, Role="Enseignant" },
+                new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3, StatusActif=true, Role="Enseignant"},
+                new Compte { Id = 4, Identifiant = "Juju", Password = Dal.EncodeMD5("jjjjj"), UtilisateurId = 4, ProfilId = 4, StatusActif=true, Role="Enseignant"},
+                new Compte { Id = 5, Identifiant = "Pierrot", Password = Dal.EncodeMD5("ppppp"), UtilisateurId = 5, ProfilId = 5, StatusActif=true, Role="Recrutement"},
+                new Compte { Id = 6, Identifiant = "bob", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 6, ProfilId = 6 , StatusActif=true, Role="Eleve"},
+                new Compte { Id = 7, Identifiant = "Jack", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 7, ProfilId = 7 , StatusActif=true, Role="Eleve"},
+                new Compte { Id = 8, Identifiant = "Chris", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 8, ProfilId = 8 , StatusActif=false, Role="Eleve"},
+                new Compte { Id = 9, Identifiant = "Marcelou", Password = Dal.EncodeMD5("mmmmm"), UtilisateurId = 9, ProfilId = 9 , StatusActif=true,Role="Eleve"},
+                new Compte { Id = 10, Identifiant = "JeanMi", Password = Dal.EncodeMD5("jmjmjm"), UtilisateurId = 10, ProfilId = 10 , StatusActif=true,Role="Eleve"},
+                new Compte { Id = 11, Identifiant = "Admin", Password = Dal.EncodeMD5("isika"), UtilisateurId = 11, ProfilId = 11 ,StatusActif=true,Role="Admin"}
+
             );
 
             this.Adresses.AddRange(

@@ -22,7 +22,8 @@ namespace AileLeve.Controllers
         }
 
         [HttpPost]
-        public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau, string enseignant)
+        [HttpPost]
+        public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau)
         {
             CompteViewModel viewModel = new CompteViewModel
             {
@@ -30,7 +31,12 @@ namespace AileLeve.Controllers
             };
 
 
-            dal.CreerCours(typeCours, matiere, niveau, enseignant);
+            string idUserStr = HttpContext.User.Identity.Name;
+            int.TryParse(idUserStr, out int idUser);
+            Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
+
+            dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
+
             return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
 
