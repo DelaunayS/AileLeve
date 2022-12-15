@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AileLeve.Models;
@@ -68,7 +70,20 @@ namespace AileLeve.Controllers
                     dal.CreerNotification("Nouvel enseignant : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
                         date.ToString("MM/dd/yyyy f HH:mm"));
                 }
-             
+
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress("aileleve.soutienscolaire@gmail.com");
+                message.Subject = "Confirmation de création de compte";
+                message.Body = "Bonjour " + prenom + "," + "\n" + "Bienvenue sur notre plate-forme de soutien scolaire." + "\n"
+                    + " Nous sommes heureux de vous compter parmi nos utilisateurs." + "\n" +
+                    " Ici vous trouverez toutes les ressources nécessaires pour enrichir vos connaissances." + "\n" +
+                    " N'hésitez pas à nous contacter, notre équipe est à votre disposition en cas de besoin." + "\n" +
+                    " Equipe d'Aile'Lève"; 
+
+                message.To.Add(email);
+
+                dal.EnvoyerMailInscription(email,message);
+           
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
                 HttpContext.SignInAsync(userPrincipal);
                 return RedirectToAction("Index", "Home", new { @id = compteId });
@@ -86,7 +101,6 @@ namespace AileLeve.Controllers
         [HttpGet]
         public IActionResult Connexion()
         {
-
             return View();
         }
 

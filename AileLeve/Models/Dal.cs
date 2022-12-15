@@ -1,4 +1,5 @@
 using AileLeve.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -162,6 +165,21 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+        public void EnvoyerMailInscription(string mailUtilisateur, MailMessage mail)
+        {
+            using SmtpClient email = new SmtpClient
+            {
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                EnableSsl = true,
+                Host = "smtp.gmail.com",
+                Port = 587,
+                Credentials = new NetworkCredential("aileleve.soutienscolaire@gmail.com", "ahjwdxnfsajcgyws")
+            };
+
+            email.Send(mail);
+        
+        }
 
         public void ModifierAdresse(Adresse adresse)
         {
