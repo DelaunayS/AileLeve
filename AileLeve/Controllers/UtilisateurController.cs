@@ -60,13 +60,15 @@ namespace AileLeve.Controllers
                 if (role=="Eleve")
                 {
                     DateTime date = DateTime.Now;
-                    dal.CreerNotification("L'élève" + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                        date.ToString("MM/dd/yyyy HH:mm"));
+
+                    dal.CreerNotification("Nouvel élève : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
+                        date.ToString("dd/MM/yyyy HH:mm"));
                 } else
                 {
                     DateTime date = DateTime.Now;
-                    dal.CreerNotification("L'enseignant " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                        date.ToString("MM/dd/yyyy HH:mm"));
+                    dal.CreerNotification("Nouvel enseignant : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
+                        date.ToString("dd/MM/yyyy HH:mm"));
+
                 }
              
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
@@ -152,9 +154,11 @@ namespace AileLeve.Controllers
                 if (Dal.EncodeMD5(utilisateurASupprimer.Compte.Password) == compte.Password)
 
                 {
-                    dal.SupprimerCompte(compte);
+                    DateTime date = DateTime.Now;
+                    dal.CreerNotification(compte.Utilisateur.Prenom+" "+compte.Utilisateur.Nom+
+                    " a fait une demande de suppression de compte, le : "+date.ToString("dd/MM/yyyy HH:mm"));
 
-                    return RedirectToAction("Deconnexion");
+                    return RedirectToAction("Index","Home",new { @id = compte.Id });
                 }
 
                 return View();
