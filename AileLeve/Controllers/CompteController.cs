@@ -1,11 +1,14 @@
 ﻿using AileLeve.Models;
 using AileLeve.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace AileLeve.Controllers
 {
+    [Authorize]
     public class CompteController : Controller
     {
-        public Dal dal = new Dal();
+        private Dal dal = new Dal();
+
         [HttpGet]
         public IActionResult ModifierPassword(int id)
         {
@@ -17,11 +20,11 @@ namespace AileLeve.Controllers
                     viewModel.Compte = dal.ObtenirCompte(id);
                     return View(viewModel);
                 }
-               return Redirect("/Utilisateur/Connexion");
-                
+                return Redirect("/Utilisateur/Connexion");
             }
             return View("Error");
         }
+
         [HttpPost]
         public IActionResult ModifierPassword(CompteViewModel monCompte, string mdp, string mdpConfirmation)
         {
@@ -34,15 +37,11 @@ namespace AileLeve.Controllers
             if (viewModel.Authentifie)
             {
                 dal.ModifierPassword(monCompte.Compte.Id, mdpCrypte);
-              return RedirectToAction("Deconnexion", "Utilisateur");
-               
-
-
+                return RedirectToAction("Deconnexion", "Utilisateur");
             }
             else
             {
                 return Redirect("/Utilisateur/Connexion");
-                
             }
         }
     }

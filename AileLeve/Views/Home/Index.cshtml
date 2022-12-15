@@ -32,18 +32,20 @@
                         @Model.Utilisateur.Adresse.Ville</p>
                 }
             }
-
-            <div class="row h-100 justify-content-center align-items-center mt-5">
+            @if (Model.Role=="Enseignant"){
+                <div class="row h-100 justify-content-center align-items-center m-2">
                 <a href=@chemin2 class="btn">Ajouter un cours</a>
             </div>
-            <div class="row h-100 justify-content-center align-items-center mt-5">
+            <div class="row h-100 justify-content-center align-items-center m-2">
                 <a href=@chemin3 class="btn">Supprimer un cours</a>
             </div>
             @* <div class="row h-100 justify-content-center align-items-center mt-5">
                 <a href=@chemin4 class="btn">Modifier un cours</a>*@
+            }
+            
         </div>
 
-        <div class="row h-100 justify-content-center align-items-center mt-5">
+        <div class="row h-100 justify-content-center align-items-center m-2">
             <a href=@chemin class="btn">Modifier le profil</a>
         </div>
 

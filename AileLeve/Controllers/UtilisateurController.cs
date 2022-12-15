@@ -76,7 +76,7 @@ namespace AileLeve.Controllers
             return Redirect("/Utilisateur/Connexion");
         }
 
-
+        [Authorize]   
         public ActionResult Deconnexion()
         {
             HttpContext.SignOutAsync();
@@ -121,6 +121,7 @@ namespace AileLeve.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Eleve, Enseignant,Recrutement")]   
         public IActionResult Supprimer()
         {
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
@@ -133,13 +134,13 @@ namespace AileLeve.Controllers
                 utilisateurCompletViewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
                 utilisateurCompletViewModel.Adresse = dal.ObtenirToutesLesAdresses().Where(p => p.Id == viewModel.Compte.ProfilId).FirstOrDefault();
 
-
                 return View(utilisateurCompletViewModel);
             }
             return Redirect("/Utilisateur/Connexion");
         }
 
         [HttpPost]
+        [Authorize]   
         public IActionResult Supprimer(UtilisateurCompletViewModel utilisateurASupprimer)
         {
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
