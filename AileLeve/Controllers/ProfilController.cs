@@ -28,17 +28,22 @@ namespace AileLeve.Controllers
                     utilisateurCompletViewModel.Profil = dal.ObtenirProfil(id);
                     utilisateurCompletViewModel.Utilisateur = dal.ObtenirUtilisateur(id);
                     utilisateurCompletViewModel.Adresse = dal.ObtenirAdresse(id);
+                    if (utilisateurCompletViewModel.Compte.Role == "Eleve")
+                    {
+                        utilisateurCompletViewModel.Eleve = dal.ObtenirTousLesEleves().Where(p => p.UtilisateurId == utilisateurCompletViewModel.Utilisateur.Id).FirstOrDefault();
+                    }
+
                     return View(utilisateurCompletViewModel);
                 }
                 return Redirect("/Utilisateur/Connexion");
             }
             return View("Error");
         }
-        
+
         [HttpPost]
         public IActionResult Modifier(UtilisateurCompletViewModel utilisateurAmodifier, int numeroRue, string rue, int codePostal, string ville)
         {
-            CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
+            CompteViewModel viewModel = new CompteViewModel {Authentifie = HttpContext.User.Identity.IsAuthenticated};
             if (viewModel.Authentifie)
             {
                 dal.ModifierUtilisateur(utilisateurAmodifier.Utilisateur);
@@ -62,6 +67,7 @@ namespace AileLeve.Controllers
 
                 if (HttpContext.User.IsInRole("Eleve"))
                 {
+                    utilisateurAmodifier.Eleve = dal.ObtenirTousLesEleves().Where(p => p.UtilisateurId == utilisateurAmodifier.Utilisateur.Id).FirstOrDefault();
                     dal.ModifierDateNaissance(utilisateurAmodifier.Eleve.Id, utilisateurAmodifier.Eleve.DateDeNaissance.ToShortDateString());
                 };
 
