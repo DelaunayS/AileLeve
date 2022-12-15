@@ -84,7 +84,7 @@ namespace AileLeve.Controllers
 
                 message.To.Add(email);
 
-                dal.EnvoyerMailInscription(email,message);
+                dal.EnvoyerMail(email,message);
            
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
                 HttpContext.SignInAsync(userPrincipal);

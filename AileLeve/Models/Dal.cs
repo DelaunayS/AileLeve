@@ -165,7 +165,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
-        public void EnvoyerMailInscription(string mailUtilisateur, MailMessage mail)
+        public void EnvoyerMail(string mailUtilisateur, MailMessage mail)
         {
             using SmtpClient email = new SmtpClient
             {
@@ -174,7 +174,7 @@ namespace AileLeve.Models
                 EnableSsl = true,
                 Host = "smtp.gmail.com",
                 Port = 587,
-                Credentials = new NetworkCredential("aileleve.soutienscolaire@gmail.com", "ahjwdxnfsajcgyws")
+                Credentials = new NetworkCredential("aileleve.soutienscolaire@gmail.com", "sfxftocrnfsjaigq")
             };
 
             email.Send(mail);
