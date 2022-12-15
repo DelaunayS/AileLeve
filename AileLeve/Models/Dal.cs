@@ -36,6 +36,23 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return utilisateur.Id;
         }
+
+        public int CreerEmploiDuTemps(DateTime date)
+        {
+            EmploiDuTempsEnseignant emploiDuTemps = new EmploiDuTempsEnseignant() { DateTime = date, Disponible = true };
+            _bddContext.EmploiDuTempsEnseignants.Add(emploiDuTemps);
+            _bddContext.SaveChanges();
+            return emploiDuTemps.Id;
+
+        }
+
+        public void CreerEtudie(int eleveId, int coursId )
+        {
+            Etudie etudie = new Etudie() { EleveId = eleveId, CoursId = coursId };
+            _bddContext.Etudie.Add(etudie);
+            _bddContext.SaveChanges();
+        }
+
         public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId, string role)
         {
             string motDePasse = EncodeMD5(password);
@@ -78,6 +95,15 @@ namespace AileLeve.Models
             return eleve.Id;
 
         }
+
+        public void CreerEstDisponible(int enseignantId, int emploiDuTempsId)
+        {
+            EstDisponible dispo = new EstDisponible() { EnseignantId = enseignantId, EmploiDuTempsEnseignantId = emploiDuTempsId };
+            _bddContext.EstDisponible.Add(dispo);
+            _bddContext.SaveChanges();
+        }
+
+
 
         public int CreerCours(TypeCours typeCours, string matiere, string niveau, int id)
         {
@@ -394,6 +420,9 @@ namespace AileLeve.Models
                 c => c.Identifiant == identifiant && c.Password == motDePasse);
             return compte;
         }
+
+
+
         
     }
 }

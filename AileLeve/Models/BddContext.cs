@@ -37,7 +37,7 @@ namespace AileLeve.Models
 
 
 
-        optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
+        optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
 
 
 
