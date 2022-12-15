@@ -11,5 +11,6 @@ namespace AileLeve.ViewModels
         public Compte Compte { get; set; }
         public string MotDePasse { get; set; }
         public bool Authentifie { get; set; }
+
     }
 }
