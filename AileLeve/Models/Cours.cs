@@ -2,7 +2,7 @@
 {
     public enum TypeCours
     {
-        domicile, onlineSynchrone, onlineAsynchrone
+        domicile, synchrone, asynchrone
     }
     public class Cours
     {
