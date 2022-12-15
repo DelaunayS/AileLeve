@@ -40,6 +40,7 @@ namespace AileLeve.Controllers
                 int adresseId = dal.CreerAdresse(numeroRue, rue, codePostal, ville);
 
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom, adresseId);
+
                 if (role == "Eleve")
                 {
                     dal.CreerEleve(dateNaissance, utilisateurId);
@@ -50,6 +51,7 @@ namespace AileLeve.Controllers
 
                 int profilId = dal.CreerProfil(tel, "/img/profil.jpg", email);
                 int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId, role);
+
                 var userClaims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name, compteId.ToString()),
@@ -57,9 +59,20 @@ namespace AileLeve.Controllers
                 };
                 var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
 
+                if (role=="Eleve")
+                {
+                    DateTime date = DateTime.Now;
+                    dal.CreerNotification("Nouvel élève : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
+                        date.ToString("MM/dd/yyyy f HH:mm"));
+                } else
+                {
+                    DateTime date = DateTime.Now;
+                    dal.CreerNotification("Nouvel enseignant : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
+                        date.ToString("MM/dd/yyyy f HH:mm"));
+                }
+             
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
                 HttpContext.SignInAsync(userPrincipal);
-
                 return RedirectToAction("Index", "Home", new { @id = compteId });
             }
             return Redirect("/Utilisateur/Connexion");

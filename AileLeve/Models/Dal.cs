@@ -97,6 +97,25 @@ namespace AileLeve.Models
             return cours.Id;
         }
 
+        public int CreerNotification(string nom)
+        {
+           
+            Notification notif = new Notification
+            {
+                Lu = false,
+                TypeNotification = nom
+            };
+
+            _bddContext.Notifications.Add(notif);
+            _bddContext.SaveChanges();
+            return notif.Id;
+        }
+
+        public void SupprimerNotification(Notification notification)
+        {
+            this._bddContext.Notifications.Remove(notification);
+            this._bddContext.SaveChanges();
+        }
 
         public int CreerEnseignant(int utilisateurId)
         {
@@ -213,12 +232,13 @@ namespace AileLeve.Models
             return _bddContext.Enseignants.ToList();
         }
 
-      //  public List<Enseignant> ObtenirTousLesEnseignants2()
-       // {
-      //      return _bddContext.Enseignants.Include(e=> e.) ;
-        //}
+        
 
 
+       public List<Notification> ObtenirNotifications()
+        {
+            return this._bddContext.Notifications.ToList();
+        }
 
         public Utilisateur ObtenirUtilisateur(int id)
         {

@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System;
 using AileLeve.ViewModels;
 using System.Linq;
+using System.Data;
 
 namespace AileLeve.Controllers
 {
@@ -22,7 +23,6 @@ namespace AileLeve.Controllers
         }
 
         [HttpPost]
-        [HttpPost]
         public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau)
         {
             CompteViewModel viewModel = new CompteViewModel
@@ -37,7 +37,13 @@ namespace AileLeve.Controllers
 
             dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
 
-            return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
+           
+            DateTime date = DateTime.Now;
+            dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours 
+            + " a été créé le " + date.ToString("MM/dd/yyyy f HH:mm"));
+           
+                return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
+
         }
 
         public IActionResult Index()

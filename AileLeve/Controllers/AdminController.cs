@@ -11,12 +11,15 @@ using Microsoft.Extensions.Logging;
 
 namespace AileLeve.Controllers
 {
+
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private Dal dal = new Dal();
+
         public IActionResult ListeUtilisateur()
         {
+        
             ComptesViewModel cvm = new ComptesViewModel
             {
                 Comptes = dal.ObtenirTousLesComptes()
@@ -46,6 +49,7 @@ namespace AileLeve.Controllers
             }   
             return Redirect("/Admin/ListeUtilisateur");
         }
+
 
 
         public IActionResult Suspendre(int id)
