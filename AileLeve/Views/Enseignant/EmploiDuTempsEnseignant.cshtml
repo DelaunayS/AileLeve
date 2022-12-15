@@ -20,11 +20,21 @@
     <tbody>
 
         @foreach (var item in @Model.ListeEmploiDuTempsEnseignants)
-            
+
         {
             <tr>
                 <td>@item.DateTime</td>
-                <td>@item.Disponible</td>
+                <td>
+                    @if (item.Disponible == true)
+                    {
+                        <i>oui</i>
+                    }
+                    else
+                    {
+                        <i>non</i>
+                    }
+                </td>
+                @* <td>@item.Disponible</td>*@
 
             </tr>
         }
