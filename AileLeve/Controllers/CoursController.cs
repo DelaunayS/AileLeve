@@ -15,6 +15,7 @@ namespace AileLeve.Controllers
 
 
         Dal dal = new Dal();
+       BddContext bdd= new BddContext();
 
         public IActionResult Ajouter()
         {
@@ -29,17 +30,20 @@ namespace AileLeve.Controllers
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
             };
 
+
             string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
 
             dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
+
            
             DateTime date = DateTime.Now;
             dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours 
             + " a été créé le " + date.ToString("MM/dd/yyyy f HH:mm"));
            
                 return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
+
         }
 
         public IActionResult Index()
@@ -54,7 +58,7 @@ namespace AileLeve.Controllers
             CoursViewModel cvm = new CoursViewModel
             {
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
-                 
+
             };
             string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
@@ -66,7 +70,7 @@ namespace AileLeve.Controllers
         }
 
 
-        public IActionResult SupprimerCours (int id, CoursViewModel coursASupprimer, TypeCours typeCours, string matiere, string niveau, string enseignant)
+        public IActionResult SupprimerCours(int id, CoursViewModel coursASupprimer, TypeCours typeCours, string matiere, string niveau, string enseignant)
         {
             CoursViewModel viewModel = new CoursViewModel
             {
@@ -76,25 +80,74 @@ namespace AileLeve.Controllers
             {
 
                 viewModel.Cours = dal.ObtenirCours(id);
-                 Cours cours = dal.ObtenirTousLesCours().Where(p => p.Id == viewModel.Cours.Id).FirstOrDefault();
+                Cours cours = dal.ObtenirTousLesCours().Where(p => p.Id == viewModel.Cours.Id).FirstOrDefault();
                 string idUserStr = HttpContext.User.Identity.Name;
                 int.TryParse(idUserStr, out int idUser);
-               
+
 
                 dal.SupprimerCours(cours);
 
-                
-                return RedirectToAction("Supprimer", "Cours", new {@id = idUser});
+
+                return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
             }
             return View();
 
         }
 
+
+
+        [HttpGet]
+        public IActionResult Modifier (int id)
+        {
+            string idUserStr = HttpContext.User.Identity.Name;
+            int.TryParse(idUserStr, out int idUser);
+
+            if (id == 0)
+            {
+                return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
+            }
+
+            CoursViewModel cvm = new CoursViewModel
+            {
+                Authentifie = HttpContext.User.Identity.IsAuthenticated
+
+            };
+
+            
+            Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
+            cvm.Cours = dal.ObtenirCours(id);
+
+            return View(cvm);
+        }
+
+        [HttpPost]
+
+        public IActionResult Modifier (int id, CoursViewModel coursAModifier, TypeCours typeCours, string matiere, string niveau, string enseignant)
+        {
+            CoursViewModel viewModel = new CoursViewModel
+            {
+                Authentifie = HttpContext.User.Identity.IsAuthenticated
+            };
+            if (viewModel.Authentifie)
+            {
+                
+                string idUserStr = HttpContext.User.Identity.Name;
+                int.TryParse(idUserStr, out int idUser);
+
+
+                dal.ModifierCours(coursAModifier.Cours);
+
+
+                return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
+            }
+            return View();
+
+        }
+    
         public IActionResult ListeCours()
         {
             return View();
         }
-
 
     }
 

@@ -78,6 +78,7 @@ namespace AileLeve.Models
             return eleve.Id;
 
         }
+
         public int CreerCours(TypeCours typeCours, string matiere, string niveau, int id)
         {
             Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
@@ -116,6 +117,15 @@ namespace AileLeve.Models
             this._bddContext.SaveChanges();
         }
 
+        public int CreerEnseignant(int utilisateurId)
+        {
+            Enseignant enseignant = new Enseignant() { UtilisateurId = utilisateurId };
+            _bddContext.Enseignants.Add(enseignant);
+            _bddContext.SaveChanges();
+            return enseignant.Id;
+        }
+
+
         public void AjouterAdresse(int id, Adresse adresse)
         {
             Compte compte = ObtenirCompte(id);
@@ -123,24 +133,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
-        public int CreerCours(TypeCours typeCours, string matiere, string niveau, string enseignant)
-        {
-            Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
-            Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
-            Enseignant ens = new Enseignant();
-
-            Cours cours = new Cours
-            {
-                TypeCours = typeCours,
-                Matiere = mat,
-                Niveau = niv,
-                Enseignant = ens
-            };
-            _bddContext.Cours.Add(cours);
-            _bddContext.SaveChanges();
-            return cours.Id;
-        }
-
+        
 
         public List<Utilisateur> ObtenirTousLesUtilisateurs()
         {
@@ -176,6 +169,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
         
+
         public void SupprimerCompte(Compte compte)
         {
             _bddContext.Comptes.Remove(compte);
@@ -237,6 +231,7 @@ namespace AileLeve.Models
         {
             return _bddContext.Enseignants.ToList();
         }
+
         
 
 
@@ -244,6 +239,7 @@ namespace AileLeve.Models
         {
             return this._bddContext.Notifications.ToList();
         }
+
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return this._bddContext.Utilisateurs.Find(id);
@@ -291,12 +287,19 @@ namespace AileLeve.Models
         public Cours ObtenirCours(string idStr)
         {
             int id;
-            if (int.TryParse(idStr, out id))
             {
+            if (int.TryParse(idStr, out id))
                 return this.ObtenirCours(id);
             }
             return null;
         }
+
+        public List<EmploiDuTempsEnseignant> ObtenirTousLesEmploisDuTemps()
+        {
+            return _bddContext.EmploiDuTempsEnseignants.ToList();
+        }
+
+
 
         public Matiere ObtenirMatiere(int id)
         {
@@ -354,7 +357,16 @@ namespace AileLeve.Models
             compte.Password = nouveauMDP;
             _bddContext.SaveChanges();
         }
-     public List<Cours> ObtenirTousLesCours()
+
+
+        public void ModifierCours(Cours cours)
+        {
+           
+            _bddContext.Cours.Update(cours);
+            _bddContext.SaveChanges();
+        }
+
+        public List<Cours> ObtenirTousLesCours()
         {
             return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
                        .Include(u => u.Enseignant).ToList();
@@ -382,6 +394,6 @@ namespace AileLeve.Models
                 c => c.Identifiant == identifiant && c.Password == motDePasse);
             return compte;
         }
-       
+        
     }
 }
