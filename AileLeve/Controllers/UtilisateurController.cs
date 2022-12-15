@@ -18,7 +18,7 @@ namespace AileLeve.Controllers
     {
 
         private Dal dal = new Dal();
-        
+
         [HttpGet()]
         public IActionResult Inscription()
         {
@@ -26,18 +26,30 @@ namespace AileLeve.Controllers
         }
 
         [HttpPost()]
-        public IActionResult Inscription(string role,string nom, string prenom, string identifiant, string password,
-         string email, string tel, DateTime dateNaissance, int numeroRue, string rue, int codePostal, string ville )
+        public IActionResult Inscription(string role, string nom, string prenom, string identifiant, string password,
+         string email, string tel, DateTime dateNaissance, int numeroRue, string rue, int codePostal, string ville)
         {
+            if (role=="Recrutement"){
+                   dateNaissance=new DateTime(1970,1,1);
+                }
 
-            if (ModelState.IsValid)
+            if (nom != null && prenom != null && identifiant != null && password != null)
             {
-              
-                int adresseId=dal.CreerAdresse(numeroRue, rue, codePostal, ville);
+
+
+                int adresseId = dal.CreerAdresse(numeroRue, rue, codePostal, ville);
+
                 int utilisateurId = dal.CreerUtilisateur(nom, prenom, adresseId);
-                dal.CreerEleve(dateNaissance,utilisateurId);
-                int profilId = dal.CreerProfil(tel, "/img/profil.jpg", email);                
-                int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId,role);
+                if (role == "Eleve")
+                {
+                    dal.CreerEleve(dateNaissance, utilisateurId);
+                }
+                if (role=="Recrutement"){
+                    dal.CreerEnseignant(utilisateurId);
+                }
+
+                int profilId = dal.CreerProfil(tel, "/img/profil.jpg", email);
+                int compteId = dal.CreerCompte(identifiant, password, utilisateurId, profilId, role);
                 var userClaims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name, compteId.ToString()),
@@ -50,8 +62,9 @@ namespace AileLeve.Controllers
 
                 return RedirectToAction("Index", "Home", new { @id = compteId });
             }
-            return Redirect("/Utilisateur/Connexion"); 
+            return Redirect("/Utilisateur/Connexion");
         }
+
 
         public ActionResult Deconnexion()
         {
@@ -68,11 +81,12 @@ namespace AileLeve.Controllers
 
         [HttpPost]
         public IActionResult Connexion(string identifiant, string password)
-        {
+        {  
             if (ModelState.IsValid)
             {
                 Compte compte = dal.Authentifier(identifiant, password);
-                if (compte.StatusActif==false){
+                if (compte.StatusActif == false)
+                {
                     return View();
                 }
                 if (compte != null)
@@ -80,7 +94,7 @@ namespace AileLeve.Controllers
                     var userClaims = new List<Claim>()
                     {
                         new Claim(ClaimTypes.Name, compte.Id.ToString()),
-                        new Claim(ClaimTypes.Role, compte.Role)                        
+                        new Claim(ClaimTypes.Role, compte.Role)
                     };
 
                     var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
