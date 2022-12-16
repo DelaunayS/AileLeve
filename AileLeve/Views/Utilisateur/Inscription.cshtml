@@ -1,6 +1,7 @@
 @{
     ViewBag.Title = "Inscription";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    String chemin = String.Format("/utilisateur/connexion");
 }
 <h1 class="text-center mb-4">S'inscrire</h1>
 
@@ -125,8 +126,11 @@
         </div>
 
         <div class="row h-100 justify-content-center align-items-center mt-4">
-            <button type="submit" class="btn">Enregistrer</button>
+            <button type="submit" class="btn mr-5">Enregistrer</button>
+            <a href=@chemin type="submit" class="btn">Annuler</a>
+
         </div>
+</div>
 
 
 

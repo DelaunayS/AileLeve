@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AileLeve.Models;
@@ -62,15 +64,30 @@ namespace AileLeve.Controllers
                 if (role=="Eleve")
                 {
                     DateTime date = DateTime.Now;
+
                     dal.CreerNotification("Nouvel élève : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                        date.ToString("MM/dd/yyyy f HH:mm"));
+                        date.ToString("dd/MM/yyyy HH:mm"));
                 } else
                 {
                     DateTime date = DateTime.Now;
                     dal.CreerNotification("Nouvel enseignant : " + nom + " " + prenom + " s'est inscrit sur la plateforme" + " le " +
-                        date.ToString("MM/dd/yyyy f HH:mm"));
+                        date.ToString("dd/MM/yyyy HH:mm"));
+
                 }
-             
+
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress("aileleve.soutienscolaire@gmail.com");
+                message.Subject = "Confirmation de création de compte";
+                message.Body = "Bonjour " + prenom + "," + "\n" + "Bienvenue sur notre plate-forme de soutien scolaire." + "\n"
+                    + " Nous sommes heureux de vous compter parmi nos utilisateurs." + "\n" +
+                    " Ici vous trouverez toutes les ressources nécessaires pour enrichir vos connaissances." + "\n" +
+                    " N'hésitez pas à nous contacter, notre équipe est à votre disposition en cas de besoin." + "\n" +
+                    " Equipe d'Aile'Lève"; 
+
+                message.To.Add(email);
+
+                dal.EnvoyerMail(email,message);
+           
                 var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
                 HttpContext.SignInAsync(userPrincipal);
                 return RedirectToAction("Index", "Home", new { @id = compteId });
@@ -90,6 +107,7 @@ namespace AileLeve.Controllers
         {
 
             return View();
+
         }
 
         [HttpPost]
@@ -155,14 +173,19 @@ namespace AileLeve.Controllers
                 if (Dal.EncodeMD5(utilisateurASupprimer.Compte.Password) == compte.Password)
 
                 {
-                    dal.SupprimerCompte(compte);
+                    DateTime date = DateTime.Now;
+                    dal.CreerNotification(compte.Utilisateur.Prenom+" "+compte.Utilisateur.Nom+
+                    " a fait une demande de suppression de compte, le : "+date.ToString("dd/MM/yyyy HH:mm"));
 
-                    return RedirectToAction("Deconnexion");
+                    return RedirectToAction("Index","Home",new { @id = compte.Id });
                 }
 
                 return View();
             }
             return Redirect("/Utilisateur/Connexion");
         }
+
+        
+
     }
 }

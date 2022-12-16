@@ -2,7 +2,7 @@
 {
     public enum TypeCours
     {
-        domicile, onlineSynchrone, onlineAsynchrone
+        domicile, synchrone, asynchrone
     }
     public class Cours
     {
@@ -14,5 +14,10 @@
         public virtual Niveau Niveau { get; set; }
         public int EnseignantId { get; set; }
         public virtual Enseignant Enseignant { get; set; }
+
+        
+
+
+
     }
 }

@@ -1,4 +1,5 @@
 using AileLeve.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -109,14 +112,16 @@ namespace AileLeve.Models
         {
             Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
             Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
-            Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == id).FirstOrDefault();
+          Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == id).FirstOrDefault();
+            
 
             Cours cours = new Cours
             {
                 TypeCours = typeCours,
                 Matiere = mat,
                 Niveau = niv,
-                Enseignant = ens
+           Enseignant = ens,
+               
             };
             _bddContext.Cours.Add(cours);
             _bddContext.SaveChanges();
@@ -184,6 +189,8 @@ namespace AileLeve.Models
             return _bddContext.Profils.ToList();
         }
 
+       
+
         public List<Adresse> ObtenirToutesLesAdresses()
         {
             return _bddContext.Adresses.ToList();
@@ -197,6 +204,21 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+        public void EnvoyerMail(string mailUtilisateur, MailMessage mail)
+        {
+            using SmtpClient email = new SmtpClient
+            {
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                EnableSsl = true,
+                Host = "smtp.gmail.com",
+                Port = 587,
+                Credentials = new NetworkCredential("aileleve.soutienscolaire@gmail.com", "sfxftocrnfsjaigq")
+            };
+
+            email.Send(mail);
+        
+        }
 
         public void ModifierAdresse(Adresse adresse)
         {
@@ -316,6 +338,12 @@ namespace AileLeve.Models
         public List<Cours> ObtenirCoursParEnseignant(int id)
         {
             return this._bddContext.Cours.Where(u => u.EnseignantId == id).Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
+        }
+
+        public List<Cours> ObtenirCoursParEnseignantPourAdmin()
+        {
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
                        .Include(u => u.Enseignant).ToList();
         }
 

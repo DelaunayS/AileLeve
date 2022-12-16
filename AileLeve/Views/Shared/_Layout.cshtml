@@ -1,6 +1,5 @@
-﻿
-
 <!DOCTYPE html>
+
 <html lang="fr">
 
 <head>
@@ -31,46 +30,54 @@
 
                             <a class="nav-link text-light" href="/Home/Index">Accueil</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated) {
+                        @if (User.Identity.IsAuthenticated)
+                        {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     Cours
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item" href="/Cours/ListeCours">Contenu pédagogique en ligne</a>
 
-                                    <a class="dropdown-item" href="/Enseignant/EmploiDuTempsEnseignant">Liste des cours synchrones</a>
+                                    <a class="dropdown-item" href="/Enseignant/EmploiDuTempsEnseignant">Liste des cours
+                                        synchrones</a>
 
-                                    @if (User.IsInRole("Admin")||(User.IsInRole("Enseignant")))
+                                    @if (User.IsInRole("Admin") || (User.IsInRole("Enseignant")))
                                     {
                                         <a class="dropdown-item" href="/Cours/Ajouter">Proposer un cours</a>
                                     }
-                                    </div>
+                                </div>
                             </li>
                         }
 
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     Gestion
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/Admin/ListeUtilisateur">Liste des utilisateurs</a>
-                                   
+
                                 </div>
-                               
+
                             </li>
-             
+
                         }
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+
+                            <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Paramètres
+                                Compte
+
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/Utilisateur/Inscription">Inscription</a>
@@ -78,25 +85,56 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <a class="dropdown-item" href="/Utilisateur/Deconnexion">Déconnexion</a>
-                                    <a class="dropdown-item" href="/Utilisateur/Supprimer">Supprimer</a>
+                                    @if (!(User.IsInRole("Admin")))
+                                    {
+                                        <a class="dropdown-item" href="/Utilisateur/Supprimer">Supprimer</a>
+                                    }
+
                                 }
                                 @if (!User.Identity.IsAuthenticated)
                                 {
                                     <a class="dropdown-item" href="/Utilisateur/Connexion">Connexion</a>
                                 }
                             </div>
+
+                        <li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Visiteur/About">About</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Visiteur/Contact">Contact</a>
+                        </li>
+                        @*<li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
+                        </li>*@
+                      </ul>
                 </div>
 
-                @if (User.IsInRole("Admin"))
+
+                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
                 {
-                        <a class="notification" href="/Notification/Index">
-                            <h3><i class="far fa-bell" id="notif"></i></h3>
+
+
+                    <div class="navbar-collapse justify-content-end h-100 w-100">
+                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Generer un pdf">
+                             <h3 class="justify-content-center">
+                                <i class="fas fa-print text-light mw-100 mh-100 " onclick="genererPdf('doc')"></i>
+                            </h3>
+                        </a>                       
+                        <a class="notification p-2" href="/Notification/Index">
+                            <h3 class="justify-content-center"><i class="fas fa-bell text-light mw-100 mh-100"
+                                id="notif"></i></h3>
                         </a>
- 
+
+                    </div>
                 }
-             
+
+
+
+
+
             </div>
         </nav>
     </header>
@@ -108,12 +146,15 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022
+            &copy; Pour que chaque élève s'élève
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
+    <script src="/Scripts/jsPdf/jspdf.umd.js"></script>
+    <script src="/Scripts/html2canvas.min.js"></script>
+    <script src="/Scripts/genererPdf.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 

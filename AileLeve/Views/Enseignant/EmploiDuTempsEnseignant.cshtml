@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<div id="doc" class="container">
 <h1 class="text-center mb-4">Liste des créneaux disponibles</h1>
-
-
 
 <table class="table table-striped">
     <thead class="thead-light">
@@ -20,14 +18,25 @@
     <tbody>
 
         @foreach (var item in @Model.ListeEmploiDuTempsEnseignants)
-            
+
         {
             <tr>
                 <td>@item.DateTime</td>
-                <td>@item.Disponible</td>
+                <td>
+                    @if (item.Disponible == true)
+                    {
+                        <i>oui</i>
+                    }
+                    else
+                    {
+                        <i>non</i>
+                    }
+                </td>
+                @* <td>@item.Disponible</td>*@
 
             </tr>
         }
     </tbody>
 
 </table>
+</div>
