@@ -1,4 +1,5 @@
 using AileLeve.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +39,23 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
             return utilisateur.Id;
         }
+
+        public int CreerEmploiDuTemps(DateTime date)
+        {
+            EmploiDuTempsEnseignant emploiDuTemps = new EmploiDuTempsEnseignant() { DateTime = date, Disponible = true };
+            _bddContext.EmploiDuTempsEnseignants.Add(emploiDuTemps);
+            _bddContext.SaveChanges();
+            return emploiDuTemps.Id;
+
+        }
+
+        public void CreerEtudie(int eleveId, int coursId )
+        {
+            Etudie etudie = new Etudie() { EleveId = eleveId, CoursId = coursId };
+            _bddContext.Etudie.Add(etudie);
+            _bddContext.SaveChanges();
+        }
+
         public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId, string role)
         {
             string motDePasse = EncodeMD5(password);
@@ -79,18 +99,29 @@ namespace AileLeve.Models
 
         }
 
+        public void CreerEstDisponible(int enseignantId, int emploiDuTempsId)
+        {
+            EstDisponible dispo = new EstDisponible() { EnseignantId = enseignantId, EmploiDuTempsEnseignantId = emploiDuTempsId };
+            _bddContext.EstDisponible.Add(dispo);
+            _bddContext.SaveChanges();
+        }
+
+
+
         public int CreerCours(TypeCours typeCours, string matiere, string niveau, int id)
         {
             Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
             Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
-            Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == id).FirstOrDefault();
+          Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == id).FirstOrDefault();
+            
 
             Cours cours = new Cours
             {
                 TypeCours = typeCours,
                 Matiere = mat,
                 Niveau = niv,
-                Enseignant = ens
+           Enseignant = ens,
+               
             };
             _bddContext.Cours.Add(cours);
             _bddContext.SaveChanges();
@@ -149,6 +180,8 @@ namespace AileLeve.Models
             return _bddContext.Profils.ToList();
         }
 
+       
+
         public List<Adresse> ObtenirToutesLesAdresses()
         {
             return _bddContext.Adresses.ToList();
@@ -162,6 +195,21 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+        public void EnvoyerMail(string mailUtilisateur, MailMessage mail)
+        {
+            using SmtpClient email = new SmtpClient
+            {
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                EnableSsl = true,
+                Host = "smtp.gmail.com",
+                Port = 587,
+                Credentials = new NetworkCredential("aileleve.soutienscolaire@gmail.com", "sfxftocrnfsjaigq")
+            };
+
+            email.Send(mail);
+        
+        }
 
         public void ModifierAdresse(Adresse adresse)
         {
@@ -284,6 +332,12 @@ namespace AileLeve.Models
                        .Include(u => u.Enseignant).ToList();
         }
 
+        public List<Cours> ObtenirCoursParEnseignantPourAdmin()
+        {
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
+        }
+
         public Cours ObtenirCours(string idStr)
         {
             int id;
@@ -394,6 +448,9 @@ namespace AileLeve.Models
                 c => c.Identifiant == identifiant && c.Password == motDePasse);
             return compte;
         }
+
+
+
         
     }
 }

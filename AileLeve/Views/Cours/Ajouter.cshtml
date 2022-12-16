@@ -1,54 +1,62 @@
 ﻿@{
     ViewBag.Title = "Ajouter un cours";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 <h1 class="text-center mb-4">Ajouter un cours</h1>
 
 <div class="container">
     <form action="/cours/ajouter" method="post">
-      
+
         <fieldset>
             <legend>Veuillez sélectionner un type de cours :</legend>
             <div>
-                <input type="checkbox" value="1" id="1" name="typeCours">
+                <input type="radio" value="1" id="1" name="typeCours">
                 <label for="onlineSynchrone">Cours synchrone</label>
             </div>
             <div>
-                <input type="checkbox" value="2" id="2" name="typeCours">
+                <input type="radio" value="2" id="2" name="typeCours">
                 <label for="onlineAsynchrone">Cours asynchrone</label>
             </div>
             <div>
-                <input type="checkbox" value="0" id="0" name="typeCours">
+                <input type="radio" value="0" id="0" name="typeCours">
                 <label for="domicile">Cours à domicile</label>
             </div>
         </fieldset>
         <br />
 
-<div>
+        <div>
 
 
-  <label for="matiere">Choisissez une matière : </label>
+            <label for="matiere">Choisissez une matière : </label>
             <select name="matiere" id="matiere">
-    <option value="francais">Français</option>
-    <option value="mathématiques">Mathématiques</option>
-    <option value="anglais">Anglais</option>
-    <option value="espagnol">Espagnol</option>
-  </select>
-</div>
+                <option value="francais">Français</option>
+                <option value="mathématiques">Mathématiques</option>
+                <option value="anglais">Anglais</option>
+                <option value="espagnol">Espagnol</option>
+            </select>
+        </div>
 
-<div>
-  <label for="niveau">Choisissez un niveau : </label>
+        <div>
+            <label for="niveau">Choisissez un niveau : </label>
             <select name="niveau" id="niveau">
                 <option value="5ème">5ème</option>
                 <option value="4ème">4ème</option>
                 <option value="3ème">3ème</option>
                 <option value="seconde">Seconde</option>
-  </select>
- </div>
+            </select>
+        </div>
+
+        <div>
+            <label for="creneau">Choisissez un créneau (date et horaire) : </label>
+            <input type="datetime-local" id="creneau" name="creneau">
+        </div>
 
         <div class="row h-100 justify-content-center align-items-center mt-4">
             <button type="submit" class="btn">Enregistrer</button>
+           
         </div>
+
 
     </form>
 

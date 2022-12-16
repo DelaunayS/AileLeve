@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using AileLeve.Models;
 using AileLeve.ViewModels;
@@ -46,15 +47,30 @@ namespace AileLeve.Controllers
                 //Pas besoin de supprimer les cours car DeleteOnCascade
                 dal.SupprimerEnseignantParId(compteASupprimer.UtilisateurId.Value);
             }
-            dal.SupprimerUtilisateur(utilisateur);
-            if (utilisateur.Adresse != null)
-            {
-                dal.SupprimerAdresse(compteASupprimer.Utilisateur.Adresse);
+
+            dal.SupprimerUtilisateur(utilisateur); 
+            if (utilisateur.Adresse!=null){
+            dal.SupprimerAdresse(compteASupprimer.Utilisateur.Adresse); 
             }
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress("aileleve.soutienscolaire@gmail.com");
+            message.Subject = "Votre compte a définitivement supprimé";
+            message.Body = "Bonjour " + compteASupprimer.Utilisateur.Prenom + "," + "\n"
+                + "Conformément à votre demande, votre compte a été définitivement supprimé. " + "\n" +
+                " Nous regrettons votre départ et sommes très attentifs aux raisons qui ont motivé ce choix." + "\n" +
+                " Pour cette raison, et afin d'améliorer la qualité de nos services, nous vous prions de prendre " + "\n" +
+                " quelques minutes pour répondre au questionnaire que vous recevrez après ce mail. " + "\n" +
+                " Equipe d'Aile'Lève";
+
+
+            message.To.Add(compteASupprimer.Profil.Email);
+
+            dal.EnvoyerMail(compteASupprimer.Profil.Email, message);
+
+
             return Redirect("/Admin/ListeUtilisateur");
         }
-
-
 
         public IActionResult Suspendre(int id)
         {
@@ -70,10 +86,27 @@ namespace AileLeve.Controllers
         }
         public IActionResult ValiderEnseignant(int id)
         {
-            Compte compteAValider = dal.ObtenirCompte(id);
-            compteAValider.Role = "Enseignant";
+
+
+            Compte compteAValider=dal.ObtenirCompte(id);           
+            compteAValider.Role="Enseignant";
+
             dal.ModifierCompte(compteAValider);
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress("aileleve.soutienscolaire@gmail.com");
+            message.Subject = "Votre compte a été validé";
+            message.Body = "Bonjour " + compteAValider.Utilisateur.Prenom + "," + "\n" + " Votre compte utilisateur a été validé. " + "\n"
+                + " Vous pouvez proposer des cours et mettre à jour votre planning." + "\n" +
+                " Notre équipe se tient à votre disposition en cas de besoin. " + "\n" +
+                " Equipe d'Aile'Lève";
+
+            message.To.Add(compteAValider.Profil.Email);
+
+            dal.EnvoyerMail(compteAValider.Profil.Email, message);
+
             return Redirect("/Admin/ListeUtilisateur");
+
         }
     }
 }

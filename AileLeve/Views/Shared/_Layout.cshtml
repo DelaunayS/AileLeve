@@ -33,8 +33,10 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     Cours
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -55,8 +57,10 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     Gestion
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -69,9 +73,11 @@
                         }
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Paramètres
+
+                            <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Compte
+
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/Utilisateur/Inscription">Inscription</a>
@@ -90,8 +96,20 @@
                                     <a class="dropdown-item" href="/Utilisateur/Connexion">Connexion</a>
                                 }
                             </div>
+
+                        <li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Visiteur/About">About</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Visiteur/Contact">Contact</a>
+                        </li>
+                        @*<li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
+                        </li>*@
+                      </ul>
                 </div>
 
 
@@ -128,7 +146,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022
+            &copy; Pour que chaque élève s'élève
         </div>
     </footer>
     <script src="/lib/jquery/dist/jquery.min.js"></script>

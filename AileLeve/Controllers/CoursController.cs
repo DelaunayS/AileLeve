@@ -8,6 +8,7 @@ using AileLeve.ViewModels;
 using System.Linq;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace AileLeve.Controllers
 {
@@ -24,18 +25,22 @@ namespace AileLeve.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin, Enseignant")]       
-        public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau)
+        public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau, DateTime creneau)
         {
             CompteViewModel viewModel = new CompteViewModel
             {
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
             };
-
+            int emploiDuTempsId  = dal.CreerEmploiDuTemps(creneau) ;
             string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
+           
 
             dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
+            dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId);
+            
+      
 
             DateTime date = DateTime.Now;
             dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours
@@ -46,23 +51,43 @@ namespace AileLeve.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin, Enseignant")]     
-        public IActionResult Supprimer(int id)
+        public IActionResult Supprimer(int id, string role)
         {
             CoursViewModel cvm = new CoursViewModel
             {
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
 
             };
-            string idUserStr = HttpContext.User.Identity.Name;
+
+            if (HttpContext.User.IsInRole ("Admin"))
+           
+            {
+                string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
+
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
-            cvm.CoursListe = dal.ObtenirCoursParEnseignant(enseignant.Id);
+
+            cvm.CoursListe = dal.ObtenirCoursParEnseignantPourAdmin();
+
+            }
+
+            else
+           
+            {
+                string idUserStr = HttpContext.User.Identity.Name;
+                int.TryParse(idUserStr, out int idUser);
+
+            Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
+
+                cvm.CoursListe = dal.ObtenirCoursParEnseignant(enseignant.Id);
+
+            }
 
             return View(cvm);
         }
        
         [Authorize(Roles = "Admin, Enseignant")]     
-        public IActionResult SupprimerCours(int id, CoursViewModel coursASupprimer, TypeCours typeCours, string matiere, string niveau, string enseignant)
+        public IActionResult SupprimerCours(int id, CoursViewModel coursASupprimer, TypeCours typeCours, string matiere, string niveau, string enseignant, string utilisateur)
         {
             CoursViewModel viewModel = new CoursViewModel
             {

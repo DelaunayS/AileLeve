@@ -1,48 +1,123 @@
 @{
     ViewBag.Title = "Connexion";
     Layout = "_Layout";
+    String chemin = String.Format("/utilisateur/inscription");
 }
-<h1 class="text-center mb-4">Connexion</h1>
+<h1 class="text-center mb-4" style="margin-top:30px">Bienvenue sur la plate-forme de soutien scolaire Aile'Lève !</h1>
+<br />
+<p class="text-center">
+    Notre vocation : offrir des cours de soutien scolaire dans toutes les disciplines, de la primaire au lycée.
+</p>
+<br />
 
-<div class="container">
+
+
+
+<div class="container" style="margin-top:50px">
     <form action="/Utilisateur/Connexion" method="post">
 
-        <div class="row h-100 justify-content-center align-items-center form-group">
-            <div class="col-6 input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
-                </div>
-                <input type="text" class="form-control" name="identifiant" id="IdentifiantForm"
-                    placeholder="Identifiant" required>
-            </div>
-        </div>
 
-        <div class="row h-100 justify-content-center align-items-center form-group">
-            <div class="col-6 input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
-                </div>
-                <input type="password" class="form-control" name="password" id="PasswordForm" placeholder="Mot de passe"
-                    required>
-                <div class="input-group-append">
-                    <span class="input-group-text" onclick="password_show_hide();">
-                        <i class="fas fa-eye" id="show_eye"></i>
-                        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <h5>Se connecter</h5>
+                <br />
+                <div class="input-group">
 
-        <div class="row h-100 justify-content-center align-items-center form-group">
-            <div class="col-3">
-                <button type="submit" class="btn">Se Connecter</button>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="identifiant" id="IdentifiantForm"
+                           placeholder="Identifiant" required>
+                </div>
+                <br />
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" name="password" id="PasswordForm" placeholder="Mot de passe"
+                           required>
+                    <div class="input-group-append">
+                        <span class="input-group-text" onclick="password_show_hide();">
+                            <i class="fas fa-eye" id="show_eye"></i>
+                            <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                        </span>
+                    </div>
+                </div>
+                <br />
+
+                <div class="text-center">
+                    <button type="submit" class="btn mr-3">Se connecter</button>
+                    @*  <a type="button" href="Inscription mr-3" class="btn">Créer un compte</a>*@
+                </div>
             </div>
-            <div class="col-3">
-                <a type="button" href="Inscription" class="btn">Créer un compte</a>
+
+
+            <div class="col-sm-8 text-center">
+                <h5>Pas encore de compte ? <a href="Inscription">S'inscrire</a> </h5>
+
+                <img src="~/img/Aile'lèveV3.png" class="img-fluid" alt="Logo image">
+
+
             </div>
-        </div>
+
+
 
     </form>
+
+
+
 </div>
 
 <script src="/Scripts/password_show_hide.js"></script>
+
+
+
+
+
+
+
+
+@* <div class="row h-100 justify-content-center align-items-center form-group">
+    <div class="col-6 input-group">
+
+    <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+    </div>
+    <input type="text" class="form-control" name="identifiant" id="IdentifiantForm"
+    placeholder="Identifiant" required>
+    </div>
+    </div>
+
+
+    <div class="row h-100 justify-content-center align-items-center form-group">
+    <div class="col-6 input-group">
+    <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+    </div>
+    <input type="password" class="form-control" name="password" id="PasswordForm" placeholder="Mot de passe"
+    required>
+    <div class="input-group-append">
+    <span class="input-group-text" onclick="password_show_hide();">
+    <i class="fas fa-eye" id="show_eye"></i>
+    <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+    </span>
+    </div>
+    </div>
+    </div>
+
+    <div class="row h-100 justify-content-center align-items-center form-group">
+    <div class="col-3">
+    <button type="submit" class="btn">Se Connecter</button>
+    </div>
+    <div class="col-3">
+    <a type="button" href="Inscription" class="btn">Créer un compte</a>
+    </div>
+    </div>
+
+    </form>*@
+
+
+@*</div>
+
+    <script src="/Scripts/password_show_hide.js"></script>*@
