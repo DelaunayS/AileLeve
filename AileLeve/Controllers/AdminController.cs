@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+
 namespace AileLeve.Controllers
 {
 
@@ -19,7 +20,7 @@ namespace AileLeve.Controllers
 
         public IActionResult ListeUtilisateur()
         {
-        
+
             ComptesViewModel cvm = new ComptesViewModel
             {
                 Comptes = dal.ObtenirTousLesComptes()
@@ -30,23 +31,26 @@ namespace AileLeve.Controllers
         public IActionResult Supprimer(int id)
         {
             Compte compteASupprimer = dal.ObtenirCompte(id);
-            Utilisateur utilisateur=compteASupprimer.Utilisateur;                 
-            
+            Utilisateur utilisateur = compteASupprimer.Utilisateur;
+
             dal.SupprimerCompte(compteASupprimer);
             dal.SupprimerProfil(compteASupprimer.Profil);
-            if (compteASupprimer.Role=="Eleve"){
-                int eleveId=dal.ObtenirEleveParUserId(utilisateur.Id);
+            if (compteASupprimer.Role == "Eleve")
+            {
+                int eleveId = dal.ObtenirEleveParUserId(utilisateur.Id);
                 dal.SupprimerEtudieParIdEleve(eleveId);
                 dal.SupprimerEleveParId(eleveId);
             }
-            if (compteASupprimer.Role=="Enseignant"){
+            if (compteASupprimer.Role == "Enseignant")
+            {
                 //Pas besoin de supprimer les cours car DeleteOnCascade
                 dal.SupprimerEnseignantParId(compteASupprimer.UtilisateurId.Value);
             }
-            dal.SupprimerUtilisateur(utilisateur); 
-            if (utilisateur.Adresse!=null){
-            dal.SupprimerAdresse(compteASupprimer.Utilisateur.Adresse); 
-            }   
+            dal.SupprimerUtilisateur(utilisateur);
+            if (utilisateur.Adresse != null)
+            {
+                dal.SupprimerAdresse(compteASupprimer.Utilisateur.Adresse);
+            }
             return Redirect("/Admin/ListeUtilisateur");
         }
 
@@ -61,13 +65,13 @@ namespace AileLeve.Controllers
         }
         public IActionResult Valider(int id)
         {
-            Compte compteAValider=dal.ObtenirCompte(id);
+            Compte compteAValider = dal.ObtenirCompte(id);
             return View(compteAValider);
         }
         public IActionResult ValiderEnseignant(int id)
         {
-            Compte compteAValider=dal.ObtenirCompte(id);           
-            compteAValider.Role="Enseignant";
+            Compte compteAValider = dal.ObtenirCompte(id);
+            compteAValider.Role = "Enseignant";
             dal.ModifierCompte(compteAValider);
             return Redirect("/Admin/ListeUtilisateur");
         }

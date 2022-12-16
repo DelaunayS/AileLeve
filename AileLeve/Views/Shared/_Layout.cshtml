@@ -95,20 +95,27 @@
                 </div>
 
 
-                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin"))) 
+                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
                 {
 
 
-                     <div class="navbar-collapse justify-content-end h-100 w-100">
-                        <a class="notification" href="/Notification/Index">
-                            <h3 class="justify-content-center"><i class="far fa-bell text-light mw-100 mh-100" id="notif"></i></h3>
+                    <div class="navbar-collapse justify-content-end h-100 w-100">
+                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Generer un pdf">
+                             <h3 class="justify-content-center">
+                                <i class="fas fa-print text-light mw-100 mh-100 " onclick="genererPdf('doc')"></i>
+                            </h3>
+                        </a>                       
+                        <a class="notification p-2" href="/Notification/Index">
+                            <h3 class="justify-content-center"><i class="fas fa-bell text-light mw-100 mh-100"
+                                id="notif"></i></h3>
                         </a>
+
                     </div>
                 }
-               
-        
-               
-             
+
+
+
+
 
             </div>
         </nav>
@@ -124,9 +131,12 @@
             &copy; 2022
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
+    <script src="/Scripts/jsPdf/jspdf.umd.js"></script>
+    <script src="/Scripts/html2canvas.min.js"></script>
+    <script src="/Scripts/genererPdf.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 
