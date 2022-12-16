@@ -17,12 +17,9 @@ namespace AileLeve.Controllers
     {
         private Dal dal = new Dal();
         [Authorize]
-        public IActionResult Index(int id)
+        public IActionResult Index()
         {
-            if (id == 0)
-            {
-                return Redirect("/Utilisateur/Connexion");
-            }
+            
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
             if (viewModel.Authentifie)
             {
