@@ -32,7 +32,7 @@
                         @Model.Utilisateur.Adresse.Ville</p>
                 }
             }
-            @if (Model.Role=="Enseignant"){
+            @if ((@Model.Role == "Enseignant") || (@Model.Role == "Admin")){
                 <div class="row h-100 justify-content-center align-items-center m-2">
                 <a href=@chemin2 class="btn">Ajouter un cours</a>
             </div>

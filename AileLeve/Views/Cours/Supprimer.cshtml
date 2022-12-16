@@ -2,9 +2,9 @@
 @{
     ViewBag.Title = "Liste des cours";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
- }
- 
+
+}
+
 
 <h1 class="text-center mb-4">Liste des cours</h1>
 
@@ -19,28 +19,30 @@
             <th scope="col">Matière</th>
             <th scope="col">Niveau</th>
             <th scope="col">Enseignant</th>
-           
+
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in @Model.CoursListe)
-        {
-            <tr>
-                <td>@item.TypeCours</td>
-                <td>@item.Matiere.Nom</td>
-                <td>@item.Niveau.Nom</td>
-                <td>@item.Enseignant.Id</td>
-              
-                <td>
+      
+            @foreach (var item in @Model.CoursListe)
+            {
+                <tr>
+                    <td>@item.TypeCours</td>
+                    <td>@item.Matiere.Nom</td>
+                    <td>@item.Niveau.Nom</td>
+                    <td>@item.Enseignant.Id</td>
 
-                    
-                    <a type="button" href=@Url.Action("SupprimerCours", "Cours", new { id = item.Id }) class="fas fa-trash text-danger p-2"></a>
-                    <a type="button" href=@Url.Action("Modifier", "Cours", new { id = item.Id }) class="fas fa-pen text-info p-2"></a>
-                   
+                    <td>
 
-                   </td>
-            </tr>
-        }
+
+                        <a type="button" href=@Url.Action("SupprimerCours", "Cours", new { id = item.Id }) class="fas fa-trash text-danger p-2"></a>
+                        <a type="button" href=@Url.Action("Modifier", "Cours", new { id = item.Id }) class="fas fa-pen text-info p-2"></a>
+
+
+                    </td>
+                </tr>
+            }
+        
     </tbody>
 </table>
     <!-- </form>-->
