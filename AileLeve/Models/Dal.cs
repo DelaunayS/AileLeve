@@ -152,6 +152,15 @@ namespace AileLeve.Models
         }
 
 
+
+        public int CreerRepresentantLegal(int utilisateurId, int eleveId)
+        {
+            RepresentantLegal representantLegal = new RepresentantLegal() { UtilisateurId = utilisateurId, EleveId = eleveId };
+            _bddContext.RepresentantLegaux.Add(representantLegal);
+            _bddContext.SaveChanges();
+            return representantLegal.Id;
+        }
+
         public void AjouterAdresse(int id, Adresse adresse)
         {
             Compte compte = ObtenirCompte(id);
