@@ -14,5 +14,10 @@
         public virtual Niveau Niveau { get; set; }
         public int EnseignantId { get; set; }
         public virtual Enseignant Enseignant { get; set; }
+
+        
+
+
+
     }
 }
