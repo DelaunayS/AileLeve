@@ -24,18 +24,21 @@ namespace AileLeve.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin, Enseignant")]       
-        public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau)
+        public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau, DateTime creneau)
         {
             CompteViewModel viewModel = new CompteViewModel
             {
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
             };
-
+            int emploiDuTempsId  = dal.CreerEmploiDuTemps(creneau) ;
             string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
 
+
             dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
+            dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId);
+      
 
             DateTime date = DateTime.Now;
             dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours

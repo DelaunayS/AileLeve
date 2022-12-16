@@ -8,13 +8,17 @@
 
 <h1 class="text-center mb-4">Supprimer le compte</h1>
 
-
 <div class="container">
-    <div class="card">
+    <div class="row h-100 justify-content-center align-items-center form-group">
+    <div class="card col-6">
         <div class="card-body">
-            <h5 class="card-title">Voulez-vous supprimer ce compte ?</h5>
-            <p class="card-text">@Model.Utilisateur.Prenom, @Model.Utilisateur.Nom</p>
-            <p class="card-text">@Model.Profil.Email</p>
+            <h5 class="card-title alert alert-danger text-center"> Attention </h5>
+            <p class="card-text">@Model.Utilisateur.Prenom @Model.Utilisateur.Nom voulez-vous supprimer votre compte ?</p>
+            <p class="card-text">Cette action est irréversible : une notification de demande de suppression du compte
+                sera envoyée à l'administrateur du site.
+            </p>
+            <p class="card-text">Toutes vos données personnelles seront supprimées de notre base de données sous 24 heures.
+            </p>
 
             <form action="/Utilisateur/Supprimer" method="post">
                 <div class="form-group">
@@ -24,18 +28,16 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <button type="submit" class="btn btn-danger">Valider</button>
+                            <button type="submit" class="btn">Valider</button>
                         </div>
                         <div class="col">
-                            <a href=@chemin type=" button" class="btn btn-primary">Annuler</a>
+                            <a href=@chemin type="button" class="btn">Annuler</a>
                         </div>
                     </div>
-
-
                 </div>
                 <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
             </form>
-
         </div>
+    </div>
     </div>
 </div>
