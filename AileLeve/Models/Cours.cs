@@ -15,8 +15,7 @@
         public int EnseignantId { get; set; }
         public virtual Enseignant Enseignant { get; set; }
 
-        public int? UtilisateurId { get; set; }
-        public virtual Enseignant Utilisateur { get; set; }
+        
 
 
 

@@ -59,8 +59,8 @@ namespace AileLeve.Controllers
 
             };
 
-
-            if (id == 11)
+            if (HttpContext.User.IsInRole ("Admin"))
+           
             {
                 string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
@@ -72,9 +72,9 @@ namespace AileLeve.Controllers
             }
 
             else
-           // if (role == "Enseignant")
+           
             {
-            string idUserStr = HttpContext.User.Identity.Name;
+                string idUserStr = HttpContext.User.Identity.Name;
                 int.TryParse(idUserStr, out int idUser);
 
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
