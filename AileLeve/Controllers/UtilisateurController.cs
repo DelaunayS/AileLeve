@@ -29,7 +29,7 @@ namespace AileLeve.Controllers
 
         [HttpPost()]
         public IActionResult Inscription(string role, string nom, string prenom, string identifiant, string password,
-         string email, string tel, DateTime dateNaissance, int numeroRue, string rue, int codePostal, string ville)
+         string email, string tel, DateTime dateNaissance, int numeroRue, string rue, int codePostal, string ville, string prenomRL, string nomRL)
         {
             if (role=="Recrutement"){
                    dateNaissance=new DateTime(1970,1,1);
@@ -43,7 +43,9 @@ namespace AileLeve.Controllers
 
                 if (role == "Eleve")
                 {
-                    dal.CreerEleve(dateNaissance, utilisateurId);
+                    int utilisateurRLId = dal.CreerUtilisateur(nomRL, prenomRL, adresseId);
+                   int eleveId = dal.CreerEleve(dateNaissance, utilisateurId);
+                    dal.CreerRepresentantLegal(utilisateurRLId, eleveId);
                 }
                 if (role=="Recrutement"){
                     dal.CreerEnseignant(utilisateurId);

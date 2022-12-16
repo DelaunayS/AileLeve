@@ -24,6 +24,8 @@ namespace AileLeve.Models
         public DbSet<EmploiDuTempsEnseignant> EmploiDuTempsEnseignants { get; set; }
         public DbSet<EstDisponible> EstDisponible { get; set; }
 
+        public DbSet<RepresentantLegal> RepresentantLegaux{ get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -97,7 +99,13 @@ namespace AileLeve.Models
                 new Utilisateur { Id = 8, Nom = "Bobin", Prenom = "Christian", AdresseId = 8 },
                 new Utilisateur { Id = 9, Nom = "Proust", Prenom = "Marcel", AdresseId = 9 },
                 new Utilisateur { Id = 10, Nom = "Maulpoix", Prenom = "Jean-Michel", AdresseId = 10 },
-                new Utilisateur { Id = 11, Nom = "Admin", Prenom = "Bernard", AdresseId = 11 }
+                new Utilisateur { Id = 11, Nom = "Admin", Prenom = "Bernard", AdresseId = 11 },
+                new Utilisateur { Id = 12, Nom = "Prévert", Prenom = "Jacques", AdresseId = 6 },
+                new Utilisateur { Id = 13, Nom = "Hugo", Prenom = "Victor", AdresseId = 7 },
+                new Utilisateur { Id = 14, Nom = "Baudelaire", Prenom = "Charles", AdresseId = 8 },
+                new Utilisateur { Id = 15, Nom = "Desnos", Prenom = "Robert", AdresseId = 9 },
+                new Utilisateur { Id = 16, Nom = "Verlaine", Prenom = "Paul", AdresseId = 10 }
+
             ); ;
             this.Profils.AddRange(
                 new Profil { Id = 1, Telephone = "0625522552", Image = "/img/profil.jpg", Email = "dupondjean@gmail.fr" },
@@ -160,6 +168,15 @@ namespace AileLeve.Models
                 new Eleve { Id = 5, DateDeNaissance = new DateTime(2006, 03, 08), UtilisateurId = 10 }
                 );
 
+            this.RepresentantLegaux.AddRange(
+               new RepresentantLegal { UtilisateurId = 12, EleveId = 1},
+               new RepresentantLegal { UtilisateurId = 13, EleveId = 2 },
+               new RepresentantLegal { UtilisateurId = 14, EleveId = 3 },
+               new RepresentantLegal { UtilisateurId = 15, EleveId = 4 },
+               new RepresentantLegal { UtilisateurId = 16, EleveId = 5}
+               );
+
+
             this.Cours.AddRange(
 
                 new Cours { Id = 1, MatiereId = 1, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.domicile },
@@ -206,8 +223,8 @@ namespace AileLeve.Models
                  new Etudie { EleveId = 1, CoursId = 14 },
                  new Etudie { EleveId = 2, CoursId = 18 },
                  new Etudie { EleveId = 3, CoursId = 3 },
-                  new Etudie { EleveId = 4, CoursId = 13 },
-                  new Etudie { EleveId = 5, CoursId = 19 }
+                 new Etudie { EleveId = 4, CoursId = 13 },
+                 new Etudie { EleveId = 5, CoursId = 19 }
 
                  );
 
