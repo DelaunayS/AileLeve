@@ -1,9 +1,17 @@
-﻿namespace AileLeve.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AileLeve.Models
 {
     public enum TypeCours
     {
-        domicile, synchrone, asynchrone
+        [Display(Name = "Cours à domicile")]
+        domicile,
+        [Display(Name = "Cours synchrone en ligne")]
+        onlineSynchrone,
+        [Display(Name = "Cours asynchrone")]
+        onlineAsynchrone
     }
+    
     public class Cours
     {
         public int Id { get; set; }
@@ -14,10 +22,5 @@
         public virtual Niveau Niveau { get; set; }
         public int EnseignantId { get; set; }
         public virtual Enseignant Enseignant { get; set; }
-
-        
-
-
-
     }
 }

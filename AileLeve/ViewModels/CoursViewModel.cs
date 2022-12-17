@@ -13,6 +13,7 @@ namespace AileLeve.ViewModels
         public Enseignant Enseignant { get; set; }
         public Cours Cours { get; set; }
       
+        public EstDisponible EstDisponible { get; set; }    
         public bool Authentifie { get; set; }
         public List<Cours> CoursListe { get; set; }
 

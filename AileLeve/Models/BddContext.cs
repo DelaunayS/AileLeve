@@ -17,10 +17,7 @@ namespace AileLeve.Models
         public DbSet<Enseignant> Enseignants { get; set; }
         public DbSet<Etudie> Etudie { get; set; }
         public DbSet<Cours> Cours { get; set; }
-
         public DbSet<Notification> Notifications { get; set; }
-
-
         public DbSet<EmploiDuTempsEnseignant> EmploiDuTempsEnseignants { get; set; }
         public DbSet<EstDisponible> EstDisponible { get; set; }
 
@@ -31,13 +28,16 @@ namespace AileLeve.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Etudie>().HasKey(e => new { e.CoursId, e.EleveId });
-            modelBuilder.Entity<EstDisponible>().HasKey(e => new { e.EnseignantId, e.EmploiDuTempsEnseignantId });
+            modelBuilder.Entity<EstDisponible>().HasKey(e => new { e.EnseignantId, e.EmploiDuTempsEnseignantId, e.CoursId });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
         optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
+        
         }
+
         public void InitializeDb()
         {
             this.Database.EnsureDeleted();
@@ -107,6 +107,7 @@ namespace AileLeve.Models
                 new Utilisateur { Id = 16, Nom = "Verlaine", Prenom = "Paul", AdresseId = 10 }
 
             ); ;
+
             this.Profils.AddRange(
                 new Profil { Id = 1, Telephone = "0625522552", Image = "/img/profil.jpg", Email = "dupondjean@gmail.fr" },
                 new Profil { Id = 2, Telephone = "0725752552", Image = "/img/profil.jpg", Email = "dupontyann@yahoo.fr" },
@@ -120,8 +121,8 @@ namespace AileLeve.Models
                 new Profil { Id = 10, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "jeanmichel.maulpoix@gmail.com" },
                 new Profil { Id = 11, Telephone = "0102030405", Image = "/img/profil.jpg", Email = "aileleve.soutienscolaire@gmail.com" }
             );
-            this.Comptes.AddRange(
 
+            this.Comptes.AddRange(
             new Compte { Id = 1, Identifiant = "DupondJ", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif=true, Role="Enseignant" },
                 new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2, StatusActif=true, Role="Enseignant" },
                 new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3, StatusActif=true, Role="Enseignant"},
@@ -137,7 +138,6 @@ namespace AileLeve.Models
             );
 
             this.Adresses.AddRange(
-
                 new Adresse { Id = 1, Rue = "avenue des Roses", NumeroRue = 50, CodePostal = 38000, Ville = "Grenoble" },
                 new Adresse { Id = 2, Rue = "chemin des marais", NumeroRue = 2, CodePostal = 51290, Ville = "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson" },
                 new Adresse { Id = 3, Rue = "impasse de l'espoir", NumeroRue = 150, CodePostal = 67000, Ville = "Strasbourg" },
@@ -157,8 +157,6 @@ namespace AileLeve.Models
                 new Enseignant { Id = 4, UtilisateurId = 4 },
                 new Enseignant { Id = 5, UtilisateurId = 5 }
                 );
-
-
 
             this.Eleves.AddRange(
                 new Eleve { Id = 1, DateDeNaissance = new DateTime(2006, 08, 15), UtilisateurId = 6 },
@@ -200,79 +198,93 @@ namespace AileLeve.Models
                 new Cours { Id = 19, MatiereId = 19, NiveauId = 11, EnseignantId = 4, TypeCours = TypeCours.domicile },
                 new Cours { Id = 20, MatiereId = 20, NiveauId = 12, EnseignantId = 5, TypeCours = TypeCours.synchrone }
 
-
             );
-
-
+                                                        
             this.Etudie.AddRange(
-                 new Etudie { EleveId = 1, CoursId = 12 },
-                 new Etudie { EleveId = 2, CoursId = 5 },
-                 new Etudie { EleveId = 3, CoursId = 2 },
-                 new Etudie { EleveId = 4, CoursId = 10 },
-                 new Etudie { EleveId = 5, CoursId = 11 },
-                 new Etudie { EleveId = 1, CoursId = 4 },
-                 new Etudie { EleveId = 2, CoursId = 1 },
-                 new Etudie { EleveId = 3, CoursId = 4 },
-                 new Etudie { EleveId = 4, CoursId = 14 },
-                 new Etudie { EleveId = 5, CoursId = 18 },
-                 new Etudie { EleveId = 1, CoursId = 15 },
-                 new Etudie { EleveId = 2, CoursId = 8 },
-                 new Etudie { EleveId = 3, CoursId = 9 },
-                 new Etudie { EleveId = 4, CoursId = 5 },
-                 new Etudie { EleveId = 5, CoursId = 1 },
-                 new Etudie { EleveId = 1, CoursId = 14 },
-                 new Etudie { EleveId = 2, CoursId = 18 },
-                 new Etudie { EleveId = 3, CoursId = 3 },
-                 new Etudie { EleveId = 4, CoursId = 13 },
-                 new Etudie { EleveId = 5, CoursId = 19 }
 
-                 );
+                new Etudie { EleveId = 1, CoursId = 12},
+                new Etudie { EleveId = 2, CoursId = 5},
+                new Etudie { EleveId = 3, CoursId = 2},
+                new Etudie {EleveId = 4, CoursId = 10 },
+                new Etudie { EleveId = 5, CoursId = 11},
+
+                new Etudie { EleveId = 1, CoursId = 4},
+                new Etudie { EleveId = 2, CoursId = 1},
+                new Etudie { EleveId = 3, CoursId = 4},
+                new Etudie { EleveId = 4, CoursId = 14},
+                new Etudie { EleveId = 5, CoursId = 18},
+
+                //new Etudie { EleveId = 1, CoursId = 15},
+                new Etudie { EleveId = 2, CoursId = 8},
+                new Etudie { EleveId = 3, CoursId = 9},
+                new Etudie { EleveId = 4, CoursId = 5},
+                new Etudie { EleveId = 5, CoursId = 1},
+
+                new Etudie { EleveId = 1, CoursId = 16},
+                new Etudie { EleveId = 2, CoursId = 18},
+                new Etudie { EleveId = 3, CoursId = 3 },
+                new Etudie { EleveId = 4, CoursId = 13},
+                new Etudie { EleveId = 5, CoursId = 19}
+
+                );
 
 
             this.EmploiDuTempsEnseignants.AddRange(
-           new EmploiDuTempsEnseignant { Id = 1, DateTime = new DateTime(2022, 12, 21, 10, 00, 00), Disponible = true },
-           new EmploiDuTempsEnseignant { Id = 2, DateTime = new DateTime(2022, 12, 22, 11, 00, 00), Disponible = true },
-           new EmploiDuTempsEnseignant { Id = 3, DateTime = new DateTime(2022, 12, 23, 10, 00, 00), Disponible = true },
-           new EmploiDuTempsEnseignant { Id = 4, DateTime = new DateTime(2022, 12, 24, 10, 00, 00), Disponible = false },
-           new EmploiDuTempsEnseignant { Id = 5, DateTime = new DateTime(2023, 01, 05, 09, 00, 00), Disponible = true },
-           new EmploiDuTempsEnseignant { Id = 6, DateTime = new DateTime(2023, 01, 06, 10, 00, 00), Disponible = false },
+           new EmploiDuTempsEnseignant { Id = 1, DateTime = new DateTime(2022, 12, 21, 16, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 2, DateTime = new DateTime(2022, 12, 22, 18, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 3, DateTime = new DateTime(2022, 12, 23, 17, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 4, DateTime = new DateTime(2022, 12, 24, 18, 00, 00), Disponible = false },
+           new EmploiDuTempsEnseignant { Id = 5, DateTime = new DateTime(2023, 01, 05, 16, 30, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 6, DateTime = new DateTime(2023, 01, 06, 14, 00, 00), Disponible = false },
            new EmploiDuTempsEnseignant { Id = 7, DateTime = new DateTime(2023, 01, 07, 11, 00, 00), Disponible = true },
-           new EmploiDuTempsEnseignant { Id = 8, DateTime = new DateTime(2023, 01, 08, 14, 00, 00), Disponible = false },
-           new EmploiDuTempsEnseignant { Id = 9, DateTime = new DateTime(2023, 01, 12, 10, 00, 00), Disponible = false },
-           new EmploiDuTempsEnseignant { Id = 10, DateTime = new DateTime(2023, 01, 09, 10, 00, 00), Disponible = false },
-           new EmploiDuTempsEnseignant { Id = 11, DateTime = new DateTime(2023, 01, 10, 11, 00, 00), Disponible = true },
-           new EmploiDuTempsEnseignant { Id = 12, DateTime = new DateTime(2023, 01, 11, 10, 00, 00), Disponible = true }
-
+           new EmploiDuTempsEnseignant { Id = 8, DateTime = new DateTime(2023, 01, 09, 18, 00, 00), Disponible = false },
+           new EmploiDuTempsEnseignant { Id = 9, DateTime = new DateTime(2023, 01, 10, 19, 00, 00), Disponible = false },
+           new EmploiDuTempsEnseignant { Id = 10, DateTime = new DateTime(2023, 01, 11, 15, 00, 00), Disponible = false },
+           new EmploiDuTempsEnseignant { Id = 11, DateTime = new DateTime(2023, 01, 12, 18, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 12, DateTime = new DateTime(2023, 01, 13, 18, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 13, DateTime = new DateTime(2023, 01, 14, 11, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 14, DateTime = new DateTime(2023, 01, 16, 16, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 15, DateTime = new DateTime(2023, 01, 17, 17, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 16, DateTime = new DateTime(2023, 01, 18, 17, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 17, DateTime = new DateTime(2023, 01, 19, 18, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 18, DateTime = new DateTime(2023, 01, 20, 16, 30, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 19, DateTime = new DateTime(2023, 01, 21, 10, 00, 00), Disponible = true },
+           new EmploiDuTempsEnseignant { Id = 20, DateTime = new DateTime(2023, 01, 23, 16, 00, 00), Disponible = true }
            );
 
             this.EstDisponible.AddRange(
-            new EstDisponible { EnseignantId = 1, EmploiDuTempsEnseignantId = 1 },
-            new EstDisponible { EnseignantId = 2, EmploiDuTempsEnseignantId = 2 },
-            new EstDisponible { EnseignantId = 3, EmploiDuTempsEnseignantId = 3 },
-            new EstDisponible { EnseignantId = 4, EmploiDuTempsEnseignantId = 4 },
-            new EstDisponible { EnseignantId = 5, EmploiDuTempsEnseignantId = 5 },
-            new EstDisponible { EnseignantId = 1, EmploiDuTempsEnseignantId = 8},
-            new EstDisponible { EnseignantId = 2, EmploiDuTempsEnseignantId = 6 },
-            new EstDisponible { EnseignantId = 3, EmploiDuTempsEnseignantId = 7 },
-            new EstDisponible { EnseignantId = 3, EmploiDuTempsEnseignantId = 1 },
-            new EstDisponible { EnseignantId = 1, EmploiDuTempsEnseignantId = 5 }
+            new EstDisponible { EnseignantId = 1, EmploiDuTempsEnseignantId = 1, CoursId = 1 },
+            new EstDisponible { EnseignantId = 1, EmploiDuTempsEnseignantId = 3, CoursId = 6 },
+            new EstDisponible { EnseignantId = 1, EmploiDuTempsEnseignantId = 5, CoursId = 11 },
+            new EstDisponible { EnseignantId = 1, EmploiDuTempsEnseignantId = 7, CoursId = 16 },
+
+            new EstDisponible { EnseignantId = 2, EmploiDuTempsEnseignantId = 2, CoursId = 2 },
+            new EstDisponible { EnseignantId = 2, EmploiDuTempsEnseignantId = 4, CoursId = 7 },
+            new EstDisponible { EnseignantId = 2, EmploiDuTempsEnseignantId = 6, CoursId = 12 },
+            new EstDisponible { EnseignantId = 2, EmploiDuTempsEnseignantId = 8, CoursId = 17 },
+
+            new EstDisponible { EnseignantId = 3, EmploiDuTempsEnseignantId = 9, CoursId = 3 },
+            new EstDisponible { EnseignantId = 3, EmploiDuTempsEnseignantId = 11, CoursId = 8 },
+            new EstDisponible { EnseignantId = 3, EmploiDuTempsEnseignantId = 13, CoursId = 13 },
+            new EstDisponible { EnseignantId = 3, EmploiDuTempsEnseignantId = 15, CoursId = 18 },
+
+            new EstDisponible { EnseignantId = 4, EmploiDuTempsEnseignantId = 10, CoursId = 4 },
+            new EstDisponible { EnseignantId = 4, EmploiDuTempsEnseignantId = 12, CoursId = 9 },
+            new EstDisponible { EnseignantId = 4, EmploiDuTempsEnseignantId = 14, CoursId = 14 },
+            new EstDisponible { EnseignantId = 4, EmploiDuTempsEnseignantId = 16, CoursId = 19 },
+
+            new EstDisponible { EnseignantId = 5, EmploiDuTempsEnseignantId = 17, CoursId = 5 },
+            new EstDisponible { EnseignantId = 5, EmploiDuTempsEnseignantId = 18, CoursId = 10 },
+            new EstDisponible { EnseignantId = 5, EmploiDuTempsEnseignantId = 19, CoursId = 15 },
+            new EstDisponible { EnseignantId = 5, EmploiDuTempsEnseignantId = 20, CoursId = 20 }
             );
 
             this.Notifications.AddRange(
                 new Notification { Id = 1, Lu = true, TypeNotification = "L'élève Proust Marcel s'est inscrite sur la plateforme le 14/12/2022 14:31" },
                 new Notification { Id = 2, Lu = false, TypeNotification = "L'enseignant Dupond Jean s'est inscrit sur la plateforme le 13/12/2022 18:42" }
-  
             );
-            
-
+           
             this.SaveChanges();
-
-
-
-
         }
-
-
-
     }
 }

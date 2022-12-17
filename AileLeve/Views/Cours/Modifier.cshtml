@@ -7,40 +7,28 @@
 <h1 class="text-center mb-4">Modifier un cours</h1>
 
 <div class="container">
-    <form action="/cours/modifier/{0}" , @Model.Cours.Id method="post">
-        @*<input type="hidden" name="cours.Id" value="@Model.Cours.Id" />
-        <input type="hidden" name="cours.Matiere.Id" value="@Model.Cours.Matiere.Id" />
-        <input type="hidden" name="cours.Niveau.Id" value="@Model.Cours.Niveau.Id" />*@
+    <form action="/cours/modifier" method="post">
 
-      
-
-        <label for="matiere" >Cours précédent : </label>
+        <label for="matiere">Cours précédent : </label>
         <div>
             @Model.Cours.TypeCours
 
         </div>
 
         <fieldset>
-            <h9>Veuillez choisir un nouveau type de cours : </h9>
+            <legend>Veuillez sélectionner un nouveau type de cours :</legend>
             <div>
-
-                <input type="radio" id="onlineSynchrone" name="Cours.TypeCours" value="synchrone">
-
-                <label for="onlineSynchrone">Cours synchrone </label>
+                <input type="checkbox" value="1" id="1" name="Cours.TypeCours">
+                <label for="onlineSynchrone">Cours synchrone</label>
 
             </div>
-
             <div>
-
-                <input type="radio" id="onlineAsynchrone" name="Cours.TypeCours" value="asynchrone">
+                <input type="checkbox" value="2" id="2" name="Cours.TypeCours">
 
                 <label for="onlineAsynchrone">Cours asynchrone</label>
             </div>
-
             <div>
-
-                <input type="radio" id="domicile" name="Cours.TypeCours" value="domicile">
-
+                <input type="checkbox" value="0" id="0" name="Cours.TypeCours">
                 <label for="domicile">Cours à domicile</label>
             </div>
         </fieldset>
@@ -127,6 +115,15 @@
                 </td>
             </tr>
         </table>
+
+        <div>
+            <label for="creneau">Vous avez proposé ce cours le : @Model.EstDisponible.EmploiDuTempsEnseignant.DateTime </label>
+        </div>
+
+        <div>
+            <label for="creneau">Choisissez le créneau (date et horaire) : </label>
+            <input type="datetime-local" id="creneau" name="creneau" value="@Model.EstDisponible.EmploiDuTempsEnseignant.DateTime">
+        </div>
 </div>
 @Html.HiddenFor(m=>m.Cours.MatiereId)
 @Html.HiddenFor(m=>m.Cours.NiveauId)
@@ -137,4 +134,3 @@
 </div>
 
     </form>
-

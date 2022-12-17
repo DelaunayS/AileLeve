@@ -8,8 +8,8 @@ using AileLeve.ViewModels;
 using System.Linq;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
-
 namespace AileLeve.Controllers
 {
     public class CoursController : Controller
@@ -23,6 +23,7 @@ namespace AileLeve.Controllers
             return View();
         }
 
+       
         [HttpPost]
         [Authorize(Roles = "Admin, Enseignant")]       
         public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau, DateTime creneau)
@@ -35,19 +36,16 @@ namespace AileLeve.Controllers
             string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
-           
-
-            dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
-            dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId);
+            int coursId = dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
+            dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId, coursId);
             
-      
-
             DateTime date = DateTime.Now;
             dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours
             + " a été créé le " + date.ToString("MM/dd/yyyy f HH:mm"));
 
             return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
+
 
         [HttpGet]
         [Authorize(Roles = "Admin, Enseignant")]     
@@ -56,33 +54,20 @@ namespace AileLeve.Controllers
             CoursViewModel cvm = new CoursViewModel
             {
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
-
             };
 
             if (HttpContext.User.IsInRole ("Admin"))
-           
             {
-                string idUserStr = HttpContext.User.Identity.Name;
+            string idUserStr = HttpContext.User.Identity.Name;
             int.TryParse(idUserStr, out int idUser);
-
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
-
             cvm.CoursListe = dal.ObtenirCoursParEnseignantPourAdmin();
-
-            }
-
-            else
-           
+            } else
             {
-                string idUserStr = HttpContext.User.Identity.Name;
-                int.TryParse(idUserStr, out int idUser);
-
+            string idUserStr = HttpContext.User.Identity.Name;
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
-
-                cvm.CoursListe = dal.ObtenirCoursParEnseignant(enseignant.Id);
-
+            cvm.CoursListe = dal.ObtenirCoursParEnseignant(enseignant.Id);
             }
-
             return View(cvm);
         }
        
@@ -95,23 +80,16 @@ namespace AileLeve.Controllers
             };
             if (viewModel.Authentifie)
             {
-
                 viewModel.Cours = dal.ObtenirCours(id);
                 Cours cours = dal.ObtenirTousLesCours().Where(p => p.Id == viewModel.Cours.Id).FirstOrDefault();
                 string idUserStr = HttpContext.User.Identity.Name;
                 int.TryParse(idUserStr, out int idUser);
-
-
                 dal.SupprimerCours(cours);
-
-
-                return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
+                return RedirectToAction("Index", "Home", new { @id = idUser });
             }
             return View();
         }
 
-
-       
         [HttpGet]
         [Authorize(Roles = "Admin, Enseignant")]          
         public IActionResult Modifier(int id)
@@ -127,18 +105,16 @@ namespace AileLeve.Controllers
             CoursViewModel cvm = new CoursViewModel
             {
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
-
             };
 
-            Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
             cvm.Cours = dal.ObtenirCours(id);
-
+            cvm.EstDisponible = dal.ObtenirTousLesPlannings().Where(c => c.CoursId == cvm.Cours.Id).FirstOrDefault();        
             return View(cvm);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin, Enseignant")]    
-        public IActionResult Modifier(int id, CoursViewModel coursAModifier, TypeCours typeCours, string matiere, string niveau, string enseignant)
+        public IActionResult Modifier(CoursViewModel coursAModifier, DateTime creneau)
         {
             CoursViewModel viewModel = new CoursViewModel
             {
@@ -149,9 +125,15 @@ namespace AileLeve.Controllers
                 string idUserStr = HttpContext.User.Identity.Name;
                 int.TryParse(idUserStr, out int idUser);
 
+                coursAModifier.EstDisponible = dal.ObtenirToutesLesDispos().Where(c => c.CoursId == coursAModifier.Cours.Id).FirstOrDefault();
+                EmploiDuTempsEnseignant edtAmodifier = dal.ObtenirTousLesEmploisDuTemps().Where(c => c.Id == coursAModifier.EstDisponible.EmploiDuTempsEnseignantId).FirstOrDefault();
+                edtAmodifier.DateTime = creneau;
+
+                dal.ModifierEmploiDuTemps(edtAmodifier);
                 dal.ModifierCours(coursAModifier.Cours);
 
-                return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
+
+                return Redirect("/Home/Index");
             }
             return View();
         }
