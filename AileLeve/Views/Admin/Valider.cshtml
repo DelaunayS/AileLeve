@@ -6,42 +6,41 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-<div id="doc" class="container">
-    <h1 class="text-center mb-4">Recruter cet enseignant</h1>
 
-    <div class="container">
-        <div class="row h-100 justify-content-center align-items-center">
-            <div class="card col-6">
-                <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom
-                    </h5>
-                    <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
-                    <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
-                    <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Identifiant</p>
-                    @if (@Model.Utilisateur.Adresse != null)
-                    {
-                        <p class="card-text"> <i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
-                            @Model.Utilisateur.Adresse.Rue
-                        </p>
-                        <p class="card-text"><i class="fas fa-city text-light"></i> @Model.Utilisateur.Adresse.CodePostal
-                            @Model.Utilisateur.Adresse.Ville</p>
-                    }
-                </div>
+<h1 class="text-center mb-4">Recruter cet enseignant</h1>
+
+<div class="container">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="card col-6">
+            <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom
+                </h5>
+                <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
+                <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
+                <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Identifiant</p>
+                @if (@Model.Utilisateur.Adresse != null)
+                {
+                    <p class="card-text"> <i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
+                        @Model.Utilisateur.Adresse.Rue
+                    </p>
+                    <p class="card-text"><i class="fas fa-city text-light"></i> @Model.Utilisateur.Adresse.CodePostal
+                        @Model.Utilisateur.Adresse.Ville</p>
+                }
             </div>
         </div>
     </div>
-    <div class="container mt-1">
-        <div class="row h-100 justify-content-center align-items-center">
-            <div class="col-2">
-                @{
-                    String cheminValider = String.Format("/Admin/ValiderEnseignant/{0}", @Model.Id);
-                }
-                <a href=@cheminValider class="btn">Recruter</a>
-            </div>
-            <div class="col-2">
-                <a href="/Admin/ListeUtilisateur" class="btn">Annuler</a>
-            </div>
+</div>
+<div class="container mt-1">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-2">
+            @{
+                String cheminValider = String.Format("/Admin/ValiderEnseignant/{0}", @Model.Id);
+            }
+            <a href=@cheminValider class="btn">Recruter</a>
+        </div>
+        <div class="col-2">
+            <a href="/Admin/ListeUtilisateur" class="btn">Annuler</a>
         </div>
     </div>
 </div>
