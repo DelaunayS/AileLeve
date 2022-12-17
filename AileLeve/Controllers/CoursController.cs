@@ -133,8 +133,8 @@ namespace AileLeve.Controllers
                 dal.ModifierEmploiDuTemps(edtAmodifier);
                 dal.ModifierCours(coursAModifier.Cours);
 
-
-                return Redirect("/Home/Index");
+                return RedirectToAction("Index", "Home", new { @id = idUser });
+               
             }
             return View();
         }

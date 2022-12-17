@@ -5,215 +5,230 @@
     String chemin = String.Format("/profil/modifier/{0}", @Model.Profil.Id);
 }
 
-<div class="container">
-    <div class="card w-25">
-        <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
-        <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
-            <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
-            <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
-            <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Compte.Identifiant</p>
-            @if (@Model.Utilisateur.Adresse != null)
-            {
-                @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
+@*<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="col-12">
+            <div class="card h-100 justify-content-center">
+                <div>*@
+
+@*<div class="container">*@
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card w-100">
+            <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
+                <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
+                <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
+                <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Compte.Identifiant</p>
+                @if (@Model.Utilisateur.Adresse != null)
                 {
-                    <p class="card-text"><i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
-                        @Model.Utilisateur.Adresse.Rue
-                    </p>
-                }
-                @if (@Model.Utilisateur.Adresse.CodePostal > 0)
-                {
-                    <p class="card-text"><i class="fas fa-city"></i> @Model.Utilisateur.Adresse.CodePostal
-                        @Model.Utilisateur.Adresse.Ville</p>
-                }
-            }
-            
-        </div>
-
-        <div class="row h-100 justify-content-center align-items-center m-2">
-            <a href=@chemin class="btn">Modifier le profil</a>
-        </div>
-
-
-    </div>
-    <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
-    <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
-    <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
-    <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
-    <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
-    <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
-    
-    @if (@Model.Utilisateur.Adresse != null)
-    {
-        <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
-        <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
-    }
-
-</div>
-
-
-
-<div class="card w-100">
-    <div class="row justify-content-end">
-        <div class="col-4 text-center">
-            <h1 class=" mb-4">Mes cours</h1>
-        </div>
-
-         @if (Model.Compte.Role == "Eleve")
-            {
-            <div class="col-4 text-right">
-                <h4 class="mb-4 pt-1">
-                    Ajouter un cours
-                    @{
-                        String cheminAjouter = String.Format("/Enseignant/EmploiDuTempsEnseignant");
+                    @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
+                    {
+                        <p class="card-text">
+                            <i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
+                            @Model.Utilisateur.Adresse.Rue
+                        </p>
                     }
-                    <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"></a>
-                </h4>
-            </div>
-        }
+                    @if (@Model.Utilisateur.Adresse.CodePostal > 0)
+                    {
+                        <p class="card-text">
+                            <i class="fas fa-city"></i>@Model.Utilisateur.Adresse.CodePostal
+                            @Model.Utilisateur.Adresse.Ville
+                        </p>
+                    }
+                }
 
-        @if (Model.Compte.Role == "Enseignant")
+            </div>
+
+            <div class="row h-100 justify-content-center align-items-center m-2">
+                <a href=@chemin class="btn">Modifier le profil</a>
+            </div>
+
+
+        </div>
+        <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
+        <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
+        <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
+        <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
+        <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
+        <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
+
+        @if (@Model.Utilisateur.Adresse != null)
         {
-            <div class="col-4 text-right">
-                <h4 class="mb-4 pt-1">
-                    Ajouter un cours
-                    @{
-                        String cheminAjouter = String.Format("/Cours/Ajouter");
-                    }
-                    <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"></a>
-                </h4>
-            </div>
+            <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
+            <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
         }
 
-     
     </div>
-       
-    <table class="table table-striped">
-        
-        <thead class="thead-light">
-            <tr>
+
+
+    <div class="col-sm-9">
+        <div class="card w-100">
+            <div class="row justify-content-end">
+                <div class="col-4 text-center">
+                    <h1 class=" mb-4">Mes cours</h1>
+                </div>
+
+                @if (Model.Compte.Role == "Eleve")
+                {
+                    <div class="col-4 text-right">
+                        <h4 class="mb-4 pt-1">
+                            Ajouter un cours
+                            @{
+                                String cheminAjouter = String.Format("/Enseignant/EmploiDuTempsEnseignant");
+                            }
+                            <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"></a>
+                        </h4>
+                    </div>
+                }
 
                 @if (Model.Compte.Role == "Enseignant")
-            {
-                <th scope="col">Date</th>
-                <th scope="col">Type de cours</th>
-                <th scope="col">Matière</th>
-                <th scope="col">Niveau</th>
-                <th scope="col">Elève</th>
-                
-             
-            }
-
-             @if (Model.Compte.Role == "Eleve")
-            {
-                    <th scope="col">Date</th>
-                    <th scope="col">Type de cours</th>
-                    <th scope="col">Matière</th>
-                    <th scope="col">Niveau</th>
-                    <th scope="col">Enseignant</th>
+                {
+                    <div class="col-4 text-right">
+                        <h4 class="mb-4 pt-1">
+                            Ajouter un cours
+                            @{
+                                String cheminAjouter = String.Format("/Cours/Ajouter");
+                            }
+                            <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"></a>
+                        </h4>
+                    </div>
                 }
 
-            </tr>
-        </thead>
-        <tbody>
 
-            @if (Model.Compte.Role == "Enseignant")
-            {
+            </div>
 
-                
-               List<AileLeve.Models.EstDisponible> ListeEstDisponible = Model.CoursListe.Item1;
-               List<AileLeve.Models.Etudie> ListeEtudie = Model.CoursListe.Item2;
+            <table class="table table-striped">
 
-                @foreach (var coursPropose in ListeEstDisponible)
-
-                {
+                <thead class="thead-light">
                     <tr>
-                        <td>@coursPropose.EmploiDuTempsEnseignant.DateTime</td>
-                        <td>@Html.DisplayFor(c => coursPropose.Cours.TypeCours)</td>
-                        <td>@coursPropose.Cours.Matiere.Nom</td>
-                        <td>@coursPropose.Cours.Niveau.Nom</td>
-                        <td>
-                        @foreach (var eleve in ListeEtudie)
+
+                        @if (Model.Compte.Role == "Enseignant")
                         {
-                            if (coursPropose.CoursId == eleve.CoursId)
-                            {
-                                    @eleve.Eleve.Utilisateur.Nom
-                                   
-                                    @eleve.Eleve.Utilisateur.Prenom
-                                <br/>
-                                if (coursPropose.Cours.TypeCours == 0)
-                                {
-                                        @eleve.Eleve.Utilisateur.Adresse.NumeroRue @eleve.Eleve.Utilisateur.Adresse.Rue                            
-                                        <br />
-                                        @eleve.Eleve.Utilisateur.Adresse.CodePostal @eleve.Eleve.Utilisateur.Adresse.Ville
-                                    <br />
-                                    <br />
-                                }
-                            }
-                            
+                            <th scope="col">Date</th>
+                            <th scope="col">Type de cours</th>
+                            <th scope="col">Matière</th>
+                            <th scope="col">Niveau</th>
+                            <th scope="col">Elève</th>
+
+
                         }
-                        </td>       
-                        <td>
-                           
-                            @{
-                                String cheminModifier = String.Format("/Cours/Modifier/{0}", coursPropose.Cours.Id);
-                            }
-                            <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2"></a>
-                            @{
-                                String cheminSupprimer = String.Format("/Cours/SupprimerCours/{0}", coursPropose.Cours.Id);
-                            }
-                            <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>
-                        </td>
+
+                        @if (Model.Compte.Role == "Eleve")
+                        {
+                            <th scope="col">Date</th>
+                            <th scope="col">Type de cours</th>
+                            <th scope="col">Matière</th>
+                            <th scope="col">Niveau</th>
+                            <th scope="col">Enseignant</th>
+                        }
+
                     </tr>
-                }
-            }
+                </thead>
+                <tbody>
 
-            @if (Model.Compte.Role == "Eleve")
-            {
+                    @if (Model.Compte.Role == "Enseignant")
+                    {
 
-                List<AileLeve.Models.Etudie> ListeCoursReserves = Model.CoursListeEleve.Item1;
-                List<AileLeve.Models.EstDisponible> ListeEnseignants = Model.CoursListeEleve.Item2;
 
-                @foreach (var coursReserve in ListeCoursReserves)
+                        List<AileLeve.Models.EstDisponible> ListeEstDisponible = Model.CoursListe.Item1;
+                        List<AileLeve.Models.Etudie> ListeEtudie = Model.CoursListe.Item2;
 
-                {
-                    <tr>
-                        <td>
-                        @foreach (var enseignant in ListeEnseignants)
-                         {
-                            if (coursReserve.CoursId == enseignant.CoursId)
-                            {
-                                @enseignant.EmploiDuTempsEnseignant.DateTime
-                            }
-                          }
-                        </td>
-                        <td>@Html.DisplayFor(c => coursReserve.Cours.TypeCours)</td>
-                        <td>@coursReserve.Cours.Matiere.Nom</td>
-                        <td>@coursReserve.Cours.Niveau.Nom</td>
-                        <td>
-                            @foreach (var enseignant in ListeEnseignants)
-                            {
-                                if (coursReserve.CoursId == enseignant.CoursId)
-                                {
-                                    @enseignant.Enseignant.Utilisateur.Nom @enseignant.Enseignant.Utilisateur.Prenom
-                                }
-                             }
-                 
-                        </td>
-                        <td>
-                            @{
-                                String cheminSupprimer = String.Format("/Enseignant/Supprimer/{0}", coursReserve.Cours.Id);
-                            }
-                            <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>
-                        </td>
-                    </tr>
-                }
-            }
+                        @foreach (var coursPropose in ListeEstDisponible)
 
-   
+                        {
+                            <tr>
+                                <td>@coursPropose.EmploiDuTempsEnseignant.DateTime</td>
+                                <td>@Html.DisplayFor(c => coursPropose.Cours.TypeCours)</td>
+                                <td>@coursPropose.Cours.Matiere.Nom</td>
+                                <td>@coursPropose.Cours.Niveau.Nom</td>
+                                <td>
+                                    @foreach (var eleve in ListeEtudie)
+                                    {
+                                        if (coursPropose.CoursId == eleve.CoursId)
+                                        {
+                                            @eleve.Eleve.Utilisateur.Nom
 
-        </tbody>
-    </table>
+                                            @eleve.Eleve.Utilisateur.Prenom
+                                            <br />
+                                            if (coursPropose.Cours.TypeCours == 0)
+                                            {
+                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue @eleve.Eleve.Utilisateur.Adresse.Rue
+                                                <br />
+                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal @eleve.Eleve.Utilisateur.Adresse.Ville
+                                                <br />
+                                                <br />
+                                            }
+                                        }
+
+                                    }
+                                </td>
+                                <td>
+
+                                    @{
+                                        String cheminModifier = String.Format("/Cours/Modifier/{0}", coursPropose.Cours.Id);
+                                    }
+                                    <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2"></a>
+                                    @{
+                                        String cheminSupprimer = String.Format("/Cours/SupprimerCours/{0}", coursPropose.Cours.Id);
+                                    }
+                                    <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                    @if (Model.Compte.Role == "Eleve")
+                    {
+
+                        List<AileLeve.Models.Etudie> ListeCoursReserves = Model.CoursListeEleve.Item1;
+                        List<AileLeve.Models.EstDisponible> ListeEnseignants = Model.CoursListeEleve.Item2;
+
+                        @foreach (var coursReserve in ListeCoursReserves)
+
+                        {
+                            <tr>
+                                <td>
+                                    @foreach (var enseignant in ListeEnseignants)
+                                    {
+                                        if (coursReserve.CoursId == enseignant.CoursId)
+                                        {
+                                            @enseignant.EmploiDuTempsEnseignant.DateTime
+                                        }
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(c => coursReserve.Cours.TypeCours)</td>
+                                <td>@coursReserve.Cours.Matiere.Nom</td>
+                                <td>@coursReserve.Cours.Niveau.Nom</td>
+                                <td>
+                                    @foreach (var enseignant in ListeEnseignants)
+                                    {
+                                        if (coursReserve.CoursId == enseignant.CoursId)
+                                        {
+                                            @enseignant.Enseignant.Utilisateur.Nom
+
+                                           @enseignant.Enseignant.Utilisateur.Prenom
+                                        }
+                                    }
+
+                                </td>
+                                <td>
+                                    @{
+                                        String cheminSupprimer = String.Format("/Enseignant/Supprimer/{0}", coursReserve.Cours.Id);
+                                    }
+                                    <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="container">
