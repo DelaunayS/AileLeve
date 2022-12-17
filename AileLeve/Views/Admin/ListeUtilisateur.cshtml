@@ -7,7 +7,17 @@
 }
 
 
-<h1 class="text-center mb-4">Liste des utilisateurs</h1>
+<h1 class="text-center mb-2">Liste des utilisateurs</h1>
+
+<div class="input-group md-form form-sm form-2 pl-0 mb-2">
+    <input class="form-control my-0 py-1 lime-border" onkeyup="filtreRecherche();" id="inputRecherche" type="text"
+        placeholder="Recherche par nom" aria-label="Search">
+    <div class="input-group-append">
+        <span class="input-group-text" id="basic-text1">
+            <i class="fas fa-search text-grey" aria-hidden="true"></i>
+        </span>
+    </div>
+</div>
 
 <table id="sortTable" class="table table-striped table-bordered table-sm">
     <thead class="thead-light">
@@ -90,10 +100,9 @@
     </tbody>
 </table>
 
-
-
 <script src="/Scripts/jsPdf/jspdf.umd.js"></script>
 <script src="/Scripts/html2canvas.min.js"></script>
 <script src="/Scripts/genererPdf.js"></script>
 <script src="/Scripts/sortTable.js"></script>
 <script src="/Scripts/iconeAscDesc_show-hide.js"></script>
+<script src="/Scripts/filtreRecherche.js"></script>
