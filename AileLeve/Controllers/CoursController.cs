@@ -59,12 +59,13 @@ namespace AileLeve.Controllers
             if (HttpContext.User.IsInRole ("Admin"))
             {
             string idUserStr = HttpContext.User.Identity.Name;
-            int.TryParse(idUserStr, out int idUser);
+             int.TryParse(idUserStr, out int idUser);
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
             cvm.CoursListe = dal.ObtenirCoursParEnseignantPourAdmin();
             } else
             {
             string idUserStr = HttpContext.User.Identity.Name;
+             int.TryParse(idUserStr, out int idUser);
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
             cvm.CoursListe = dal.ObtenirCoursParEnseignant(enseignant.Id);
             }

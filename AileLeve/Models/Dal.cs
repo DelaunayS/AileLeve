@@ -442,6 +442,8 @@ namespace AileLeve.Models
 
             return (coursDeLEleve, EstDisponibleList);
 
+        }
+
         public List<Cours> ObtenirCoursParEnseignantPourAdmin()
         {
             return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
@@ -584,3 +586,4 @@ namespace AileLeve.Models
         
     }
 }
+
