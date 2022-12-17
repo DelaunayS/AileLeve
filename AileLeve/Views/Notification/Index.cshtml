@@ -14,26 +14,27 @@
         <tr>
             <th scope="col" class="text-center">Description</th>
             <th scope="col"></th>
-    </tr>
+        </tr>
     </thead>
 
-<tbody>
-   
-    @foreach (var item in @Model.NotificationsListe)
-    {
+    <tbody>
 
-        <tr>
-             <td id="notif" class="notif-ligne">
-                        @item.TypeNotification
-             </td>
-             <td>
-             <a type="button" href=@Url.Action("ListeUtilisateur", "Admin") class="fas fa-eye p-2" id="show_eye"></a>
-                 <a type="button" href=@Url.Action("SupprimerNotif", "Notification", new { id = item.Id }) class="fas fa-trash text-danger p-2"></a>
-             </td>
-        </tr>
+        @foreach (var item in @Model.NotificationsListe)
+        {
 
-    }
-</tbody>
+            <tr>
+                <td id="notif" class="notif-ligne">
+                    @item.TypeNotification
+                </td>
+                <td>
+                    <a type="button" href=@Url.Action("ListeUtilisateur", "Admin") class="fas fa-eye p-2" id="show_eye"></a>
+                    <a type="button" href=@Url.Action("SupprimerNotif", "Notification", new { id = item.Id })
+                    class="fas fa-trash text-danger p-2"></a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
 </table>
 
 <script src="/Scripts/lu.js"></script>

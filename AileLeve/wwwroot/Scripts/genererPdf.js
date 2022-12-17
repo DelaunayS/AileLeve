@@ -2,10 +2,10 @@
 window.jsPDF = window.jspdf.jsPDF;
 
 //Genere le pdf en fonction de l'id de la div
-function genererPdf(id) {
+function genererPdf() {
 
     //création d'un canvas
-    html2canvas(document.querySelector("#doc")).then(canvas => {
+    html2canvas(document.querySelector("#main")).then(canvas => {
         document.body.appendChild(canvas);
         canvas.download = "filename.jpg";
         canvas.href = canvas.toDataURL();

@@ -26,17 +26,17 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/Home/Index">Accueil</a>
                         </li>
-                        
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item dropdown">
 
                                 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     Cours
                                 </a>
@@ -60,7 +60,7 @@
                             <li class="nav-item dropdown">
 
                                 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     Gestion
                                 </a>
@@ -76,7 +76,7 @@
                         <li class="nav-item dropdown">
 
                             <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Compte
 
                             </a>
@@ -106,36 +106,27 @@
 
                             <a class="nav-link text-light" href="/Visiteur/Contact">Contact</a>
                         </li>
-                        @*<li class="nav-item">
+                            @*<li class="nav-item">
 
-                            <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
-                        </li>*@
-                      </ul>
+                                <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
+                                </li>*@
+                    </ul>
                 </div>
-
 
                 @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
                 {
-
-
                     <div class="navbar-collapse justify-content-end h-100 w-100">
                         <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Generer un pdf">
-                             <h3 class="justify-content-center">
-                                <i class="fas fa-print text-light mw-100 mh-100 " onclick="genererPdf('doc')"></i>
+                            <h3 class="justify-content-center">
+                                <i class="fas fa-print text-light mw-100 mh-100 " onclick="genererPdf()"></i>
                             </h3>
-                        </a>                       
+                        </a>
                         <a class="notification p-2" href="/Notification/Index">
                             <h3 class="justify-content-center"><i class="fas fa-bell text-light mw-100 mh-100"
                                 id="notif"></i></h3>
                         </a>
-
                     </div>
                 }
-
-
-
-
-
             </div>
         </nav>
     </header>
