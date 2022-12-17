@@ -10,25 +10,21 @@
 <div class="container">
     <form action="/cours/modifier" method="post">
 
-        <label for="matiere">Cours précédent : </label>
-        <div>
-            @Model.Cours.TypeCours
 
-        </div>
+        <label for="matiere"><b>Type du cours précédent :</b> </label> @Model.Cours.TypeCours
+       
 
         <fieldset>
-            <legend>Veuillez sélectionner un nouveau type de cours :</legend>
+            <div><b>Veuillez sélectionner un nouveau type de cours :</b></div>
             <div>
                 <input type="radio" value="1" id="1" name="Cours.TypeCours">
                 <label for="onlineSynchrone">Cours synchrone</label>
-
-            </div>
-            <div>
-                <input type="radio" value="2" id="2" name="Cours.TypeCours">
-
+             </div> 
+             <div>
+                 <input type="radio" value="2" id="2" name="Cours.TypeCours">
                 <label for="onlineAsynchrone">Cours asynchrone</label>
-            </div>
-            <div>
+             </div>
+             <div>
                 <input type="radio" value="0" id="0" name="Cours.TypeCours">
                 <label for="domicile">Cours à domicile</label>
             </div>
@@ -38,7 +34,7 @@
         <table>
             <tr>
                 <td>
-                    <label for="matiere">Matière précédente : </label>
+                    <label for="matiere"><b>Matière précédente :</b> </label>
                 </td>
                 <td>
 
@@ -63,66 +59,114 @@
 
             <tr>
                 <td>
-                    <label for="matiere">Nouvelle matière : </label>
+                    <label for="matiere"><b>Choisissez une matière : </b></label>
                 </td>
                 <td>
-                    <select name="Cours.MatiereId" id="cours.Matiere.Nom" value="@Model.Cours.Matiere.Nom">
-                        <option value="2">Français</option>
-                        <option value="1">Mathématiques</option>
-                        <option value="11">Philosophie</option>
-                        <option value="4">Espagnol</option>
+                    <select name="matiere" id="matiere">
+                        <option value="francais">Français</option>
+                        <option value="mathématiques">Mathématiques</option>
+                        <option value="anglais">Anglais</option>
+                        <option value="espagnol">Espagnol</option>
+                        <option value="Histoire">Histoire</option>
+                        <option value="Géographie">Géographie</option>
+                        <option value="EMC">EMC</option>
+                        <option value="Physique">Physique</option>
+                        <option value="Chimie">Chimie</option>
+                        <option value="SVT">SVT</option>
+                        <option value="Philosophie">Philosophie</option>
+                        <option value="Technologie/Informatique">Technologie/Informatique</option>
+                        <option value="Allemand">Allemand</option>
+                        <option value="Méditation">Méditation</option>
+                        <option value="SES">SES</option>
+                        <option value="Humanités">Humanités</option>
+                        <option value="Géopolitique">Géopolitique</option>
+                        <option value="Numérique">Numérique</option>
+                        <option value="Art">Art</option>
+                        <option value="Sciences de l'ingénieur'">Science de l'ingénieur</option>
                     </select>
                 </td>
             </tr>
         </table>
-
+        <br/>
 
         <table>
             <tr>
+                
                 <td>
-
-                    <label for="niveau">Niveau précédent : </label>
+                    <label for="niveau"><b>Niveau précédent : </b></label>
                 </td>
                 <td>
                     @switch (@Model.Cours.Niveau.Nom)
                     {
                         case "CP":
-                            <option value="cp" selected>CP</option>
-                            break;
-
-                        case "6ème":
-                            <option value="6ème" selected>6ème</option>
+                            <option value="CP" selected>CP</option>
                             break;
                         case "CE1":
                             <option value="CE1" selected>CE1</option>
                             break;
+                        case "CE2":
+                            <option value="CE2" selected>CE2</option>
+                            break;
+                            case "CM1":
+                            <option value="CM1" selected>CM1</option>
+                            break;
+                        case "CM2":
+                            <option value="CM2" selected>CM2</option>
+                            break;
+                       
+                        case "6ème":
+                            <option value="6ème" selected>6ème</option>
+                            break;
+                        case "5ème":
+                            <option value="5ème" selected>5ème</option>
+                            break;
+                        case "4ème":
+                            <option value="4ème" selected>4ème</option>
+                            break;
+                        case "3ème":
+                            <option value="3ème" selected>3ème</option>
+                            break;
+                        case "seconde":
+                            <option value="seconde" selected>2nde</option>
+                            break;
                         case "premiere":
-                            <option value="premiere" selected>Premiere</option>
+                            <option value="premiere" selected>1ère</option>
+                            break;
+                        case "terminale":
+                            <option value="terminale" selected>Terminale</option>
                             break;
                     }
+                    
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="matiere">Nouveau niveau : </label>
-                </td>
-                <td>
-                    <select name="cours.NiveauId" id="cours.Niveau.Nom" value=" @Model.Cours.Niveau.Nom">
-                        <option value="7">5ème</option>
-                        <option value="8">4ème</option>
-                        <option value="9">3ème</option>
-                        <option value="10">Seconde</option>
-                    </select>
+                    <label for="niveau"><b>Choisissez un niveau :</b></label>
+            <select name="niveau" id="niveau">
+                <option value="CP">CP</option>
+                <option value="CE1">CE1</option>
+                <option value="CE2">CE2</option>
+                <option value="CM1">CM1</option>
+                <option value="CM2">CM2</option>
+                <option value="6ème">6ème</option>
+                <option value="5ème">5ème</option>
+                <option value="4ème">4ème</option>
+                <option value="3ème">3ème</option>
+                <option value="seconde">Seconde</option>
+                <option value="1ère">1ère</option>
+                <option value="Terminale">Terminale</option>
+            </select>
                 </td>
             </tr>
         </table>
+        <br/>
 
         <div>
-            <label for="creneau">Vous avez proposé ce cours le : @Model.EstDisponible.EmploiDuTempsEnseignant.DateTime </label>
+            <label for="creneau"><b>Vous avez proposé ce cours le :</b> @Model.EstDisponible.EmploiDuTempsEnseignant.DateTime </label>
         </div>
 
         <div>
-            <label for="creneau">Choisissez le créneau (date et horaire) : </label>
+            <label for="creneau"><b>Choisissez un nouveau créneau (date et horaire) :</b> </label>
             <input type="datetime-local" id="creneau" name="creneau" value="@Model.EstDisponible.EmploiDuTempsEnseignant.DateTime">
         </div>
 </div>
