@@ -33,9 +33,7 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
-        
         }
 
         public void InitializeDb()
