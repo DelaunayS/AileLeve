@@ -11,7 +11,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
+
 }
 
 a.navbar-brand {
@@ -29,10 +29,10 @@ a.navbar-brand {
     color: #fff;
 }
 
-    .dropdown-item:hover {
-        background-color: #fff;
-        color: #28a745;
-    }
+.dropdown-item:hover {
+    background-color: #fff;
+    color: #28a745;
+}
 
 
 a {
@@ -43,16 +43,16 @@ a {
     color: #fff;
     background-color: #5C964A;
     border-color: #000000;
-    width :150px;      
+    width: 150px;
 }
 
 .btn:hover {
     color: #fff;
     background-color: #3F6632;
-}   
+}
 
 .nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
+.nav-pills .show>.nav-link {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
@@ -117,3 +117,4 @@ body {
 .iconeMatiere {
     width: 25%;
 }
+
