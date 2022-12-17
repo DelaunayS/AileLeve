@@ -62,7 +62,7 @@ namespace AileLeve.Models
                 new Matiere { Id = 18, Nom = "Spe-SVT" },
                 new Matiere { Id = 19, Nom = "Spe-Mathématiques" },
                 new Matiere { Id = 20, Nom = "Spe-Géopolitique" },
-                new Matiere { Id = 21, Nom = "Spe-Sciences politiques" },
+                new Matiere { Id = 21, Nom = "Spe-Sciences-politiques" },
                 new Matiere { Id = 22, Nom = "Spe-Histoire-géographie" },
                 new Matiere { Id = 23, Nom = "Spe-Culture de l'antiquité" },
                 new Matiere { Id = 24, Nom = "Spe-Numérique" },
