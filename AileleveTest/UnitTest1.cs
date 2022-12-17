@@ -116,7 +116,6 @@ namespace AileleveTest
         {
             using (Dal dal = new Dal())
             {
-
                 dal.DeleteCreateDatabase();
                 int adresseId = dal.CreerAdresse(5, "rue des Roses", 75000, "Paris");
                 int utilisateurId = dal.CreerUtilisateur("Rouget", "Lulu", adresseId);
@@ -169,5 +168,60 @@ namespace AileleveTest
                 Assert.Equal(utilisateurRLId, legals[0].UtilisateurId);
             }
         }
+        [Fact]
+        public void Creation_Matiere_Verification()
+        {
+            using (Dal dal = new Dal())
+            {
+                dal.DeleteCreateDatabase();
+                dal.creerMatiere("Français");
+                dal.creerMatiere("Mathématiques");
+                dal.creerMatiere("Géographie");
+
+                Matiere matiere = dal.ObtenirMatiere(2);
+                Assert.NotNull(matiere);
+                Assert.Equal("Mathématiques", matiere.Nom);
+            }
+        }
+        [Fact]
+        public void Creation_Niveau_Verification()
+        {
+            using (Dal dal = new Dal())
+            {
+                dal.DeleteCreateDatabase();
+                dal.creerNiveau("CP");
+                dal.creerNiveau("CE1");
+                dal.creerNiveau("CE2");
+
+                Niveau niveau = dal.ObtenirNiveau(3);
+                Assert.NotNull(niveau);
+                Assert.Equal("CE2", niveau.Nom);
+            }
+        }
+        [Fact]
+        public void Modifier_Compte()
+        {
+            {
+                using (Dal dal = new Dal())
+                {
+                    dal.DeleteCreateDatabase();
+                    int adresseId = dal.CreerAdresse(5, "rue des Roses", 75000, "Paris");
+                    int utilisateurId = dal.CreerUtilisateur("Rouget", "Lulu", adresseId);
+                    int profilId = dal.CreerProfil("06 06 06 06 06", "SrcImage", "Lulu@gmail.com");
+                    int compteId=dal.CreerCompte("RLulu", "rrrr", utilisateurId, profilId, "Eleve");
+                    Compte compte = dal.ObtenirCompte(compteId);
+                    
+                    compte.Utilisateur.Prenom="Jean";                   
+                    dal.ModifierCompte(compte);                     
+
+                    List<Compte> comptes = dal.ObtenirTousLesComptes();
+                    Assert.NotNull(comptes);
+                    Assert.Single(comptes);                    
+                    Assert.Equal("Jean", comptes[0].Utilisateur.Prenom);       
+                }
+            }
+        } 
+       
+        
     }
 }

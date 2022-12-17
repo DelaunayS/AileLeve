@@ -408,6 +408,12 @@ namespace AileLeve.Models
         }
 
         //Methodes pour le model Matiere
+        public int creerMatiere(string nom){
+             Matiere matiere = new Matiere { Nom = nom};       
+            _bddContext.Matieres.Add(matiere);
+            _bddContext.SaveChanges();
+            return matiere.Id;
+        }
         public Matiere ObtenirMatiere(int id)
         {
             return this._bddContext.Matieres.FirstOrDefault(c => c.Id == id);
@@ -415,6 +421,12 @@ namespace AileLeve.Models
 
 
         //Methodes pour le model Niveau
+        public int creerNiveau(string nom){
+             Niveau niveau = new Niveau { Nom = nom};       
+            _bddContext.Niveaux.Add(niveau);
+            _bddContext.SaveChanges();
+            return niveau.Id;
+        }
         public Niveau ObtenirNiveau(int id)
         {
             return this._bddContext.Niveaux.FirstOrDefault(c => c.Id == id);
