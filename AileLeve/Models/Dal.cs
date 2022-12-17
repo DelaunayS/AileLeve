@@ -49,9 +49,31 @@ namespace AileLeve.Models
 
         }
 
-        public void CreerEtudie(int eleveId, int coursId )
+        public List<Etudie> ObtenirToutesLesEtudie()
         {
-            Etudie etudie = new Etudie() { EleveId = eleveId, CoursId = coursId };
+            return this._bddContext.Etudie
+                .Include(c => c.Cours)
+                .Include(c => c.Cours.Matiere)
+                .Include(c => c.Cours.Niveau)
+                .Include(c => c.Cours.Enseignant)
+                .ToList();
+        }
+        public void NestPlusDisponible(int id)
+        {
+            EmploiDuTempsEnseignant edt = this.ObtenirTousLesEmploisDuTemps().Where(c => c.Id == id).FirstOrDefault();
+            edt.Disponible = false;
+            _bddContext.SaveChanges();
+        }
+
+        public void EstDisponible(int id)
+        {
+            EmploiDuTempsEnseignant edt = this.ObtenirTousLesEmploisDuTemps().Where(c => c.Id == id).FirstOrDefault();
+            edt.Disponible = true;
+            _bddContext.SaveChanges();
+        }
+        public void CreerEtudie(int eleveId, int coursId)
+        {
+            Etudie etudie = new Etudie() { EleveId = eleveId, CoursId = coursId};
             _bddContext.Etudie.Add(etudie);
             _bddContext.SaveChanges();
         }
@@ -99,9 +121,9 @@ namespace AileLeve.Models
 
         }
 
-        public void CreerEstDisponible(int enseignantId, int emploiDuTempsId)
+        public void CreerEstDisponible(int enseignantId, int emploiDuTempsId, int coursId)
         {
-            EstDisponible dispo = new EstDisponible() { EnseignantId = enseignantId, EmploiDuTempsEnseignantId = emploiDuTempsId };
+            EstDisponible dispo = new EstDisponible() { EnseignantId = enseignantId, EmploiDuTempsEnseignantId = emploiDuTempsId, CoursId = coursId };
             _bddContext.EstDisponible.Add(dispo);
             _bddContext.SaveChanges();
         }
@@ -173,7 +195,7 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
-        
+
 
         public List<Utilisateur> ObtenirTousLesUtilisateurs()
         {
@@ -226,6 +248,11 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
         
+        public void SupprimerEtudie(Etudie etudie)
+        {
+            _bddContext.Etudie.Remove(etudie);
+            _bddContext.SaveChanges();
+        }
 
         public void SupprimerCompte(Compte compte)
         {
@@ -289,10 +316,13 @@ namespace AileLeve.Models
             return _bddContext.Enseignants.ToList();
         }
 
-        
+        public List<EstDisponible> ObtenirToutesLesDispos()
+        {
+            return _bddContext.EstDisponible.ToList();
+        }
 
 
-       public List<Notification> ObtenirNotifications()
+        public List<Notification> ObtenirNotifications()
         {
             return this._bddContext.Notifications.ToList();
         }
@@ -333,7 +363,7 @@ namespace AileLeve.Models
         public Cours ObtenirCours(int id)
         {
             return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
-                       .Include(u => u.Enseignant).FirstOrDefault(c => c.Id == id);
+                       .Include(u => u.Enseignant).ThenInclude(c => c.Utilisateur).FirstOrDefault(c => c.Id == id);
         }
         public List<Cours> ObtenirCoursParEnseignant(int id)
         {
@@ -341,10 +371,82 @@ namespace AileLeve.Models
                        .Include(u => u.Enseignant).ToList();
         }
 
+
+        public List<EstDisponible> ObtenirTousLesPlannings()
+        {
+            return this._bddContext.EstDisponible
+                .Include(c => c.Cours)
+                .Include(c => c.Cours.Matiere)
+                .Include(c => c.Cours.Niveau)
+                .Include(c => c.Cours.Enseignant)
+                .Include(c => c.Cours.Enseignant.Utilisateur)
+                .Include(c => c.Enseignant)
+                .Include(c => c.Enseignant.Utilisateur)
+                .Include(c => c.EmploiDuTempsEnseignant)
+                .ToList();
+        }
+        public (List<EstDisponible>,List<Etudie>) ObtenirCoursProposesAvecDateEtEleve(int id)
+        {
+            var coursDeLEnseignant = this._bddContext.EstDisponible.Where(c => c.EnseignantId == id)
+                .Include(c => c.Cours)
+                .Include(c => c.Cours.Matiere)
+                .Include(c => c.Cours.Niveau)
+                .Include(c => c.EmploiDuTempsEnseignant)
+                .Include(c => c.Enseignant).ToList();
+
+            List<Etudie> etudieList = new List<Etudie>();
+
+            foreach(var item in coursDeLEnseignant)
+            {
+                var query2 = this._bddContext.Etudie.Where(c => c.CoursId == item.CoursId)
+                .Include(c => c.Eleve)
+                .ThenInclude(c => c.Utilisateur)
+                .ThenInclude(c => c.Adresse).ToList();
+                etudieList = etudieList.Concat(query2).ToList();
+            }
+
+            return (coursDeLEnseignant, etudieList);
+        }
+
+        public List<Etudie> ObtenirCoursReservesAvecNomProf(int id)
+        {
+            return this._bddContext.Etudie.Where(c => c.EleveId == id)
+                .Include(c => c.Cours)
+                .Include(c => c.Cours.Matiere)
+                .Include(c => c.Cours.Niveau)
+                .Include(c => c.Cours.Enseignant)
+                .Include(c => c.Cours.Enseignant.Utilisateur)
+                .Include(c => c.Cours.Enseignant.Utilisateur.Adresse).ToList();
+        }
+
+        public (List<Etudie>, List<EstDisponible>) ObtenirCoursReservesAvecDateEtProf(int id)
+        {
+            var coursDeLEleve = this._bddContext.Etudie.Where(c => c.EleveId == id)
+                .Include(c => c.Cours)
+                .Include(c => c.Cours.Enseignant)
+                .Include(c => c.Cours.Enseignant.Utilisateur)
+                .Include(c => c.Cours.Matiere)
+                .Include(c => c.Cours.Niveau)
+                .Include(c => c.Eleve)
+                .Include(c => c.Eleve.Utilisateur)
+                .Include(c => c.Eleve.Utilisateur.Adresse).ToList();
+
+            List<EstDisponible> EstDisponibleList = new List<EstDisponible>();
+
+            foreach (var item in coursDeLEleve)
+            {
+                var query2 = this._bddContext.EstDisponible.Where(c => c.CoursId == item.CoursId)
+                .Include(c => c.EmploiDuTempsEnseignant).ToList();
+                EstDisponibleList = EstDisponibleList.Concat(query2).ToList();
+            }
+
+            return (coursDeLEleve, EstDisponibleList);
+
         public List<Cours> ObtenirCoursParEnseignantPourAdmin()
         {
             return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
                        .Include(u => u.Enseignant).ToList();
+
         }
 
         public Cours ObtenirCours(string idStr)
@@ -363,6 +465,19 @@ namespace AileLeve.Models
         }
 
 
+        public List<Etudie> ObtenirToutesLesReservationsCours()
+        {
+            return _bddContext.Etudie
+                .Include(c => c.Eleve)
+                .Include(c => c.Eleve.Utilisateur)
+                .Include(c => c.Eleve.Utilisateur.Adresse)
+                .Include(c => c.Cours)
+                .Include(c => c.Cours.Matiere)
+                .Include(c => c.Cours.Niveau)
+                .Include(c => c.Cours.Enseignant)
+                .Include(c => c.Cours.Enseignant.Utilisateur)
+                .ToList();
+        }
 
         public Matiere ObtenirMatiere(int id)
         {
@@ -378,7 +493,6 @@ namespace AileLeve.Models
             string motDePasseSel = "ChoixResto" + motDePasse + "ASP.NET MVC";
             return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
         }
-
 
         public List<Eleve> ObtenirTousLesEleves()
         {
@@ -411,6 +525,11 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+        public void ModifierEmploiDuTemps(EmploiDuTempsEnseignant edt)
+        {
+            _bddContext.EmploiDuTempsEnseignants.Update(edt);
+            _bddContext.SaveChanges();
+        }
        
 
         public void ModifierPassword(int id, string nouveauMDP)
@@ -431,8 +550,10 @@ namespace AileLeve.Models
 
         public List<Cours> ObtenirTousLesCours()
         {
-            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
-                       .Include(u => u.Enseignant).ToList();
+            return this._bddContext.Cours
+                .Include(c => c.Matiere)
+                .Include(c => c.Niveau)
+                .Include(u => u.Enseignant).ToList();
         }
        
 
