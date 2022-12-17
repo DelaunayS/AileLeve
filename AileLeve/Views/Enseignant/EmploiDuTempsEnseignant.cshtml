@@ -1,31 +1,45 @@
-﻿@model AileLeve.ViewModels.EmploiDuTempsEnseignantViewModel;
+﻿@model AileLeve.ViewModels.CompteViewModel;
 
 @{
     ViewBag.Title = "Emploi du temps enseignant";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.HiddenFor(m=>m.Eleve.Id)
+@Html.HiddenFor(m=>m.Cours.MatiereId)
+@Html.HiddenFor(m=>m.Cours.NiveauId)
+@Html.HiddenFor(m=>m.Cours.EnseignantId)
+@Html.HiddenFor(m=>m.Cours.Id)
 
-<h1 class="text-center mb-4">Liste des créneaux disponibles</h1>
 
-
+<h1 class="text-center mb-4">Les propositions de cours</h1>
 
 <table class="table table-striped">
     <thead class="thead-light">
         <tr>
             <th scope="col">Date</th>
+            <th scope="col">Enseignant</th>
+            <th scope="col">Type de cours</th>
+            <th scope="col">Matière</th>
+            <th scope="col">Niveau</th>
             <th scope="col">Disponible</th>
+            <th scope="col"></th>
+
         </tr>
     </thead>
     <tbody>
 
-        @foreach (var item in @Model.ListeEmploiDuTempsEnseignants)
+        @foreach (var item in @Model.ToutesLesPropositionsDeCours)
 
         {
             <tr>
-                <td>@item.DateTime</td>
+                <td>@item.EmploiDuTempsEnseignant.DateTime</td>
+                <td>@item.Enseignant.Utilisateur.Nom @item.Enseignant.Utilisateur.Prenom</td>
+                <td>@Html.DisplayFor(c => item.Cours.TypeCours)</td>
+                <td>@item.Cours.Matiere.Nom</td>
+                <td>@item.Cours.Niveau.Nom</td>
                 <td>
-                    @if (item.Disponible == true)
+                    @if (item.EmploiDuTempsEnseignant.Disponible == true)
                     {
                         <i>oui</i>
                     }
@@ -34,8 +48,12 @@
                         <i>non</i>
                     }
                 </td>
-                @* <td>@item.Disponible</td>*@
-
+                <td>
+                @{
+                        String cheminAjouter = String.Format("/Enseignant/ReserverCours/{0}", item.Cours.Id);
+                }
+                <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"></a>
+                </td>
             </tr>
         }
     </tbody>

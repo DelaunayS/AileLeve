@@ -14,5 +14,9 @@ namespace AileLeve.Models
 
         public virtual EmploiDuTempsEnseignant EmploiDuTempsEnseignant { get; set; }
 
+        public int? CoursId { get; set; }
+
+        public virtual Cours Cours { get; set; }
+
     }
 }

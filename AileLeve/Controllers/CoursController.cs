@@ -8,6 +8,7 @@ using AileLeve.ViewModels;
 using System.Linq;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace AileLeve.Controllers
 {
@@ -22,6 +23,7 @@ namespace AileLeve.Controllers
             return View();
         }
 
+       
         [HttpPost]
         [Authorize(Roles = "Admin, Enseignant")]       
         public IActionResult Ajouter(TypeCours typeCours, string matiere, string niveau, DateTime creneau)
@@ -35,9 +37,8 @@ namespace AileLeve.Controllers
             int.TryParse(idUserStr, out int idUser);
             Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
 
-
-            dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
-            dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId);
+            int coursId = dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
+            dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId, coursId);
       
 
             DateTime date = DateTime.Now;
@@ -47,22 +48,6 @@ namespace AileLeve.Controllers
             return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin, Enseignant")]     
-        public IActionResult Supprimer(int id)
-        {
-            CoursViewModel cvm = new CoursViewModel
-            {
-                Authentifie = HttpContext.User.Identity.IsAuthenticated
-
-            };
-            string idUserStr = HttpContext.User.Identity.Name;
-            int.TryParse(idUserStr, out int idUser);
-            Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
-            cvm.CoursListe = dal.ObtenirCoursParEnseignant(enseignant.Id);
-
-            return View(cvm);
-        }
        
         [Authorize(Roles = "Admin, Enseignant")]     
         public IActionResult SupprimerCours(int id, CoursViewModel coursASupprimer, TypeCours typeCours, string matiere, string niveau, string enseignant)
@@ -83,7 +68,7 @@ namespace AileLeve.Controllers
                 dal.SupprimerCours(cours);
 
 
-                return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
+                return RedirectToAction("Index", "Home", new { @id = idUser });
             }
             return View();
         }
@@ -105,18 +90,16 @@ namespace AileLeve.Controllers
             CoursViewModel cvm = new CoursViewModel
             {
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
-
             };
 
-            Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
             cvm.Cours = dal.ObtenirCours(id);
-
+            cvm.EstDisponible = dal.ObtenirTousLesPlannings().Where(c => c.CoursId == cvm.Cours.Id).FirstOrDefault();        
             return View(cvm);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin, Enseignant")]    
-        public IActionResult Modifier(int id, CoursViewModel coursAModifier, TypeCours typeCours, string matiere, string niveau, string enseignant)
+        public IActionResult Modifier(CoursViewModel coursAModifier, DateTime creneau)
         {
             CoursViewModel viewModel = new CoursViewModel
             {
@@ -127,9 +110,15 @@ namespace AileLeve.Controllers
                 string idUserStr = HttpContext.User.Identity.Name;
                 int.TryParse(idUserStr, out int idUser);
 
+                coursAModifier.EstDisponible = dal.ObtenirToutesLesDispos().Where(c => c.CoursId == coursAModifier.Cours.Id).FirstOrDefault();
+                EmploiDuTempsEnseignant edtAmodifier = dal.ObtenirTousLesEmploisDuTemps().Where(c => c.Id == coursAModifier.EstDisponible.EmploiDuTempsEnseignantId).FirstOrDefault();
+                edtAmodifier.DateTime = creneau;
+
+                dal.ModifierEmploiDuTemps(edtAmodifier);
                 dal.ModifierCours(coursAModifier.Cours);
 
-                return RedirectToAction("Supprimer", "Cours", new { @id = idUser });
+
+                return Redirect("/Home/Index");
             }
             return View();
         }

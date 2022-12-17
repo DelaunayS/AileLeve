@@ -1,8 +1,15 @@
-﻿namespace AileLeve.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AileLeve.Models
 {
     public enum TypeCours
     {
-        domicile, onlineSynchrone, onlineAsynchrone
+        [Display(Name = "Cours à domicile")]
+        domicile,
+        [Display(Name = "Cours synchrone en ligne")]
+        onlineSynchrone,
+        [Display(Name = "Cours asynchrone")]
+        onlineAsynchrone
     }
     public class Cours
     {

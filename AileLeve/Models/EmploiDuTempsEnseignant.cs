@@ -8,7 +8,6 @@ namespace AileLeve.Models
     public class EmploiDuTempsEnseignant
     {
         public int Id { get; set; }
- 
 
         public DateTime DateTime { get; set; }
 
