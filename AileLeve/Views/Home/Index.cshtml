@@ -5,8 +5,14 @@
     String chemin = String.Format("/profil/modifier/{0}", @Model.Profil.Id);
 }
 
+@*<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="col-12">
+            <div class="card h-100 justify-content-center">
+                <div>*@
+
 <div class="container">
-    <div class="card w-25">
+    <div class="card mx-auto" style="width: 25%;">
         <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
         <div class="card-body">
             <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
