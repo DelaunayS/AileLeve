@@ -21,6 +21,8 @@ namespace AileLeve.Models
         public DbSet<EmploiDuTempsEnseignant> EmploiDuTempsEnseignants { get; set; }
         public DbSet<EstDisponible> EstDisponible { get; set; }
 
+        public DbSet<RepresentantLegal> RepresentantLegaux{ get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,7 +33,9 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-        optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+
+        optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
+        
         }
 
         public void InitializeDb()
@@ -95,7 +99,13 @@ namespace AileLeve.Models
                 new Utilisateur { Id = 8, Nom = "Bobin", Prenom = "Christian", AdresseId = 8 },
                 new Utilisateur { Id = 9, Nom = "Proust", Prenom = "Marcel", AdresseId = 9 },
                 new Utilisateur { Id = 10, Nom = "Maulpoix", Prenom = "Jean-Michel", AdresseId = 10 },
-                new Utilisateur { Id = 11, Nom = "Admin", Prenom = "Bernard", AdresseId = 11 }
+                new Utilisateur { Id = 11, Nom = "Admin", Prenom = "Bernard", AdresseId = 11 },
+                new Utilisateur { Id = 12, Nom = "Prévert", Prenom = "Jacques", AdresseId = 6 },
+                new Utilisateur { Id = 13, Nom = "Hugo", Prenom = "Victor", AdresseId = 7 },
+                new Utilisateur { Id = 14, Nom = "Baudelaire", Prenom = "Charles", AdresseId = 8 },
+                new Utilisateur { Id = 15, Nom = "Desnos", Prenom = "Robert", AdresseId = 9 },
+                new Utilisateur { Id = 16, Nom = "Verlaine", Prenom = "Paul", AdresseId = 10 }
+
             ); ;
 
             this.Profils.AddRange(
@@ -156,58 +166,42 @@ namespace AileLeve.Models
                 new Eleve { Id = 5, DateDeNaissance = new DateTime(2006, 03, 08), UtilisateurId = 10 }
                 );
 
+            this.RepresentantLegaux.AddRange(
+               new RepresentantLegal { UtilisateurId = 12, EleveId = 1},
+               new RepresentantLegal { UtilisateurId = 13, EleveId = 2 },
+               new RepresentantLegal { UtilisateurId = 14, EleveId = 3 },
+               new RepresentantLegal { UtilisateurId = 15, EleveId = 4 },
+               new RepresentantLegal { UtilisateurId = 16, EleveId = 5}
+               );
+
+
             this.Cours.AddRange(
 
                 new Cours { Id = 1, MatiereId = 1, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.domicile },
-                new Cours { Id = 2, MatiereId = 2, NiveauId = 2, EnseignantId = 2, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 2, MatiereId = 2, NiveauId = 2, EnseignantId = 2, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 3, MatiereId = 3, NiveauId = 3, EnseignantId = 3, TypeCours = TypeCours.domicile },
-                new Cours { Id = 4, MatiereId = 4, NiveauId = 4, EnseignantId = 4, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 4, MatiereId = 4, NiveauId = 4, EnseignantId = 4, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 5, MatiereId = 5, NiveauId = 5, EnseignantId = 5, TypeCours = TypeCours.domicile },
-                new Cours { Id = 6, MatiereId = 6, NiveauId = 6, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 6, MatiereId = 6, NiveauId = 6, EnseignantId = 1, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 7, MatiereId = 7, NiveauId = 7, EnseignantId = 2, TypeCours = TypeCours.domicile },
-                new Cours { Id = 8, MatiereId = 8, NiveauId = 8, EnseignantId = 3, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 8, MatiereId = 8, NiveauId = 8, EnseignantId = 3, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 9, MatiereId = 9, NiveauId = 9, EnseignantId = 4, TypeCours = TypeCours.domicile },
-                new Cours { Id = 10, MatiereId = 10, NiveauId = 1, EnseignantId = 5, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 10, MatiereId = 10, NiveauId = 1, EnseignantId = 5, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 11, MatiereId = 11, NiveauId = 2, EnseignantId = 1, TypeCours = TypeCours.domicile },
-                new Cours { Id = 12, MatiereId = 12, NiveauId = 3, EnseignantId = 2, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 12, MatiereId = 12, NiveauId = 3, EnseignantId = 2, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 13, MatiereId = 13, NiveauId = 4, EnseignantId = 3, TypeCours = TypeCours.domicile },
-                new Cours { Id = 14, MatiereId = 14, NiveauId = 5, EnseignantId = 4, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 14, MatiereId = 14, NiveauId = 5, EnseignantId = 4, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 15, MatiereId = 15, NiveauId = 10, EnseignantId = 5, TypeCours = TypeCours.domicile },
-                new Cours { Id = 16, MatiereId = 16, NiveauId = 11, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 16, MatiereId = 16, NiveauId = 11, EnseignantId = 1, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 17, MatiereId = 17, NiveauId = 12, EnseignantId = 2, TypeCours = TypeCours.domicile },
-                new Cours { Id = 18, MatiereId = 18, NiveauId = 10, EnseignantId = 3, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 18, MatiereId = 18, NiveauId = 10, EnseignantId = 3, TypeCours = TypeCours.synchrone },
                 new Cours { Id = 19, MatiereId = 19, NiveauId = 11, EnseignantId = 4, TypeCours = TypeCours.domicile },
-                new Cours { Id = 20, MatiereId = 20, NiveauId = 12, EnseignantId = 5, TypeCours = TypeCours.onlineSynchrone }
+                new Cours { Id = 20, MatiereId = 20, NiveauId = 12, EnseignantId = 5, TypeCours = TypeCours.synchrone }
+
             );
                                                         
-            //this.Etudie.AddRange(
-            //     new Etudie { EleveId = 1, CoursId = 12, EnseignantId = 2, EmploiDuTempsEnseignantId = 6 },
-            //     new Etudie { EleveId = 2, CoursId = 5, EnseignantId = 5, EmploiDuTempsEnseignantId = 17 },
-            //     new Etudie { EleveId = 3, CoursId = 2, EnseignantId = 2, EmploiDuTempsEnseignantId = 2 },
-            //     new Etudie { EleveId = 4, CoursId = 10, EnseignantId = 5, EmploiDuTempsEnseignantId = 18 },
-            //     new Etudie { EleveId = 5, CoursId = 11, EnseignantId = 1, EmploiDuTempsEnseignantId = 5 },
-                 
-            //     new Etudie { EleveId = 1, CoursId = 4, EnseignantId = 4, EmploiDuTempsEnseignantId = 10 },
-            //     new Etudie { EleveId = 2, CoursId = 1, EnseignantId = 1, EmploiDuTempsEnseignantId = 1 },
-            //     new Etudie { EleveId = 3, CoursId = 4, EnseignantId = 4, EmploiDuTempsEnseignantId = 10 },
-            //     new Etudie { EleveId = 4, CoursId = 14, EnseignantId = 4, EmploiDuTempsEnseignantId = 14 },
-            //     new Etudie { EleveId = 5, CoursId = 18, EnseignantId = 3, EmploiDuTempsEnseignantId = 15 },
-                 
-            //     new Etudie { EleveId = 1, CoursId = 15, EnseignantId = 5, EmploiDuTempsEnseignantId = 19 },
-            //     new Etudie { EleveId = 2, CoursId = 8, EnseignantId = 3, EmploiDuTempsEnseignantId = 11 },
-            //     new Etudie { EleveId = 3, CoursId = 9 , EnseignantId = 4, EmploiDuTempsEnseignantId = 12 },
-            //     new Etudie { EleveId = 4, CoursId = 5 , EnseignantId = 5, EmploiDuTempsEnseignantId = 17 },
-            //     new Etudie { EleveId = 5, CoursId = 1, EnseignantId = 1, EmploiDuTempsEnseignantId = 1 },
-                 
-            //     new Etudie { EleveId = 1, CoursId = 14, EnseignantId = 4, EmploiDuTempsEnseignantId = 14 },
-            //     new Etudie { EleveId = 2, CoursId = 18, EnseignantId = 3, EmploiDuTempsEnseignantId = 15 },
-            //     new Etudie { EleveId = 3, CoursId = 3, EnseignantId = 3, EmploiDuTempsEnseignantId = 9 },
-            //     new Etudie { EleveId = 4, CoursId = 13, EnseignantId = 3, EmploiDuTempsEnseignantId = 13 },
-            //     new Etudie { EleveId = 5, CoursId = 19, EnseignantId = 4, EmploiDuTempsEnseignantId = 16 }
-
-            //     );
-
             this.Etudie.AddRange(
+
                 new Etudie { EleveId = 1, CoursId = 12},
                 new Etudie { EleveId = 2, CoursId = 5},
                 new Etudie { EleveId = 3, CoursId = 2},

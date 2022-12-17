@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AileLeve.Models;
-
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace AileLeve.ViewModels
 {
@@ -16,5 +16,10 @@ namespace AileLeve.ViewModels
         public EstDisponible EstDisponible { get; set; }    
         public bool Authentifie { get; set; }
         public List<Cours> CoursListe { get; set; }
+
+        //public List<Cours> CoursListePourAdmin { get; set; }
+
+        public Utilisateur Utilisateur { get; set; }
+        public string Role { get; set; }
     }
 }

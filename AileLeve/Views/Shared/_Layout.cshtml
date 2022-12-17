@@ -8,8 +8,8 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
 </head>
 
 <body>
@@ -26,15 +26,18 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+                        
                         <li class="nav-item">
-
                             <a class="nav-link text-light" href="/Home/Index">Accueil</a>
                         </li>
+                        
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     Cours
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -55,8 +58,10 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     Gestion
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -69,9 +74,11 @@
                         }
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Paramètres
+
+                            <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Compte
+
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/Utilisateur/Inscription">Inscription</a>
@@ -90,25 +97,44 @@
                                     <a class="dropdown-item" href="/Utilisateur/Connexion">Connexion</a>
                                 }
                             </div>
+
+                        <li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Visiteur/About">About</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Visiteur/Contact">Contact</a>
+                        </li>
+                        @*<li class="nav-item">
+
+                            <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
+                        </li>*@
+                      </ul>
                 </div>
 
 
-                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin"))) 
+                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
                 {
 
 
-                     <div class="navbar-collapse justify-content-end h-100 w-100">
-                        <a class="notification" href="/Notification/Index">
-                            <h3 class="justify-content-center"><i class="far fa-bell text-light mw-100 mh-100" id="notif"></i></h3>
+                    <div class="navbar-collapse justify-content-end h-100 w-100">
+                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Generer un pdf">
+                             <h3 class="justify-content-center">
+                                <i class="fas fa-print text-light mw-100 mh-100 " onclick="genererPdf('doc')"></i>
+                            </h3>
+                        </a>                       
+                        <a class="notification p-2" href="/Notification/Index">
+                            <h3 class="justify-content-center"><i class="fas fa-bell text-light mw-100 mh-100"
+                                id="notif"></i></h3>
                         </a>
+
                     </div>
                 }
-               
-        
-               
-             
+
+
+
+
 
             </div>
         </nav>
@@ -121,12 +147,15 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022
+            &copy; Pour que chaque élève s'élève
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
+    <script src="/Scripts/jsPdf/jspdf.umd.js"></script>
+    <script src="/Scripts/html2canvas.min.js"></script>
+    <script src="/Scripts/genererPdf.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 

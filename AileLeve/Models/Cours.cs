@@ -11,6 +11,7 @@ namespace AileLeve.Models
         [Display(Name = "Cours asynchrone")]
         onlineAsynchrone
     }
+    
     public class Cours
     {
         public int Id { get; set; }

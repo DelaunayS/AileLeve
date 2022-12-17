@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Ajouter un cours";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 <h1 class="text-center mb-4">Ajouter un cours</h1>
 
@@ -10,15 +11,15 @@
         <fieldset>
             <legend>Veuillez sélectionner un type de cours :</legend>
             <div>
-                <input type="checkbox" value="1" id="1" name="typeCours">
+                <input type="radio" value="1" id="1" name="typeCours">
                 <label for="onlineSynchrone">Cours synchrone</label>
             </div>
             <div>
-                <input type="checkbox" value="2" id="2" name="typeCours">
+                <input type="radio" value="2" id="2" name="typeCours">
                 <label for="onlineAsynchrone">Cours asynchrone</label>
             </div>
             <div>
-                <input type="checkbox" value="0" id="0" name="typeCours">
+                <input type="radio" value="0" id="0" name="typeCours">
                 <label for="domicile">Cours à domicile</label>
             </div>
         </fieldset>
@@ -53,6 +54,7 @@
 
         <div class="row h-100 justify-content-center align-items-center mt-4">
             <button type="submit" class="btn">Enregistrer</button>
+           
         </div>
 
 

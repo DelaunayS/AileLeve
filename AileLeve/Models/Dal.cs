@@ -134,14 +134,16 @@ namespace AileLeve.Models
         {
             Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
             Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
-            Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == id).FirstOrDefault();
+          Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == id).FirstOrDefault();
+            
 
             Cours cours = new Cours
             {
                 TypeCours = typeCours,
                 Matiere = mat,
                 Niveau = niv,
-                Enseignant = ens
+           Enseignant = ens,
+               
             };
             _bddContext.Cours.Add(cours);
             _bddContext.SaveChanges();
@@ -177,6 +179,15 @@ namespace AileLeve.Models
         }
 
 
+
+        public int CreerRepresentantLegal(int utilisateurId, int eleveId)
+        {
+            RepresentantLegal representantLegal = new RepresentantLegal() { UtilisateurId = utilisateurId, EleveId = eleveId };
+            _bddContext.RepresentantLegaux.Add(representantLegal);
+            _bddContext.SaveChanges();
+            return representantLegal.Id;
+        }
+
         public void AjouterAdresse(int id, Adresse adresse)
         {
             Compte compte = ObtenirCompte(id);
@@ -199,6 +210,8 @@ namespace AileLeve.Models
         {
             return _bddContext.Profils.ToList();
         }
+
+       
 
         public List<Adresse> ObtenirToutesLesAdresses()
         {
@@ -358,6 +371,7 @@ namespace AileLeve.Models
                        .Include(u => u.Enseignant).ToList();
         }
 
+
         public List<EstDisponible> ObtenirTousLesPlannings()
         {
             return this._bddContext.EstDisponible
@@ -427,6 +441,12 @@ namespace AileLeve.Models
             }
 
             return (coursDeLEleve, EstDisponibleList);
+
+        public List<Cours> ObtenirCoursParEnseignantPourAdmin()
+        {
+            return this._bddContext.Cours.Include(c => c.Matiere).Include(c => c.Niveau)
+                       .Include(u => u.Enseignant).ToList();
+
         }
 
         public Cours ObtenirCours(string idStr)

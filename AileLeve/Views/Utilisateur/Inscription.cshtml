@@ -1,6 +1,7 @@
 @{
     ViewBag.Title = "Inscription";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    String chemin = String.Format("/utilisateur/connexion");
 }
 <h1 class="text-center mb-4">S'inscrire</h1>
 
@@ -9,14 +10,14 @@
         <div class="row h-100 justify-content-center align-items-center form-group">
             <div class="form-check m-2">
                 <input class="form-check-input" type="radio" onclick="blocDate_show();" name="role" value="Eleve"
-                    checked>
+                       checked>
                 <label class="form-check-label" for="choixEleve">
                     Eleve
                 </label>
             </div>
             <div class="form-check m-2">
                 <input class="form-check-input" type="radio" onclick="blocDate_hide();" name="role" id="enseignantRadio"
-                    value="Recrutement" required>
+                       value="Recrutement" required>
                 <label class="form-check-label" for="choixEnseignant">
                     Enseignant
                 </label>
@@ -49,7 +50,7 @@
             <label for="identifiant" class="col-2">Identifiant</label>
             <div class="col-4">
                 <input type="text" class="form-control" name="identifiant" id="IdentifiantForm"
-                    placeholder="Identifiant" required>
+                       placeholder="Identifiant" required>
             </div>
         </div>
 
@@ -57,7 +58,7 @@
             <label for="password" class="col-2">Mot de passe</label>
             <div class="col-4 input-group">
                 <input type="password" class="form-control" name="password" id="PasswordForm" placeholder="Mot de passe"
-                    required>
+                       required>
                 <div class="input-group-append">
                     <span class="input-group-text" onclick="password_show_hide();">
                         <i class="fas fa-eye" id="show_eye"></i>
@@ -81,8 +82,22 @@
             </div>
         </div>
 
+        <div id="blocRLPrenom" class="row h-100 justify-content-center align-items-center form-group">
+            <label for="prenomRL" class="col-2">Prénom du représentant légal</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="prenomRL" id="PrenomFormRL" placeholder="Prénom du représentant légal" value="">
+            </div>
+        </div>
+
+        <div id="blocRLNom" class="row h-100 justify-content-center align-items-center form-group">
+            <label for="nomRL" class="col-2">Nom du représentant légal</label>
+            <div class="col-4">
+                <input type="text" class="form-control" name="nomRL" id="NomFormRL" placeholder="Nom du représentant légal" value="">
+            </div>
+        </div>
+
         <div class="row h-100 justify-content-center align-items-center form-group">
-            <label for="numeroRue" class="col-2">Numéro</label>
+            <label for="numeroRue" class="col-2">Numéro de la rue</label>
             <div class="col-4">
                 <input type="number" class="form-control" name="numeroRue" id="NumeroRueForm" value=0>
             </div>
@@ -111,8 +126,11 @@
         </div>
 
         <div class="row h-100 justify-content-center align-items-center mt-4">
-            <button type="submit" class="btn">Enregistrer</button>
+            <button type="submit" class="btn mr-5">Enregistrer</button>
+            <a href=@chemin type="submit" class="btn">Annuler</a>
+
         </div>
+</div>
 
 
 

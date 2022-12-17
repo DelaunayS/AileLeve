@@ -20,7 +20,6 @@ namespace AileLeve.Controllers
         [Authorize]
         public IActionResult Index()
         {
-           
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
             if (viewModel.Authentifie)
             {
