@@ -32,17 +32,28 @@ namespace AileLeve.Controllers
             {
                 Authentifie = HttpContext.User.Identity.IsAuthenticated
             };
-            int emploiDuTempsId  = dal.CreerEmploiDuTemps(creneau) ;
-            string idUserStr = HttpContext.User.Identity.Name;
-            int.TryParse(idUserStr, out int idUser);
-            Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
-            int coursId = dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
-            dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId, coursId);
-            
-            DateTime date = DateTime.Now;
-            dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours
-            + " a été créé le " + date.ToString("MM/dd/yyyy f HH:mm"));
 
+
+            if (HttpContext.User.IsInRole("Admin"))
+            {
+                string idAdminStr = HttpContext.User.Identity.Name;
+                int.TryParse(idAdminStr, out int idAdmin);
+                int coursNonAttribueId = dal.CreerCoursSimple(typeCours, matiere, niveau, idAdmin);
+            }
+            
+            if (HttpContext.User.IsInRole("Enseignant"))
+            {
+                int emploiDuTempsId = dal.CreerEmploiDuTemps(creneau);
+                string idUserStr = HttpContext.User.Identity.Name;
+                int.TryParse(idUserStr, out int idUser);
+                Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
+                int coursId = dal.CreerCours(typeCours, matiere, niveau, enseignant.Id);
+                dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId, coursId);
+
+                DateTime date = DateTime.Now;
+                dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours
+                + " a été créé le " + date.ToString("MM/dd/yyyy f HH:mm"));
+            }
             return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
 
