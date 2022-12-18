@@ -89,12 +89,13 @@
                         <i>non</i>
                     }
                 </td>
-                <td>
-                @{
-                        String cheminAjouter = String.Format("/Enseignant/ReserverCours/{0}", item.Cours.Id);
-                }
-                <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"></a>
-                </td>
+                        <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            String cheminSupprimer = String.Format("/Admin/SupprimerCoursAdmin/{0}", item.Cours.Id);
+                            <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>
+                        }
+                        </td>
             </tr>
         }
     }
@@ -110,10 +111,13 @@
                 <td>@item.Cours.Matiere.Nom</td>
                 <td>@item.Cours.Niveau.Nom</td>
                 <td>
-                @{
-                        String cheminAjouter = String.Format("/Enseignant/ReserverCours/{0}", item.Cours.Id);
-                }
-                <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"></a>
+                                @if (User.IsInRole("Eleve"))
+                                {
+                                    String cheminAjouter = String.Format("/Enseignant/ReserverCours/{0}", item.Cours.Id);
+                                    <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"></a>
+                                }
+
+                                
                 </td>
             </tr>
         }

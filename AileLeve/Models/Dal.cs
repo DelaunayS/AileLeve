@@ -140,26 +140,36 @@ namespace AileLeve.Models
         /*Methodes pour le model Cours
         */
 
-        public int CreerCoursSimple(TypeCours typeCours, string matiere, string niveau, int idAdmin)
+        public int CreerCoursSimple(TypeCours typeCours, string matiere, string niveau)
         {
             Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
             Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
-            Compte admin = ObtenirTousLesComptes().Where(c => c.Id == idAdmin).FirstOrDefault();
-            int ensId = CreerEnseignant(admin.Utilisateur.Id);
-            Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == ensId).FirstOrDefault();
+            Compte admin = ObtenirTousLesComptes().Where(c => c.Role == "Admin").FirstOrDefault();
+            Enseignant enseignantAdmin = this.ObtenirTousLesEnseignants().Where(i => i.UtilisateurId == admin.Utilisateur.Id).FirstOrDefault();
 
             Cours cours = new Cours
             {
                 TypeCours = typeCours,
                 Matiere = mat,
-                Niveau = niv,
-                Enseignant = ens
-        };
+                Niveau = niv
+            };
+
+            if (enseignantAdmin == null)
+            {
+                int ensId = this.CreerEnseignant(admin.Utilisateur.Id);
+                Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == ensId).FirstOrDefault();
+                cours.Enseignant = ens;
+            }
+            else
+            {
+                cours.Enseignant = enseignantAdmin;
+            };
 
             _bddContext.Cours.Add(cours);
             _bddContext.SaveChanges();
             return cours.Id;
         }
+
 
         public int CreerCours(TypeCours typeCours, string matiere, string niveau, int id)
         {
@@ -196,6 +206,16 @@ namespace AileLeve.Models
             _bddContext.Cours.Update(cours);
             _bddContext.SaveChanges();
         }
+
+
+        public void ModifierEnseignantDuCours(int idCours, int idEnseignant)
+        {
+            Cours cours = this._bddContext.Cours.Find(idCours);
+            cours.EnseignantId = idEnseignant;
+            _bddContext.SaveChanges();
+
+        }
+
 
         public List<Cours> ObtenirTousLesCours()
         {
@@ -259,9 +279,9 @@ namespace AileLeve.Models
             return (coursDeLEnseignant, etudieList);
         }
 
-        public List<Etudie> ObtenirCoursReservesAvecNomProf(int id)
+        public List<Etudie> ObtenirTousLesEtudie()
         {
-            return this._bddContext.Etudie.Where(c => c.EleveId == id)
+            return this._bddContext.Etudie
                 .Include(c => c.Cours)
                 .Include(c => c.Cours.Matiere)
                 .Include(c => c.Cours.Niveau)
@@ -423,7 +443,16 @@ namespace AileLeve.Models
             return _bddContext.EstDisponible.ToList();
         }
 
+
+        public void SupprimerEstDisponible(EstDisponible estDisponible)
+        {
+            _bddContext.EstDisponible.Remove(estDisponible);
+            _bddContext.SaveChanges();
+        }
+
         //Methodes pour le model Etudie
+
+
         public void CreerEtudie(int eleveId, int coursId)
         {
             Etudie etudie = new Etudie() { EleveId = eleveId, CoursId = coursId };

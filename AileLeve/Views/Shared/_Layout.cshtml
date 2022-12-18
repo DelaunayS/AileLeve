@@ -48,9 +48,15 @@
                                         Liste des cours
                                     </a>
 
-                                    @if (User.IsInRole("Admin") || (User.IsInRole("Enseignant")))
+                                    @if (User.IsInRole("Admin"))
                                     {
                                         <a class="dropdown-item" href="/Cours/Ajouter">Proposer un cours</a>
+                                    }
+
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Enseignant"))
+                                    {
+                                        String cheminAttribuer = String.Format("/Enseignant/AttribuerCours/{0}", User.Identity.Name);
+                                        <a class="dropdown-item" href=@cheminAttribuer>Cours non attribués</a>
                                     }
                                 </div>
                             </li>
@@ -104,7 +110,6 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/Utilisateur/Inscription">Inscription</a>
-                                @*<div class="dropdown-divider"></div>*@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <a class="dropdown-item" href="/Utilisateur/Deconnexion">Déconnexion</a>

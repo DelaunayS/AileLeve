@@ -38,9 +38,11 @@ namespace AileLeve.Controllers
             {
                 string idAdminStr = HttpContext.User.Identity.Name;
                 int.TryParse(idAdminStr, out int idAdmin);
-                int coursNonAttribueId = dal.CreerCoursSimple(typeCours, matiere, niveau, idAdmin);
+                int coursNonAttribueId = dal.CreerCoursSimple(typeCours, matiere, niveau);
+                return RedirectToAction("AttribuerCours", "Enseignant", new { @id = HttpContext.User.Identity.Name });
+
             }
-            
+
             if (HttpContext.User.IsInRole("Enseignant"))
             {
                 int emploiDuTempsId = dal.CreerEmploiDuTemps(creneau);
@@ -54,9 +56,9 @@ namespace AileLeve.Controllers
                 dal.CreerNotification("Un nouveau cours de " + matiere + " de niveau " + niveau + " et de type " + typeCours
                 + " a été créé le " + date.ToString("MM/dd/yyyy f HH:mm"));
             }
+
             return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
-
 
         [HttpGet]
         [Authorize(Roles = "Admin, Enseignant")]     
