@@ -157,11 +157,11 @@ namespace AileLeve.Models
                 );
 
             this.Eleves.AddRange(
-                new Eleve { Id = 1, DateDeNaissance = new DateTime(2006, 08, 15), UtilisateurId = 6 },
-                new Eleve { Id = 2, DateDeNaissance = new DateTime(2013, 12, 18), UtilisateurId = 7 },
-                new Eleve { Id = 3, DateDeNaissance = new DateTime(2015, 07, 15), UtilisateurId = 8 },
-                new Eleve { Id = 4, DateDeNaissance = new DateTime(2004, 02, 14), UtilisateurId = 9 },
-                new Eleve { Id = 5, DateDeNaissance = new DateTime(2006, 03, 08), UtilisateurId = 10 }
+                new Eleve { Id = 1, DateDeNaissance = new DateTime(2014, 08, 15), UtilisateurId = 6 },
+                new Eleve { Id = 2, DateDeNaissance = new DateTime(2011, 12, 18), UtilisateurId = 7 },
+                new Eleve { Id = 3, DateDeNaissance = new DateTime(2004, 07, 15), UtilisateurId = 8 },
+                new Eleve { Id = 4, DateDeNaissance = new DateTime(2006, 02, 14), UtilisateurId = 9 },
+                new Eleve { Id = 5, DateDeNaissance = new DateTime(2015, 03, 08), UtilisateurId = 10 }
                 );
 
             this.RepresentantLegaux.AddRange(
@@ -175,54 +175,54 @@ namespace AileLeve.Models
 
             this.Cours.AddRange(
 
-                new Cours { Id = 1, MatiereId = 1, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.domicile },
+                new Cours { Id = 1, MatiereId = 1, NiveauId = 3, EnseignantId = 1, TypeCours = TypeCours.domicile },
                 new Cours { Id = 2, MatiereId = 2, NiveauId = 2, EnseignantId = 2, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 3, MatiereId = 3, NiveauId = 3, EnseignantId = 3, TypeCours = TypeCours.domicile },
                 new Cours { Id = 4, MatiereId = 4, NiveauId = 4, EnseignantId = 4, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 5, MatiereId = 5, NiveauId = 5, EnseignantId = 5, TypeCours = TypeCours.domicile },
-                new Cours { Id = 6, MatiereId = 6, NiveauId = 6, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 7, MatiereId = 7, NiveauId = 7, EnseignantId = 2, TypeCours = TypeCours.domicile },
-                new Cours { Id = 8, MatiereId = 8, NiveauId = 8, EnseignantId = 3, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 9, MatiereId = 9, NiveauId = 9, EnseignantId = 4, TypeCours = TypeCours.domicile },
-                new Cours { Id = 10, MatiereId = 10, NiveauId = 1, EnseignantId = 5, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 11, MatiereId = 11, NiveauId = 2, EnseignantId = 1, TypeCours = TypeCours.domicile },
-                new Cours { Id = 12, MatiereId = 12, NiveauId = 3, EnseignantId = 2, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 13, MatiereId = 13, NiveauId = 4, EnseignantId = 3, TypeCours = TypeCours.domicile },
+                new Cours { Id = 5, MatiereId = 10, NiveauId = 10, EnseignantId = 5, TypeCours = TypeCours.domicile },
+                new Cours { Id = 6, MatiereId = 6, NiveauId = 2, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 7, MatiereId = 7, NiveauId = 5, EnseignantId = 2, TypeCours = TypeCours.domicile },
+                new Cours { Id = 8, MatiereId = 8, NiveauId = 10, EnseignantId = 3, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 9, MatiereId = 9, NiveauId = 12, EnseignantId = 4, TypeCours = TypeCours.domicile },
+                new Cours { Id = 10, MatiereId = 10, NiveauId = 10, EnseignantId = 4, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 11, MatiereId = 3, NiveauId = 2, EnseignantId = 1, TypeCours = TypeCours.domicile },
+                new Cours { Id = 12, MatiereId = 12, NiveauId = 5, EnseignantId = 2, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 13, MatiereId = 6, NiveauId = 3, EnseignantId = 3, TypeCours = TypeCours.domicile },
                 new Cours { Id = 14, MatiereId = 14, NiveauId = 5, EnseignantId = 4, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 15, MatiereId = 15, NiveauId = 10, EnseignantId = 5, TypeCours = TypeCours.domicile },
-                new Cours { Id = 16, MatiereId = 16, NiveauId = 11, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 15, MatiereId = 15, NiveauId = 12, EnseignantId = 5, TypeCours = TypeCours.domicile },
+                new Cours { Id = 16, MatiereId = 4, NiveauId = 5, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 17, MatiereId = 17, NiveauId = 12, EnseignantId = 2, TypeCours = TypeCours.domicile },
-                new Cours { Id = 18, MatiereId = 18, NiveauId = 10, EnseignantId = 3, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 19, MatiereId = 19, NiveauId = 11, EnseignantId = 4, TypeCours = TypeCours.domicile },
+                new Cours { Id = 18, MatiereId = 1, NiveauId = 2, EnseignantId = 3, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 19, MatiereId = 19, NiveauId = 10, EnseignantId = 4, TypeCours = TypeCours.domicile },
                 new Cours { Id = 20, MatiereId = 20, NiveauId = 12, EnseignantId = 5, TypeCours = TypeCours.onlineSynchrone }
 
             );
                                                         
             this.Etudie.AddRange(
 
-                new Etudie { EleveId = 1, CoursId = 12},
-                new Etudie { EleveId = 2, CoursId = 5},
-                new Etudie { EleveId = 3, CoursId = 2},
-                new Etudie {EleveId = 4, CoursId = 10 },
-                new Etudie { EleveId = 5, CoursId = 11},
+                new Etudie { EleveId = 1, CoursId = 1},
+                new Etudie { EleveId = 2, CoursId = 14},
+                new Etudie { EleveId = 3, CoursId = 20},
+                new Etudie {EleveId = 4, CoursId = 19 },
+                new Etudie { EleveId = 5, CoursId = 2},
 
-                new Etudie { EleveId = 1, CoursId = 4},
-                new Etudie { EleveId = 2, CoursId = 1},
-                new Etudie { EleveId = 3, CoursId = 4},
-                new Etudie { EleveId = 4, CoursId = 14},
+                new Etudie { EleveId = 1, CoursId = 3},
+                new Etudie { EleveId = 2, CoursId = 7},
+                new Etudie { EleveId = 3, CoursId = 17},
+                new Etudie { EleveId = 4, CoursId = 10},
                 new Etudie { EleveId = 5, CoursId = 18},
 
                 //new Etudie { EleveId = 1, CoursId = 15},
-                new Etudie { EleveId = 2, CoursId = 8},
-                new Etudie { EleveId = 3, CoursId = 9},
+                new Etudie { EleveId = 2, CoursId = 12},
+                new Etudie { EleveId = 3, CoursId = 15},
                 new Etudie { EleveId = 4, CoursId = 5},
-                new Etudie { EleveId = 5, CoursId = 1},
+                new Etudie { EleveId = 5, CoursId = 11},
 
-                new Etudie { EleveId = 1, CoursId = 16},
-                new Etudie { EleveId = 2, CoursId = 18},
-                new Etudie { EleveId = 3, CoursId = 3 },
-                new Etudie { EleveId = 4, CoursId = 13},
-                new Etudie { EleveId = 5, CoursId = 19}
+                new Etudie { EleveId = 1, CoursId = 13},
+                new Etudie { EleveId = 2, CoursId = 16},
+                new Etudie { EleveId = 3, CoursId = 9},
+                new Etudie { EleveId = 4, CoursId = 8},
+                new Etudie { EleveId = 5, CoursId = 6}
 
                 );
 
