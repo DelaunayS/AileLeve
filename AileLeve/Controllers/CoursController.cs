@@ -155,6 +155,20 @@ namespace AileLeve.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public IActionResult AboutMeditation()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult SeancesMeditation()
+        {
+            return View();
+        }
+
+
     }
 }
 
