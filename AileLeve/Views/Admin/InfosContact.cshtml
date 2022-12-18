@@ -1,0 +1,173 @@
+﻿@model AileLeve.ViewModels.CompteViewModel;
+@{
+    ViewBag.Title = "Accueil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-3 align-items-center">
+        <div class="card w-100">
+            <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
+            <div class="card-body">
+
+                <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
+                <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
+                <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
+                <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
+                <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
+
+                <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
+                <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
+                <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
+                <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Compte.Identifiant</p>
+                @if (@Model.Utilisateur.Adresse != null)
+                {
+                    @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
+                    {
+                        <p class="card-text">
+                            <i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
+                            @Model.Utilisateur.Adresse.Rue
+                        </p>
+                    }
+                    @if (@Model.Utilisateur.Adresse.CodePostal > 0)
+                    {
+                        <p class="card-text">
+                            <i class="fas fa-city"></i>@Model.Utilisateur.Adresse.CodePostal
+                            @Model.Utilisateur.Adresse.Ville
+                        </p>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+            <table class="table table-striped">
+
+                <thead class="thead-light">
+                    <tr>
+
+                @if (Model.Compte.Role == "Recrutement")
+                {
+                    <th scope="col"></th>
+
+                }
+  
+                        @if (Model.Compte.Role == "Enseignant")
+                        {
+                            <th scope="col">Date</th>
+                            <th scope="col">Type de cours</th>
+                            <th scope="col">Matière</th>
+                            <th scope="col">Niveau</th>
+                            <th scope="col">Elève</th>
+
+
+                        }
+
+                        @if (Model.Compte.Role == "Eleve")
+                        {
+                            <th scope="col">Date</th>
+                            <th scope="col">Type de cours</th>
+                            <th scope="col">Matière</th>
+                            <th scope="col">Niveau</th>
+                            <th scope="col">Enseignant</th>
+                        }
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (Model.Compte.Role == "Eleve")
+                    {
+
+                        List<AileLeve.Models.Etudie> ListeCoursReserves = Model.CoursListeEleve.Item1;
+                        List<AileLeve.Models.EstDisponible> ListeEnseignants = Model.CoursListeEleve.Item2;
+
+                        @foreach (var coursReserve in ListeCoursReserves)
+
+                        {
+                            <tr>
+                                <td>
+                                    @foreach (var enseignant in ListeEnseignants)
+                                    {
+                                        if (coursReserve.CoursId == enseignant.CoursId)
+                                        {
+                                            @enseignant.EmploiDuTempsEnseignant.DateTime
+                                        }
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(c => coursReserve.Cours.TypeCours)</td>
+                                <td>@coursReserve.Cours.Matiere.Nom</td>
+                                <td>@coursReserve.Cours.Niveau.Nom</td>
+                                <td>
+                                    @foreach (var enseignant in ListeEnseignants)
+                                    {
+                                        if (coursReserve.CoursId == enseignant.CoursId)
+                                        {
+                                            @enseignant.Enseignant.Utilisateur.Nom
+
+                                            @enseignant.Enseignant.Utilisateur.Prenom
+                                        }
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    }
+
+            @if (Model.Compte.Role == "Enseignant")
+            {
+
+                List<AileLeve.Models.EstDisponible> ListeEstDisponible = Model.CoursListe.Item1;
+                List<AileLeve.Models.Etudie> ListeEtudie = Model.CoursListe.Item2;
+
+                @foreach (var coursPropose in ListeEstDisponible)
+
+                {
+                    <tr>
+                        <td>@coursPropose.EmploiDuTempsEnseignant.DateTime</td>
+                        <td>@Html.DisplayFor(c => coursPropose.Cours.TypeCours)</td>
+                        <td>@coursPropose.Cours.Matiere.Nom</td>
+                        <td>@coursPropose.Cours.Niveau.Nom</td>
+                        <td>
+                            @foreach (var eleve in ListeEtudie)
+                            {
+                                if (coursPropose.CoursId == eleve.CoursId)
+                                {
+                                    @eleve.Eleve.Utilisateur.Nom
+
+                                    @eleve.Eleve.Utilisateur.Prenom
+                                    <br />
+                                    if (coursPropose.Cours.TypeCours == 0)
+                                    {
+                                        @eleve.Eleve.Utilisateur.Adresse.NumeroRue @eleve.Eleve.Utilisateur.Adresse.Rue
+                                        <br />
+                                        @eleve.Eleve.Utilisateur.Adresse.CodePostal @eleve.Eleve.Utilisateur.Adresse.Ville
+                                        <br />
+                                        <br />
+                                    }
+                                }
+
+                            }
+                        </td>
+              
+                    </tr>
+                }
+            }
+
+            @if (Model.Compte.Role == "Recrutement")
+            {
+                <tr>
+                    <td>Enseignant en recrutement</td>
+                 </tr>
+                }
+            }
+                </tbody>
+           
+            </table>
+
+</div>

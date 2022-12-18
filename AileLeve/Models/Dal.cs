@@ -139,6 +139,28 @@ namespace AileLeve.Models
 
         /*Methodes pour le model Cours
         */
+
+        public int CreerCoursSimple(TypeCours typeCours, string matiere, string niveau, int idAdmin)
+        {
+            Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
+            Niveau niv = _bddContext.Niveaux.Where(m => m.Nom == niveau).FirstOrDefault();
+            Compte admin = ObtenirTousLesComptes().Where(c => c.Id == idAdmin).FirstOrDefault();
+            int ensId = CreerEnseignant(admin.Utilisateur.Id);
+            Enseignant ens = this.ObtenirTousLesEnseignants().Where(i => i.Id == ensId).FirstOrDefault();
+
+            Cours cours = new Cours
+            {
+                TypeCours = typeCours,
+                Matiere = mat,
+                Niveau = niv,
+                Enseignant = ens
+        };
+
+            _bddContext.Cours.Add(cours);
+            _bddContext.SaveChanges();
+            return cours.Id;
+        }
+
         public int CreerCours(TypeCours typeCours, string matiere, string niveau, int id)
         {
             Matiere mat = _bddContext.Matieres.Where(m => m.Nom == matiere).FirstOrDefault();
@@ -190,6 +212,29 @@ namespace AileLeve.Models
             _bddContext.SaveChanges();
         }
 
+        public (List<EstDisponible>, List<Etudie>) AdminObtenirCoursProposesAvecDateEtEleve()
+        {
+            var coursDeLEnseignant = this._bddContext.EstDisponible
+                .Include(c => c.Cours)
+                .Include(c => c.Cours.Matiere)
+                .Include(c => c.Cours.Niveau)
+                .Include(c => c.EmploiDuTempsEnseignant)
+                .Include(c => c.Enseignant)
+                .Include(c => c.Enseignant.Utilisateur).ToList();
+
+            List<Etudie> etudieList = new List<Etudie>();
+
+            foreach (var item in coursDeLEnseignant)
+            {
+                var query2 = this._bddContext.Etudie.Where(c => c.CoursId == item.CoursId)
+                .Include(c => c.Eleve)
+                .ThenInclude(c => c.Utilisateur)
+                .ThenInclude(c => c.Adresse).ToList();
+                etudieList = etudieList.Concat(query2).ToList();
+            }
+
+            return (coursDeLEnseignant, etudieList);
+        }
 
         public (List<EstDisponible>, List<Etudie>) ObtenirCoursProposesAvecDateEtEleve(int id)
         {
