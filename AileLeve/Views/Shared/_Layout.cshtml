@@ -36,7 +36,7 @@
                             <li class="nav-item dropdown">
 
                                 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     Cours
                                 </a>
@@ -44,12 +44,34 @@
 
                                     <a class="dropdown-item" href="/Cours/ListeCours">Contenu pédagogique en ligne</a>
 
-                                    <a class="dropdown-item" href="/Enseignant/EmploiDuTempsEnseignant">Liste des cours
-                                        </a>
+                                    <a class="dropdown-item" href="/Enseignant/EmploiDuTempsEnseignant">
+                                        Liste des cours
+                                    </a>
 
                                     @if (User.IsInRole("Admin") || (User.IsInRole("Enseignant")))
                                     {
                                         <a class="dropdown-item" href="/Cours/Ajouter">Proposer un cours</a>
+                                    }
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+
+                                <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Méditation
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="/Cours/AboutMeditation">Qu'est-ce que la méditation?</a>
+
+                                    <a class="dropdown-item" href="/Cours/SeancesMeditation">
+                                        Séances de méditation guidée asynchrone
+                                    </a>
+
+                                    @if (User.IsInRole("Admin") || (User.IsInRole("Enseignant")))
+                                    {
+                                        <a class="dropdown-item" href="/Cours/Ajouter">Proposer une séance de méditation guidée synchrone</a>
                                     }
                                 </div>
                             </li>
@@ -60,7 +82,7 @@
                             <li class="nav-item dropdown">
 
                                 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     Gestion
                                 </a>
@@ -76,7 +98,7 @@
                         <li class="nav-item dropdown">
 
                             <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Compte
 
                             </a>
@@ -106,10 +128,10 @@
 
                             <a class="nav-link text-light" href="/Visiteur/Contact">Contact</a>
                         </li>
-                            @*<li class="nav-item">
+                        @*<li class="nav-item">
 
-                                <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
-                                </li>*@
+        <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
+        </li>*@
                     </ul>
                 </div>
 

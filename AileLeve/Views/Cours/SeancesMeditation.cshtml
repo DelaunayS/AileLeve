@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Ajouter un cours";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1 class="text-center mb-4" style="margin-top:30px">Invitation à prendre une pause pour méditer...</h1>
+
+
+<div class="col-12 justify-content-center align-items-center">
+
+    <p>
+        <i>
+            La méditation a de nombreux bienfaits à découvrir. Elle améliore la concentration et permet de gérer l'anxiété en période de révision et d'examens. 
+            <br/>
+            Alors, choisissez le programme qui vous convient!
+        </i>
+    </p>
+</div>
+<br />
+
+<div id="accordion">
+
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Préparation à un examen
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> Le souffle comme ancre
+                </div>
+
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> Conscience des sensations
+                </div>
+
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> Conscience des sons
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Bien dormir
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> Méditation du soir
+                </div>
+
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> Histoires de nature
+                </div>
+
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> Comme sur une plage
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                   Histoires inspirantes
+                </button>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body row">
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> Les bulles de savon
+                </div>
+
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> La cascade
+                </div>
+
+                <div class="col-4">
+                    <img src="~/img/yoga.png" class="iconeMatiere"> Le bambou
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
