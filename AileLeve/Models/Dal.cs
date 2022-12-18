@@ -522,10 +522,7 @@ namespace AileLeve.Models
         {
             return this._bddContext.Utilisateurs.Find(id);
         }
-        public void EffacerUtilisateur(int id, string role)
-        {
-            this._bddContext.Utilisateurs.Find(id);
-        }
+        
         public void ModifierUtilisateur(Utilisateur utilisateur)
         {
             _bddContext.Utilisateurs.Update(utilisateur);
