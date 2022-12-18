@@ -3,15 +3,9 @@
     ViewBag.Title = "Accueil";
     Layout = "~/Views/Shared/_Layout.cshtml";
     String chemin = String.Format("/profil/modifier/{0}", @Model.Profil.Id);
+
 }
 
-@*<div class="container h-100">
-    <div class="row align-items-center h-100">
-        <div class="col-12">
-            <div class="card h-100 justify-content-center">
-                <div>*@
-
-@*<div class="container">*@
 <div class="row">
     <div class="col-sm-3">
         <div class="card w-100">
@@ -65,11 +59,22 @@
 
     <div class="col-sm-9">
         <div class="card w-100">
-            <div class="row justify-content-end">
+            @if (Model.Compte.Role == "Admin")
+            {
+                <div class="col-4 text-center justify-content-center">
+                    <h1 class=" mb-4 align-items-center">Planning des cours</h1>
+                </div>
+
+            }
+            else
+            {
                 <div class="col-4 text-center">
                     <h1 class=" mb-4">Mes cours</h1>
                 </div>
-
+            }
+            <div class="row justify-content-end">
+                  
+ 
                 @if (Model.Compte.Role == "Eleve")
                 {
                     <div class="col-4 text-right">
@@ -104,6 +109,19 @@
                 <thead class="thead-light">
                     <tr>
 
+                        @if (Model.Compte.Role == "Admin")
+                        {
+                            <th scope="col">Date</th>
+                            <th scope="col">Type de cours</th>
+                            <th scope="col">Matière</th>
+                            <th scope="col">Niveau</th>
+                            <th scope="col">Enseignant</th>
+                            <th scope="col">Elève</th>
+
+
+                        }
+
+
                         @if (Model.Compte.Role == "Enseignant")
                         {
                             <th scope="col">Date</th>
@@ -127,6 +145,50 @@
                     </tr>
                 </thead>
                 <tbody>
+
+
+                    @if (Model.Compte.Role == "Admin")
+                    {
+
+                        List<AileLeve.Models.EstDisponible> ListeEstDisponible = Model.CoursListe.Item1;
+                        List<AileLeve.Models.Etudie> ListeEtudie = Model.CoursListe.Item2;
+
+                        @foreach (var coursPropose in ListeEstDisponible)
+
+                        {
+                            <tr>
+                                <td>@coursPropose.EmploiDuTempsEnseignant.DateTime</td>
+                                <td>@Html.DisplayFor(c => coursPropose.Cours.TypeCours)</td>
+                                <td>@coursPropose.Cours.Matiere.Nom</td>
+                                <td>@coursPropose.Cours.Niveau.Nom</td>
+                                @{
+                                    String cheminInfosContact = String.Format("/Admin/InfosContact/{0}", coursPropose.Enseignant.UtilisateurId);
+                                }
+                                <td><a href=@cheminInfosContact>@coursPropose.Enseignant.Utilisateur.Nom @coursPropose.Enseignant.Utilisateur.Prenom</a></td>
+                                <td>
+                                    @foreach (var eleve in ListeEtudie)
+                                    {
+                                        String cheminInfosContactEleve = String.Format("/Admin/InfosContact/{0}", eleve.Eleve.UtilisateurId);
+
+                                        if (coursPropose.CoursId == eleve.CoursId)
+                                        {
+                                            <a href=@cheminInfosContactEleve>@eleve.Eleve.Utilisateur.Nom @eleve.Eleve.Utilisateur.Prenom</a>
+                                            <br />
+                                            if (coursPropose.Cours.TypeCours == 0)
+                                            {
+                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue @eleve.Eleve.Utilisateur.Adresse.Rue
+                                                <br />
+                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal @eleve.Eleve.Utilisateur.Adresse.Ville
+                                                <br />
+                                                <br />
+                                            }
+                                        }
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
 
                     @if (Model.Compte.Role == "Enseignant")
                     {

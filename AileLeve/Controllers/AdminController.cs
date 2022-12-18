@@ -29,6 +29,32 @@ namespace AileLeve.Controllers
             return View(cvm);
         }
 
+        public IActionResult InfosContact(int id)
+        {
+
+            CompteViewModel viewModel = new CompteViewModel();
+            viewModel.Utilisateur = dal.ObtenirUtilisateur(id);
+            viewModel.Compte = dal.ObtenirTousLesComptes().Where(e => e.Id == viewModel.Utilisateur.Id).FirstOrDefault();
+            viewModel.Profil = dal.ObtenirTousLesProfils().Where(e => e.Id == viewModel.Compte.ProfilId).FirstOrDefault();
+
+            if (viewModel.Compte.Role=="Enseignant")
+                {
+                    viewModel.Enseignant = dal.ObtenirTousLesEnseignants().Where(e => e.UtilisateurId == viewModel.Compte.UtilisateurId).FirstOrDefault();
+                    viewModel.EstDisponible = dal.ObtenirToutesLesDispos().Where(e => e.EnseignantId == viewModel.Enseignant.Id).FirstOrDefault();
+                    viewModel.EmpEns = dal.ObtenirTousLesEmploisDuTemps().Where(e => e.Id == viewModel.EstDisponible.EmploiDuTempsEnseignantId).FirstOrDefault();
+                    viewModel.CoursListe = dal.ObtenirCoursProposesAvecDateEtEleve(viewModel.Enseignant.Id);
+                };
+
+                if (viewModel.Compte.Role == "Eleve")
+                {
+                    viewModel.Eleve = dal.ObtenirTousLesEleves().Where(e => e.UtilisateurId == viewModel.Compte.UtilisateurId).FirstOrDefault();
+                    viewModel.CoursListeEleve = dal.ObtenirCoursReservesAvecDateEtProf(viewModel.Eleve.Id);
+                };
+
+                return View(viewModel);
+            
+        }
+
         public IActionResult Supprimer(int id)
         {
             Compte compteASupprimer = dal.ObtenirCompte(id);

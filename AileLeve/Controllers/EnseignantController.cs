@@ -53,15 +53,12 @@ namespace AileLeve.Controllers
         {
             CompteViewModel evm = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
 
-            if (evm.Authentifie)
-            {
                 evm.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
                 evm.Eleve = dal.ObtenirTousLesEleves().Where(c => c.UtilisateurId == evm.Compte.UtilisateurId).FirstOrDefault();
                 evm.Etudie = dal.ObtenirToutesLesReservationsCours().Where(c => c.CoursId == id).FirstOrDefault();
                 evm.EstDisponible = dal.ObtenirTousLesPlannings().Where(c => c.CoursId == evm.Etudie.CoursId).FirstOrDefault();
                 dal.SupprimerEtudie(evm.Etudie);             
                 dal.EstDisponible(evm.EstDisponible.EmploiDuTempsEnseignant.Id);
-            };
                 return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
 

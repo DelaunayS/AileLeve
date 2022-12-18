@@ -31,7 +31,12 @@ namespace AileLeve.Controllers
                 viewModel.Compte = dal.ObtenirCompte(HttpContext.User.Identity.Name);
                 viewModel.Utilisateur = dal.ObtenirTousLesUtilisateurs().Where(e => e.Id == viewModel.Compte.Id).FirstOrDefault();
                 viewModel.Profil = dal.ObtenirTousLesProfils().Where(e => e.Id == viewModel.Compte.ProfilId).FirstOrDefault();
-                
+
+                if (HttpContext.User.IsInRole("Admin"))
+                {
+                    viewModel.CoursListe = dal.AdminObtenirCoursProposesAvecDateEtEleve();
+                }
+
                 if (HttpContext.User.IsInRole("Enseignant")) 
                     {
                     viewModel.Enseignant = dal.ObtenirTousLesEnseignants().Where(e => e.UtilisateurId == viewModel.Compte.UtilisateurId).FirstOrDefault();
