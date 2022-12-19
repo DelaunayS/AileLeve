@@ -10,10 +10,13 @@ function genererPdf() {
         canvas.download = "filename.jpg";
         canvas.href = canvas.toDataURL();
 
+        
         //creation du doc pdf
-        var doc = new jsPDF();
+        var doc = new jsPDF("p","mm", "a4");
+        var width = doc.internal.pageSize.getWidth();
+        var height = doc.internal.pageSize.getHeight();
         //ajout du canvas au doc pdf
-        doc.addImage(canvas.href, 'PNG', 20, 20,175,100);        
-        doc.save('test.pdf');
+        doc.addImage(canvas.href, 'PNG', 0, 0, width, height);
+        doc.save('admin.pdf');
     });
 }
