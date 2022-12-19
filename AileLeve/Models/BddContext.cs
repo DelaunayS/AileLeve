@@ -88,7 +88,7 @@ namespace AileLeve.Models
 
             this.Utilisateurs.AddRange(
                 new Utilisateur { Id = 1, Nom = "Dupond", Prenom = "Jean", AdresseId = 1 },
-                new Utilisateur { Id = 2, Nom = "Dupont", Prenom = "Yann" },
+                new Utilisateur { Id = 2, Nom = "Dupont", Prenom = "Yann"},
                 new Utilisateur { Id = 3, Nom = "Dylan", Prenom = "Bob", AdresseId = 3 },
                 new Utilisateur { Id = 4, Nom = "Bibb", Prenom = "Justine" },
                 new Utilisateur { Id = 5, Nom = "Durand", Prenom = "Pierre", AdresseId = 5 },
@@ -200,16 +200,18 @@ namespace AileLeve.Models
 
 
             this.RepresentantLegaux.AddRange(
-               new RepresentantLegal { Id = 1, NomRL = "Prévert", PrenomRL = "Jacques", EleveId = 1 },
-               new RepresentantLegal { Id = 2, NomRL = "Hugo", PrenomRL = "Victor", EleveId = 3 },
-               new RepresentantLegal { Id = 3, NomRL = "Baudelaire", PrenomRL = "Charles", EleveId = 5 },
-               new RepresentantLegal { Id = 4, NomRL = "Desnos", PrenomRL = "Robert", EleveId = 7 },
-               new RepresentantLegal { Id = 5, NomRL = "De la Fortelle", PrenomRL = "Guy", EleveId = 9 },
-               new RepresentantLegal { Id = 6, NomRL = "Obertone", PrenomRL = "Laurent", EleveId = 2 },
-               new RepresentantLegal { Id = 7, NomRL = "Valéry", PrenomRL = "Paul", EleveId = 4 },
-               new RepresentantLegal { Id = 8, NomRL = "Péguy", PrenomRL = "Charles", EleveId = 6 },
-               new RepresentantLegal { Id = 9, NomRL = "Murer", PrenomRL = "Philippe", EleveId = 8 }
-               );
+    new RepresentantLegal { Id = 1, NomRL = "Prévert", PrenomRL = "Jacques", EleveId = 1 },
+    new RepresentantLegal { Id = 2, NomRL = "Hugo", PrenomRL = "Victor", EleveId = 3 },
+    new RepresentantLegal { Id = 3, NomRL = "Baudelaire", PrenomRL = "Charles", EleveId = 5 },
+    new RepresentantLegal { Id = 4, NomRL = "Desnos", PrenomRL = "Robert", EleveId = 7 },
+    new RepresentantLegal { Id = 5, NomRL = "De la Fortelle", PrenomRL = "Guy", EleveId = 9 },
+    new RepresentantLegal { Id = 6, NomRL = "Obertone", PrenomRL = "Laurent", EleveId = 2 },
+    new RepresentantLegal { Id = 7, NomRL = "Valéry", PrenomRL = "Paul", EleveId = 4 },
+    new RepresentantLegal { Id = 8, NomRL = "Péguy", PrenomRL = "Charles", EleveId = 6 },
+    new RepresentantLegal { Id = 9, NomRL = "Murer", PrenomRL = "Philippe", EleveId = 8 }
+    );
+
+      
 
 
             this.Cours.AddRange(
@@ -217,7 +219,7 @@ namespace AileLeve.Models
                 new Cours { Id = 1, MatiereId = 1, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.domicile },
                 new Cours { Id = 2, MatiereId = 2, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 3, MatiereId = 3, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.domicile },
-                new Cours { Id = 4, MatiereId = 5, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
+                                new Cours { Id = 4, MatiereId = 5, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 5, MatiereId = 11, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 6, MatiereId = 3, NiveauId = 2, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 7, MatiereId = 11, NiveauId = 12, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
@@ -322,7 +324,7 @@ namespace AileLeve.Models
            new EmploiDuTempsEnseignant { Id = 29, DateTime = new DateTime(2023, 02, 02, 18, 30, 00), Disponible = true },
            new EmploiDuTempsEnseignant { Id = 30, DateTime = new DateTime(2023, 02, 03, 17, 45, 00), Disponible = true }
            );
-
+          
 
 
             this.EstDisponible.AddRange(
@@ -353,7 +355,7 @@ namespace AileLeve.Models
             new EstDisponible { EnseignantId = 5, EmploiDuTempsEnseignantId = 18, CoursId = 18 },
             new EstDisponible { EnseignantId = 5, EmploiDuTempsEnseignantId = 22, CoursId = 19 },
             new EstDisponible { EnseignantId = 5, EmploiDuTempsEnseignantId = 12, CoursId = 20 },
-            
+
             new EstDisponible { EnseignantId = 6, EmploiDuTempsEnseignantId = 21, CoursId = 29 },
             new EstDisponible { EnseignantId = 6, EmploiDuTempsEnseignantId = 24, CoursId = 30 },
 
@@ -364,14 +366,13 @@ namespace AileLeve.Models
             new EstDisponible { EnseignantId = 7, EmploiDuTempsEnseignantId = 24, CoursId = 25 }
 
             );
-
             this.Notifications.AddRange(
-                new Notification { Id = 1, Lu = true, TypeNotification = "L'élève Proust Marcel s'est inscrite sur la plateforme le 14/12/2022 14:31" },
-                new Notification { Id = 2, Lu = false, TypeNotification = "L'enseignant Dupond Jean s'est inscrit sur la plateforme le 13/12/2022 18:42" },
-                new Notification { Id = 3, Lu = false, TypeNotification = "L'élève Duras Marguerite s'est inscrit sur la plateforme le 19/12/2022 17:04" },
-                new Notification { Id = 4, Lu = false, TypeNotification = "L'enseignant Gave Charles s'est inscrit sur la plateforme le 15/12/2022 18:07" }
+               new Notification { Id = 1, Lu = true, TypeNotification = "L'élève Proust Marcel s'est inscrite sur la plateforme le 14/12/2022 14:31" },
+               new Notification { Id = 2, Lu = false, TypeNotification = "L'enseignant Dupond Jean s'est inscrit sur la plateforme le 13/12/2022 18:42" },
+               new Notification { Id = 3, Lu = false, TypeNotification = "L'élève Duras Marguerite s'est inscrit sur la plateforme le 19/12/2022 17:04" },
+               new Notification { Id = 4, Lu = false, TypeNotification = "L'enseignant Gave Charles s'est inscrit sur la plateforme le 15/12/2022 18:07" }
 
-                );
+               );
 
             this.SaveChanges();
         }
