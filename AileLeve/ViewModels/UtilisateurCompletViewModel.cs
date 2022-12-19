@@ -13,5 +13,7 @@ namespace AileLeve.ViewModels
         public Utilisateur Utilisateur { get; set; }
         public Adresse Adresse {get;set;}
         public Eleve Eleve { get; set; }
+
+        public RepresentantLegal RL { get; set; }
     }
 }

@@ -7,35 +7,31 @@
     String espace =" ";
 }
 
-@*<div class="container h-100">
-    <div class="row align-items-center h-100">
-    <div class="col-12">
-    <div class="card h-100 justify-content-center">
-    <div>*@
-
 
 <div class="row">
     <div class="col-sm-4">
         <div class="card w-100">
             <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
-                <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
-                <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
-                <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Compte.Identifiant</p>
+                <h5 class="card-title"><i class="fas fa-user"></i>@espace @Model.Compte.Utilisateur.Prenom @Model.Compte.Utilisateur.Nom</h5>
+                <p class="card-text"><i class="fas fa-envelope"></i>@espace @Model.Profil.Email</p>
+                <p class="card-text"><i class="fas fa-phone"></i>@espace @Model.Profil.Telephone</p>
+                <p class="card-text"><i class="fas fa-id-badge"></i>@espace @Model.Compte.Identifiant</p>
                 @if (@Model.Utilisateur.Adresse != null)
                 {
                     @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
                     {
                         <p class="card-text">
-                            <i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
-                            @Model.Utilisateur.Adresse.Rue
+                         <i class="fas fa-city"></i>@espace @Model.Utilisateur.Adresse.NumeroRue
+                         @espace 
+                         @Model.Utilisateur.Adresse.Rue
                         </p>
                     }
                     @if (@Model.Utilisateur.Adresse.CodePostal > 0)
                     {
                         <p class="card-text">
-                            <i class="fas fa-city"></i>@Model.Utilisateur.Adresse.CodePostal
+                            <i class="fas fa-city"></i>@espace @Model.Utilisateur.Adresse.CodePostal
+                            @espace 
                             @Model.Utilisateur.Adresse.Ville
                         </p>
                     }
@@ -87,7 +83,7 @@
                 {
                     <div class="col-4 text-right">
                         <h4 class="mb-4 pt-1">
-                            Ajouter un cours
+                            Proposer un cours
                             @{
                                 String cheminAjouter = String.Format("/Enseignant/EmploiDuTempsEnseignant");
                             }
@@ -115,10 +111,13 @@
             <table id="sortTable" class="table table-striped">
 
                 <thead class="thead-light">
+
                     <tr>
+
 
                         @if (Model.Compte.Role == "Admin")
                         {
+
                             <th scope="col">Date</th>
                             <th scope="col">Type de cours</th>
                             <th scope="col">Matière</th>
@@ -244,9 +243,13 @@
                                             <br />
                                             if (coursPropose.Cours.TypeCours == 0)
                                             {
-                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue @eleve.Eleve.Utilisateur.Adresse.Rue
+                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue
+                                                @espace
+                                                @eleve.Eleve.Utilisateur.Adresse.Rue
                                                 <br />
-                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal @eleve.Eleve.Utilisateur.Adresse.Ville
+                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal
+                                                @espace
+                                                @eleve.Eleve.Utilisateur.Adresse.Ville
                                                 <br />
                                                 <br />
                                             }
@@ -279,14 +282,18 @@
                                         if (coursPropose.CoursId == eleve.CoursId)
                                         {
                                             @eleve.Eleve.Utilisateur.Nom
-
+                                            @espace
                                             @eleve.Eleve.Utilisateur.Prenom
                                             <br />
                                             if (coursPropose.Cours.TypeCours == 0)
                                             {
-                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue @eleve.Eleve.Utilisateur.Adresse.Rue
+                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue
+                                                @espace
+                                                @eleve.Eleve.Utilisateur.Adresse.Rue
                                                 <br />
-                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal @eleve.Eleve.Utilisateur.Adresse.Ville
+                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal
+                                                @espace
+                                                @eleve.Eleve.Utilisateur.Adresse.Ville
                                                 <br />
                                                 <br />
                                             }
