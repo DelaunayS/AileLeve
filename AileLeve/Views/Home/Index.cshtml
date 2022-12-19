@@ -3,12 +3,18 @@
     ViewBag.Title = "Accueil";
     Layout = "~/Views/Shared/_Layout.cshtml";
     String chemin = String.Format("/profil/modifier/{0}", @Model.Profil.Id);
-
+    String perso="col-sm-8";
+    @if (Model.Compte.Role == "Admin")
+            {
+                perso="col-12";
+            }
     String espace = " ";
 }
 
 
 <div class="row">
+    @if (!(Model.Compte.Role == "Admin"))
+            {
     <div class="col-sm-4">
         <div class="card w-100">
             <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
@@ -60,9 +66,12 @@
         }
 
     </div>
+            }
 
-
-    <div class="col-sm-8">
+    
+            
+    <div class=@perso>
+        
         <div class="card w-100">
             @if (Model.Compte.Role == "Admin")
             {
@@ -84,7 +93,7 @@
                 {
                     <div class="col-4 text-right">
                         <h4 class="mb-4 pt-1">
-                            S'inscrire à un cours
+                            S'inscrire un cours
                             @{
                                 String cheminAjouter = String.Format("/Enseignant/EmploiDuTempsEnseignant");
                             }
@@ -151,59 +160,59 @@
 
                         @if (Model.Compte.Role == "Enseignant")
                         {
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
-                                    Date                                
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
+                                Date
                             </th>
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
-                                    Type de cours                                
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
+                                Type de cours
                             </th>
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
-                                    Matière                                
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
+                                Matière
                             </th>
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),3,this);"></i>
-                                    Niveau                                
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),3,this);"></i>
+                                Niveau
                             </th>
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),4,this);"></i>
-                                    Elève                                
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),4,this);"></i>
+                                Elève
                             </th>
                         }
 
                         @if (Model.Compte.Role == "Eleve")
                         {
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
-                                    Date                                
-                            </th>
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
-                                    Type de cours                               
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
+                                Date
                             </th>
                             <th scope="col">
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
-                                    Matière                                
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
+                                Type de cours
                             </th>
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),3,this);"></i>
-                                    Niveau                               
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
+                                Matière
                             </th>
-                            <th scope="col">                                
-                                    <i class="fas fa-sort-up" id="iconeTri"
-                                    onclick="sortTable(document.getElementById('sortTable'),4,this);"></i>
-                                    Enseignant                                
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),3,this);"></i>
+                                Niveau
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),4,this);"></i>
+                                Enseignant
                             </th>
                         }
                     </tr>
@@ -362,10 +371,6 @@
             </table>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <img src="~/img/Aile'lèveV3.png" class="img-fluid" alt="Logo image">
 </div>
 
 <script src="/Scripts/sortTable.js"></script>
