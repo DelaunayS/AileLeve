@@ -31,8 +31,15 @@ namespace AileLeve.Controllers
                     if (utilisateurCompletViewModel.Compte.Role == "Eleve")
                     {
                         utilisateurCompletViewModel.Eleve = dal.ObtenirTousLesEleves().Where(p => p.UtilisateurId == utilisateurCompletViewModel.Utilisateur.Id).FirstOrDefault();
+                        RepresentantLegal RL = dal.ObtenirTousLesRepresentantsLegaux().Where(r => r.Id == utilisateurCompletViewModel.Eleve.Id).FirstOrDefault();
+                        if (RL == null)
+                        {
+                            return View(utilisateurCompletViewModel);
+                        } else
+                        {
+                            utilisateurCompletViewModel.RL = RL;
+                        }           
                     }
-
                     return View(utilisateurCompletViewModel);
                 }
                 return Redirect("/Utilisateur/Connexion");
@@ -41,7 +48,7 @@ namespace AileLeve.Controllers
         }
 
         [HttpPost]
-        public IActionResult Modifier(UtilisateurCompletViewModel utilisateurAmodifier, int numeroRue, string rue, int codePostal, string ville)
+        public IActionResult Modifier(UtilisateurCompletViewModel utilisateurAmodifier, int numeroRue, string rue, int codePostal, string ville, string prenomRL, string nomRL)
         {
             CompteViewModel viewModel = new CompteViewModel {Authentifie = HttpContext.User.Identity.IsAuthenticated};
             if (viewModel.Authentifie)
@@ -69,6 +76,19 @@ namespace AileLeve.Controllers
                 {
                     utilisateurAmodifier.Eleve = dal.ObtenirTousLesEleves().Where(p => p.UtilisateurId == utilisateurAmodifier.Utilisateur.Id).FirstOrDefault();
                     dal.ModifierDateNaissance(utilisateurAmodifier.Eleve.Id, utilisateurAmodifier.Eleve.DateDeNaissance.ToShortDateString());
+                    if (utilisateurAmodifier.RL == null)
+                    {
+                        RepresentantLegal RL = new RepresentantLegal
+                        {
+                            NomRL = nomRL,
+                            PrenomRL = prenomRL,
+                            Eleve = utilisateurAmodifier.Eleve
+                        };
+                        dal.AjouterRL(utilisateurAmodifier.Eleve.Id, RL);
+                    } else
+                    {
+                        dal.ModifierRL(utilisateurAmodifier.RL);
+                    }
                 };
 
                 return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
