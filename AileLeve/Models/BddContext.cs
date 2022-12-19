@@ -108,8 +108,10 @@ namespace AileLeve.Models
                 new Utilisateur { Id = 19, Nom = "Bernard", Prenom = "Claude" },
                 new Utilisateur { Id = 20, Nom = "Moulin", Prenom = "Jean", AdresseId = 4 }
             ); ;
-            
-                new Profil { Id = 1, Telephone = "0625522552", Image = "/img/DupondJean.jpg", Email = "dupondjean@gmail.fr" },
+
+
+           this.Profils.AddRange(
+               new Profil { Id = 1, Telephone = "0625522552", Image = "/img/DupondJean.jpg", Email = "dupondjean@gmail.fr" },
                 new Profil { Id = 2, Telephone = "0725752552", Image = "/img/DupontYann.png", Email = "dupontyann@yahoo.fr" },
                 new Profil { Id = 3, Telephone = "0635528550", Image = "/img/DylanBob.jpg", Email = "dylanbob@gmail.fr" },
                 new Profil { Id = 4, Telephone = "0600548552", Image = "/img/BibbJustine.jpg", Email = "bibbjustine@hotmail.fr" },
@@ -119,7 +121,7 @@ namespace AileLeve.Models
                 new Profil { Id = 8, Telephone = "0607788908", Image = "/img/profil.jpg", Email = "christian.bobin@gmail.com" },
                 new Profil { Id = 9, Telephone = "0607788908", Image = "/img/ProustMarcel.jpg", Email = "marcel.proust@gmail.com" },
                 new Profil { Id = 10, Telephone = "0607788908", Image = "/img/MaulpoixJM.jpg", Email = "jeanmichel.maulpoix@gmail.com" },
-                new Profil { Id = 11, Telephone = "0102030405", Image = "/img/Aile'lèveV3.png", Email = "aileleve.soutienscolaire@gmail.com" }
+                new Profil { Id = 11, Telephone = "0102030405", Image = "/img/Aile'lèveV3.png", Email = "aileleve.soutienscolaire@gmail.com" },
                 new Profil { Id = 12, Telephone = "0647859636", Image = "/img/profil.jpg", Email = "margot-duras@gmail.com" },
                 new Profil { Id = 13, Image = "/img/profil.jpg", Email = "gave.c@gmail.com" },
                 new Profil { Id = 14, Telephone = "0647859636", Image = "/img/profil.jpg", Email = "onfray@gmail.com" },
