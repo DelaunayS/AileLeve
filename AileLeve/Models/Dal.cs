@@ -561,9 +561,9 @@ namespace AileLeve.Models
 
         //Methodes pour le model RepresentantLegal
 
-        public int CreerRepresentantLegal(int utilisateurId, int eleveId)
+        public int CreerRepresentantLegal(string nomRL, string prenomRL, int eleveId)
         {
-            RepresentantLegal representantLegal = new RepresentantLegal() { UtilisateurId = utilisateurId, EleveId = eleveId };
+            RepresentantLegal representantLegal = new RepresentantLegal() { NomRL = nomRL, PrenomRL = prenomRL, EleveId = eleveId };
             _bddContext.RepresentantLegaux.Add(representantLegal);
             _bddContext.SaveChanges();
             return representantLegal.Id;
@@ -571,6 +571,20 @@ namespace AileLeve.Models
         public List<RepresentantLegal> ObtenirTousLesRepresentantsLegaux()
         {
             return _bddContext.RepresentantLegaux.ToList();
+        }
+
+        public void AjouterRL(int id, RepresentantLegal representantLegal)
+        {
+            Eleve eleve = ObtenirEleve(id);
+            representantLegal.Eleve = eleve;
+            _bddContext.SaveChanges();
+
+        }
+
+        public void ModifierRL(RepresentantLegal representantLegal)
+        {
+            _bddContext.RepresentantLegaux.Update(representantLegal);
+            _bddContext.SaveChanges();
         }
 
         /*Methodes pour le model Utilisateur

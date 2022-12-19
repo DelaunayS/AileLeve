@@ -55,18 +55,7 @@ namespace AileLeve.Controllers
             
         }
 
-        public IActionResult SupprimerCoursAdmin(int id)
-        {
-            Cours cours = dal.ObtenirTousLesCours().Where(c => c.Id == id).FirstOrDefault();
-            Etudie reservation = dal.ObtenirTousLesEtudie().Where(c => c.CoursId == cours.Id).FirstOrDefault();
-            EstDisponible proposition = dal.ObtenirTousLesPlannings().Where(c => c.CoursId == cours.Id).FirstOrDefault();
-
-            dal.SupprimerEtudie(reservation);
-            dal.SupprimerEstDisponible(proposition);
-            dal.SupprimerCours(cours);
-
-            return Redirect("Enseignant/EmploiDuTempsEnseignant");
-        }
+       
 
 
         public IActionResult Supprimer(int id)

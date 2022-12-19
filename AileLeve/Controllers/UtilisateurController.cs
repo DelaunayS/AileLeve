@@ -43,9 +43,8 @@ namespace AileLeve.Controllers
 
                 if (role == "Eleve")
                 {
-                    int utilisateurRLId = dal.CreerUtilisateur(nomRL, prenomRL, adresseId);
                    int eleveId = dal.CreerEleve(dateNaissance, utilisateurId);
-                    dal.CreerRepresentantLegal(utilisateurRLId, eleveId);
+                   dal.CreerRepresentantLegal(nomRL, prenomRL, eleveId);
                 }
                 if (role=="Recrutement"){
                     dal.CreerEnseignant(utilisateurId);

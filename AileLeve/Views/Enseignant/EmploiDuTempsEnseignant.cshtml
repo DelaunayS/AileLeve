@@ -92,7 +92,7 @@
                         <td>
                         @if (User.IsInRole("Admin"))
                         {
-                            String cheminSupprimer = String.Format("/Admin/SupprimerCoursAdmin/{0}", item.Cours.Id);
+                            String cheminSupprimer = String.Format("/Enseignant/SupprimerCoursAdmin/{0}", item.Cours.Id);
                             <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>
                         }
                         </td>
