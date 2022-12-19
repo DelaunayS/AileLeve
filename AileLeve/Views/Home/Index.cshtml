@@ -64,7 +64,10 @@
                         </p>
                     }
                 }
-
+                    @if (Model.Compte.Role == "Eleve")
+                    {
+                        <p class="card-text"><i class="fas fa-people-roof"></i>@espace @Model.RL.NomRL @espace @Model.RL.PrenomRL </p>
+                    }
             </div>
 
             <div class="row h-100 justify-content-center align-items-center m-2">

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -72,6 +73,18 @@ namespace AileLeve.Models
 
         /*Methodes pour le model Compte
         */
+
+        public bool RechercherCompte(string identifiant, string password)
+        {
+            Compte compte = this.ObtenirTousLesComptes().Where(c => c.Identifiant == identifiant && c.Password == password).FirstOrDefault();
+            if (compte == null)
+            {
+                return false;   
+            } else
+            {
+                return true;
+            }
+        }
         public int CreerCompte(string identifiant, string password, int utilisateurId, int profilId, string role)
         {
             string motDePasse = EncodeMD5(password);

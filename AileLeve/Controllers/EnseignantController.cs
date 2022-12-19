@@ -106,8 +106,14 @@ namespace AileLeve.Controllers
             Etudie reservation = dal.ObtenirTousLesEtudie().Where(c => c.CoursId == cours.Id).FirstOrDefault();
             EstDisponible proposition = dal.ObtenirTousLesPlannings().Where(c => c.CoursId == cours.Id).FirstOrDefault();
 
-            dal.SupprimerEtudie(reservation);
-            dal.SupprimerEstDisponible(proposition);
+            if (reservation != null)
+            {
+                dal.SupprimerEtudie(reservation);
+            }
+            if (proposition != null)
+            {
+                dal.SupprimerEstDisponible(proposition);
+            }
             dal.SupprimerCours(cours);
 
             return RedirectToAction("EmploiDuTempsEnseignant", "Enseignant");
