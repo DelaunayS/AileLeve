@@ -143,16 +143,20 @@
                 @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
                 {
                     <div class="navbar-collapse justify-content-end h-100 w-100">
-                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Generer un pdf">
+                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Générer un pdf">
                             <h3 class="justify-content-center">
                                 <i class="fas fa-print text-light mw-100 mh-100 " onclick="genererPdf()"></i>
                             </h3>
                         </a>
                         <a class="notification p-2" href="/Notification/Index">
-                            <h3 class="justify-content-center"><i class="fas fa-bell text-light mw-100 mh-100"
-                                id="notif"></i></h3>
+                            <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Notification">
+                                <h3 class="justify-content-center">
+                                    <i class="fas fa-bell text-light mw-100 mh-100"
+                                       id="notif"></i>
+                                </h3>
+                            </a>
                         </a>
-                    </div>
+</div>                 
                 }
             </div>
         </nav>

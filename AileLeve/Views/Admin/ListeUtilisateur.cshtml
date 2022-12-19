@@ -58,18 +58,31 @@
                     <td>@item.Utilisateur.Nom</td>
                     <td>@item.Utilisateur.Prenom</td>
                     <td>@item.Profil.Email</td>
-                    <td> @if (item.Role == "Recrutement")
+                    <td>
+                        @if (item.Role == "Recrutement")
                         {
                             String cheminValider = String.Format("/Admin/Valider/{0}", @item.Id);
                             <a type="button" href=@cheminValider class="fas fa-question text-danger p-2"></a>
+                            <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Enseignant en attente d'être recruté'">
+                                <h3 class="justify-content-center">
+                                </h3>
+                            </a>
                         }
                         @if (item.Role == "Eleve")
                         {
-                            <i class="fas fa-child text-success p-2"></i>
+                            <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Elève">
+                                <h3 class="justify-content-center">
+                                    <i class="fas fa-child text-success p-2"></i>
+                                </h3>
+                            </a>
                         }
                         @if (item.Role == "Enseignant")
                         {
-                            <i class="fas fa-school text-success p-2"></i>
+                            <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Enseignant">
+                                <h3 class="justify-content-center">
+                                    <i class="fas fa-school text-success p-2"></i>
+                                </h3>
+                            </a>
                         }
                     </td>
 
@@ -78,7 +91,14 @@
                         @{
                             String cheminModifier = String.Format("/Profil/Modifier/{0}", @item.Id);
                         }
-                        <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2"></a>
+
+                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Modifier le profil">
+                            <h3 class="justify-content-center">
+                                <i type="button" href=@cheminModifier class="fas fa-pen text-info p-2"></i>
+                            </h3>
+                        </a>
+
+
 
                         @{
                             String cheminSuspendre = String.Format("/Admin/Suspendre/{0}", @item.Id);
@@ -87,12 +107,20 @@
                         @{
                             valeurClass = item.StatusActif ? "fas fa-pause" : "fas fa-play";
                         }
-                        <a type="button" href=@cheminSuspendre class="text-warning p-2 @valeurClass"></a>
+                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Suspendre le profil">
+                            <h3 class="justify-content-center">
+                                <i type="button" href=@cheminSuspendre class="text-warning p-2 @valeurClass"></i>
+                            </h3>
+                        </a>
 
                         @{
                             String cheminSupprimer = String.Format("/Admin/Supprimer/{0}", @item.Id);
                         }
-                        <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></a>
+                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Supprimer le profil">
+                            <h3 class="justify-content-center">
+                                <i type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></i>
+                            </h3>
+                        </a>
                     </td>
                 </tr>
             }
