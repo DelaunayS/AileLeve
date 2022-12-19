@@ -3,6 +3,14 @@
     ViewBag.Title = "Accueil";
     Layout = "~/Views/Shared/_Layout.cshtml";
     String chemin = String.Format("/profil/modifier/{0}", @Model.Profil.Id);
+
+    String perso="col-sm-8";
+    @if (Model.Compte.Role == "Admin")
+            {
+                perso="col-12";
+            }
+    String espace = " ";
+
 }
 
 @*<div class="container h-100">
@@ -13,34 +21,45 @@
 
 @*<div class="container">*@
 <div class="row">
-    <div class="col-sm-3">
+
+    @if (!(Model.Compte.Role == "Admin"))
+            {
+    <div class="col-sm-4">
         <div class="card w-100">
             <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
             <div class="card-body">
-                @if (Model.Compte.Role == "Enseignant")
+             @if (Model.Compte.Role == "Enseignant")
                 {
-                    <p class="card-title"><i class="fas fa-school" data-toogle="tooltip" data-placement="bottom" title="Enseignant"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</p>
+                    <p class="card-title"><i class="fas fa-school" data-toogle="tooltip" data-placement="bottom" title="Enseignant"></i>@espace @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</p>
                 }
                 @if (Model.Compte.Role == "Eleve")
                 {
-                    <p class="card-title"><i class="fas fa-child" data-toogle="tooltip" data-placement="bottom" title="Elève"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</p>
+                    <p class="card-title"><i class="fas fa-child" data-toogle="tooltip" data-placement="bottom" title="Elève"></i>@espace @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</p>
                 }
-                <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
-                <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
-                <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Compte.Identifiant</p>
+               
+                <p class="card-text"><i class="fas fa-envelope"></i>@espace @Model.Profil.Email</p>
+                <p class="card-text"><i class="fas fa-phone"></i>@espace @Model.Profil.Telephone</p>
+                <p class="card-text"><i class="fas fa-id-badge"></i>@espace @Model.Compte.Identifiant</p>
+
                 @if (@Model.Utilisateur.Adresse != null)
                 {
                     @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
                     {
                         <p class="card-text">
-                            <i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
+
+                            <i class="fas fa-city"></i>@espace @Model.Utilisateur.Adresse.NumeroRue
+                            @espace
+
                             @Model.Utilisateur.Adresse.Rue
                         </p>
                     }
                     @if (@Model.Utilisateur.Adresse.CodePostal > 0)
                     {
                         <p class="card-text">
-                            <i class="fas fa-city"></i>@Model.Utilisateur.Adresse.CodePostal
+
+                            <i class="fas fa-city"></i>@espace @Model.Utilisateur.Adresse.CodePostal
+                            @espace
+
                             @Model.Utilisateur.Adresse.Ville
                         </p>
                     }
@@ -68,20 +87,30 @@
         }
 
     </div>
+            }
 
 
-    <div class="col-sm-9">
+    
+            
+    <div class=@perso>
+        
         <div class="card w-100">
             <div class="row justify-content-end">
                 <div class="col-4 text-center">
                     <h1 class=" mb-4">Mes cours</h1>
                 </div>
 
+            }
+            <div class="row justify-content-end">
+
+
+
                 @if (Model.Compte.Role == "Eleve")
                 {
                     <div class="col-4 text-right">
                         <h4 class="mb-4 pt-1">
-                            Ajouter un cours
+
+                            S'inscrire à un cours
                             @{
                                 String cheminAjouter = String.Format("/Enseignant/EmploiDuTempsEnseignant");
                             }
@@ -94,7 +123,7 @@
                 {
                     <div class="col-4 text-right">
                         <h4 class="mb-4 pt-1">
-                            Ajouter un cours
+                            Proposer un cours
                             @{
                                 String cheminAjouter = String.Format("/Cours/Ajouter");
                             }
@@ -111,29 +140,154 @@
                 <thead class="thead-light">
                     <tr>
 
+                        @if (Model.Compte.Role == "Admin")
+                        {
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
+                                Date
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
+                                Type de cours
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
+                                Matière
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),3,this);"></i>
+                                Niveau
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),4,this);"></i>
+                                Enseignant
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
+                                Elève
+                            </th>
+                        }
+
+
                         @if (Model.Compte.Role == "Enseignant")
                         {
-                            <th scope="col">Date</th>
-                            <th scope="col">Type de cours</th>
-                            <th scope="col">Matière</th>
-                            <th scope="col">Niveau</th>
-                            <th scope="col">Elève</th>
-
-
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
+                                Date
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
+                                Type de cours
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
+                                Matière
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),3,this);"></i>
+                                Niveau
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),4,this);"></i>
+                                Elève
+                            </th>
                         }
 
                         @if (Model.Compte.Role == "Eleve")
                         {
-                            <th scope="col">Date</th>
-                            <th scope="col">Type de cours</th>
-                            <th scope="col">Matière</th>
-                            <th scope="col">Niveau</th>
-                            <th scope="col">Enseignant</th>
-                        }
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
+                                Date
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
+                                Type de cours
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
+                                Matière
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),3,this);"></i>
+                                Niveau
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-sort-up" id="iconeTri"
+                                onclick="sortTable(document.getElementById('sortTable'),4,this);"></i>
+                                Enseignant
+                            </th>
 
+                        }
                     </tr>
                 </thead>
                 <tbody>
+
+
+
+                    @if (Model.Compte.Role == "Admin")
+                    {
+                        List<AileLeve.Models.EstDisponible> ListeEstDisponible = Model.CoursListe.Item1;
+                        List<AileLeve.Models.Etudie> ListeEtudie = Model.CoursListe.Item2;
+
+                        @foreach (var coursPropose in ListeEstDisponible)
+
+                        {
+                            <tr>
+                                <td>@coursPropose.EmploiDuTempsEnseignant.DateTime</td>
+                                <td>@Html.DisplayFor(c => coursPropose.Cours.TypeCours)</td>
+                                <td>@coursPropose.Cours.Matiere.Nom</td>
+                                <td>@coursPropose.Cours.Niveau.Nom</td>
+                                @{
+                                    String cheminInfosContact = String.Format("/Admin/InfosContact/{0}",
+                            coursPropose.Enseignant.UtilisateurId);
+                                }
+                                <td><a href=@cheminInfosContact>@coursPropose.Enseignant.Utilisateur.Nom
+                                        @coursPropose.Enseignant.Utilisateur.Prenom</a></td>
+                                <td>
+                                    @foreach (var eleve in ListeEtudie)
+                                    {
+                                        String cheminInfosContactEleve = String.Format("/Admin/InfosContact/{0}",
+                                        eleve.Eleve.UtilisateurId);
+
+                                        if (coursPropose.CoursId == eleve.CoursId)
+                                        {
+                                            <a href=@cheminInfosContactEleve>@eleve.Eleve.Utilisateur.Nom
+                                                @eleve.Eleve.Utilisateur.Prenom</a>
+                                            <br />
+                                            if (coursPropose.Cours.TypeCours == 0)
+                                            {
+                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue
+                                                @espace
+                                                @eleve.Eleve.Utilisateur.Adresse.Rue
+                                                <br />
+                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal
+                                                @espace
+                                                @eleve.Eleve.Utilisateur.Adresse.Ville
+                                                <br />
+                                                <br />
+                                            }
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+
 
                     @if (Model.Compte.Role == "Enseignant")
                     {
@@ -143,7 +297,6 @@
                         List<AileLeve.Models.Etudie> ListeEtudie = Model.CoursListe.Item2;
 
                         @foreach (var coursPropose in ListeEstDisponible)
-
                         {
                             <tr>
                                 <td>@coursPropose.EmploiDuTempsEnseignant.DateTime</td>
@@ -238,6 +391,7 @@
     </div>
 </div>
 
-<div class="container">
-    <img src="~/img/Aile'lèveV3.png" class="img-fluid" alt="Logo image">
-</div>
+
+<script src="/Scripts/sortTable.js"></script>
+<script src="/Scripts/iconeAscDesc_show-hide.js"></script>
+

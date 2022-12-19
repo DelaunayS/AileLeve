@@ -23,28 +23,26 @@
     <thead class="thead-light">
         <tr>
             <th class="th-sm" scope="col">
-                <div>
-                    <i class="fas fa-sort-up" id="iconeTri"
-                        onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
-                    Nom
-                </div>
+                <i class="fas fa-sort-up" id="iconeTri"
+                    onclick="sortTable(document.getElementById('sortTable'),0,this);"></i>
+                Nom
             </th>
             <th class="th-sm" scope="col">
-                <div>
-                    <i class="fas fa-sort-up" id="iconeTri"
-                        onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
-                    Prénom
-                </div>
+                <i class="fas fa-sort-up" id="iconeTri"
+                    onclick="sortTable(document.getElementById('sortTable'),1,this);"></i>
+                Prénom
             </th>
             <th class="th-sm" scope="col">
-                <div>
-                    <i class="fas fa-sort-up" id="iconeTri"
-                        onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
-                    Mail
-                </div>
+                <i class="fas fa-sort-up" id="iconeTri"
+                    onclick="sortTable(document.getElementById('sortTable'),2,this);"></i>
+                Mail
             </th>
 
-            <th class="th-sm" scope="col">Statut</th>
+            <th class="th-sm" scope="col">
+                <i class="fas fa-sort-up" id="iconeTri"
+                    onclick="sortTable(document.getElementById('sortTable'),3,this);"></i>
+                Statut
+            </th>
             <th class="th-sm" scope="col"></th>
         </tr>
     </thead>
@@ -62,42 +60,32 @@
                         @if (item.Role == "Recrutement")
                         {
                             String cheminValider = String.Format("/Admin/Valider/{0}", @item.Id);
-                            <a type="button" href=@cheminValider class="fas fa-question text-danger p-2"></a>
-                            <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Enseignant en attente d'être recruté'">
-                                <h5 class="justify-content-center">
-                                </h5>
-                            </a>
+
+                            <a type="button" href=@cheminValider class="fas fa-question text-danger p-2" data-toggle="tooltip"
+                    data-placement="bottom" title="Enseignant en attente d'être recruté"></a>
+
                         }
                         @if (item.Role == "Eleve")
                         {
-                            <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Elève">
-                                <h5 class="justify-content-center">
-                                    <i class="fas fa-child text-success p-2"></i>
-                                </h5>
-                            </a>
+                            <a class="fas fa-child text-success p-2" data-toggle="tooltip" data-placement="bottom"
+                    title="Elève"></a>
+
                         }
                         @if (item.Role == "Enseignant")
                         {
-                            <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Enseignant">
-                                <h5 class="justify-content-center">
-                                    <i class="fas fa-school text-success p-2"></i>
-                                </h5>
-                            </a>
+                            <a class="fas fa-school text-success p-2" data-toggle="tooltip" data-placement="bottom"
+                    title="Enseignant"></a>
+
                         }
                     </td>
-
 
                     <td>
                         @{
                             String cheminModifier = String.Format("/Profil/Modifier/{0}", @item.Id);
                         }
 
-                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Modifier le profil">
-                            <h5 class="justify-content-center">
-                                <i type="button" href=@cheminModifier class="fas fa-pen text-info p-2"></i>
-                            </h5>
-                        </a>
-
+                        <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2" data-toggle="tooltip"
+                    data-placement="bottom" title="Modifier le compte"></a>
 
 
                         @{
@@ -107,20 +95,17 @@
                         @{
                             valeurClass = item.StatusActif ? "fas fa-pause" : "fas fa-play";
                         }
-                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Suspendre le profil">
-                            <h5 class="justify-content-center">
-                                <i type="button" href=@cheminSuspendre class="text-warning p-2 @valeurClass"></i>
-                            </h5>
-                        </a>
 
+                        <a type="button" href=@cheminSuspendre class="text-warning p-2 @valeurClass" data-toggle="tooltip"
+                    data-placement="bottom" title="Suspendre le compte"></a>
                         @{
                             String cheminSupprimer = String.Format("/Admin/Supprimer/{0}", @item.Id);
                         }
-                        <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Supprimer le profil">
-                            <h5 class="justify-content-center">
-                                <i type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"></i>
-                            </h5>
-                        </a>
+
+                        <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2" data-toggle="tooltip"
+                    data-placement="bottom" title="Supprimer le compte"></a>
+
+
                     </td>
                 </tr>
             }
