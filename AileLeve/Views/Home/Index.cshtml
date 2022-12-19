@@ -13,13 +13,6 @@
 
 }
 
-@*<div class="container h-100">
-    <div class="row align-items-center h-100">
-        <div class="col-12">
-            <div class="card h-100 justify-content-center">
-                <div>*@
-
-@*<div class="container">*@
 <div class="row">
 
     @if (!(Model.Compte.Role == "Admin"))
@@ -66,7 +59,7 @@
                 }
                     @if (Model.Compte.Role == "Eleve")
                     {
-                        <p class="card-text"><i class="fas fa-people-roof"></i>@espace @Model.RL.NomRL @espace @Model.RL.PrenomRL </p>
+                        <p class="card-text"><i class="fas fa-users" data-toogle="tooltip" data-placement="bottom" title="Représentant légal"></i>@espace @Model.RL.NomRL @espace @Model.RL.PrenomRL </p>
                     }
             </div>
 

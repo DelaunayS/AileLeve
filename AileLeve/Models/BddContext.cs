@@ -33,7 +33,7 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-        optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");
+        optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
         }
 
         public void InitializeDb()
@@ -83,7 +83,8 @@ namespace AileLeve.Models
                 new Niveau { Id = 9, Nom = "3ème" },
                 new Niveau { Id = 10, Nom = "Seconde" },
                 new Niveau { Id = 11, Nom = "Premiere" },
-                new Niveau { Id = 12, Nom = "Terminale" }
+                new Niveau { Id = 12, Nom = "Terminale" },
+                new Niveau { Id = 13, Nom = "Tous niveaux" }
                 );
 
             this.Utilisateurs.AddRange(

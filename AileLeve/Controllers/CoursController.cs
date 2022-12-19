@@ -81,7 +81,7 @@ namespace AileLeve.Controllers
             {
                 string idAdminStr = HttpContext.User.Identity.Name;
                 int.TryParse(idAdminStr, out int idAdmin);
-                int coursNonAttribueId = dal.CreerCoursSimple(TypeCours.onlineSynchrone, "Méditation", "Terminale");
+                int coursNonAttribueId = dal.CreerCoursSimple(TypeCours.onlineSynchrone, "Méditation", "Tous niveaux");
                 return RedirectToAction("AttribuerCours", "Enseignant", new { @id = HttpContext.User.Identity.Name });
 
             }
@@ -92,7 +92,7 @@ namespace AileLeve.Controllers
                 string idUserStr = HttpContext.User.Identity.Name;
                 int.TryParse(idUserStr, out int idUser);
                 Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
-                int coursId = dal.CreerCours(TypeCours.onlineSynchrone, "Méditation", "Terminale", enseignant.Id);
+                int coursId = dal.CreerCours(TypeCours.onlineSynchrone, "Méditation", "Tous niveaux", enseignant.Id);
                 dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId, coursId);
 
                 DateTime date = DateTime.Now;
