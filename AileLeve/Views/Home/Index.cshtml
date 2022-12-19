@@ -4,99 +4,103 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     String chemin = String.Format("/profil/modifier/{0}", @Model.Profil.Id);
 
-    String perso="col-sm-8";
+    String perso = "col-sm-8";
     @if (Model.Compte.Role == "Admin")
-            {
-                perso="col-12";
-            }
+    {
+        perso = "col-12";
+    }
     String espace = " ";
+    String classIcone = "fas fa-user";
+
+    @if (Model.Compte.Role == "Eleve")
+    {
+        classIcone = "fas fa-child";
+    }
+    @if (Model.Compte.Role == "Enseignant")
+    {
+        classIcone = "fas fa-school";
+    }
 
 }
 
 <div class="row">
 
     @if (!(Model.Compte.Role == "Admin"))
-            {
-    <div class="col-sm-4">
-        <div class="card w-100">
-            <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
-            <div class="card-body">
-             @if (Model.Compte.Role == "Enseignant")
-                {
-                    <p class="card-title"><i class="fas fa-school" data-toogle="tooltip" data-placement="bottom" title="Enseignant"></i>@espace @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</p>
-                }
-                @if (Model.Compte.Role == "Eleve")
-                {
-                    <p class="card-title"><i class="fas fa-child" data-toogle="tooltip" data-placement="bottom" title="Elève"></i>@espace @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</p>
-                }
-               
-                <p class="card-text"><i class="fas fa-envelope"></i>@espace @Model.Profil.Email</p>
-                <p class="card-text"><i class="fas fa-phone"></i>@espace @Model.Profil.Telephone</p>
-                <p class="card-text"><i class="fas fa-id-badge"></i>@espace @Model.Compte.Identifiant</p>
+    {
+        <div class="col-sm-4">
+            <div class="card w-100">
+                <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
+                <div class="card-body">
 
-                @if (@Model.Utilisateur.Adresse != null)
-                {
-                    @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
+                    <p class="card-title"><i class="@classIcone" ></i>@espace @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</p>
+                    <p class="card-text"><i class="fas fa-envelope"></i>@espace @Model.Profil.Email</p>
+                    <p class="card-text"><i class="fas fa-phone"></i>@espace @Model.Profil.Telephone</p>
+                    <p class="card-text"><i class="fas fa-id-badge"></i>@espace @Model.Compte.Identifiant</p>
+
+                    @if (@Model.Utilisateur.Adresse != null)
                     {
-                        <p class="card-text">
+                        @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
+                        {
+                            <p class="card-text">
 
-                            <i class="fas fa-city"></i>@espace @Model.Utilisateur.Adresse.NumeroRue
-                            @espace
+                                <i class="fas fa-city"></i>@espace @Model.Utilisateur.Adresse.NumeroRue
+                                @espace
 
-                            @Model.Utilisateur.Adresse.Rue
-                        </p>
+                                @Model.Utilisateur.Adresse.Rue
+                            </p>
+                        }
+                        @if (@Model.Utilisateur.Adresse.CodePostal > 0)
+                        {
+                            <p class="card-text">
+
+                                <i class="fas fa-city"></i>@espace @Model.Utilisateur.Adresse.CodePostal
+                                @espace
+
+                                @Model.Utilisateur.Adresse.Ville
+                            </p>
+                        }
                     }
-                    @if (@Model.Utilisateur.Adresse.CodePostal > 0)
-                    {
-                        <p class="card-text">
-
-                            <i class="fas fa-city"></i>@espace @Model.Utilisateur.Adresse.CodePostal
-                            @espace
-
-                            @Model.Utilisateur.Adresse.Ville
-                        </p>
-                    }
-                }
                     @if (Model.Compte.Role == "Eleve")
                     {
-                        <p class="card-text"><i class="fas fa-users" data-toogle="tooltip" data-placement="bottom" title="Représentant légal"></i>@espace @Model.RL.NomRL @espace @Model.RL.PrenomRL </p>
+                        <p class="card-text"><i class="fas fa-users" data-toogle="tooltip" data-placement="bottom"
+                        title="Représentant légal"></i>@espace @Model.RL.NomRL @espace @Model.RL.PrenomRL </p>
                     }
+                </div>
+
+                <div class="row h-100 justify-content-center align-items-center m-2">
+                    <a href=@chemin class="btn">Modifier le profil</a>
+                </div>
+
+
             </div>
+            <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
+            <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
+            <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
+            <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
+            <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
+            <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
 
-            <div class="row h-100 justify-content-center align-items-center m-2">
-                <a href=@chemin class="btn">Modifier le profil</a>
-            </div>
-
-
-        </div>
-        <input type="hidden" name="Utilisateur.Id" value="@Model.Utilisateur.Id" />
-        <input type="hidden" name="Compte.Id" value="@Model.Compte.Id" />
-        <input type="hidden" name="Profil.Id" value="@Model.Profil.Id" />
-        <input type="hidden" name="Profil.Image" value="@Model.Profil.Image" />
-        <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
-        <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
-
-        @if (@Model.Utilisateur.Adresse != null)
-        {
-            <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
-            <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
-        }
-
-    </div>
+            @if (@Model.Utilisateur.Adresse != null)
+            {
+                <input type="hidden" name="Utilisateur.AdresseId" value="@Model.Utilisateur.AdresseId" />
+                <input type="hidden" name="Adresse.Id" value="@Model.Utilisateur.Adresse.Id" />
             }
 
+        </div>
+    }
 
-    
-            
+
+
+
     <div class=@perso>
-        
-        <div class="card w-100">
-            
-            
-                    <h1 class="mb-4 text-center" > Tableau de bord </h1>
-      
 
-            
+        <div class="card w-100">
+
+
+            <h1 class="mb-4 text-center"> Tableau de bord </h1>
+
+
+
             <div class="row justify-content-end">
 
 
@@ -110,7 +114,8 @@
                             @{
                                 String cheminAjouter = String.Format("/Enseignant/EmploiDuTempsEnseignant");
                             }
-                            <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2" data-toogle="tooltip" data-placement="bottom" title="Ajouter un cours"></a>
+                            <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"
+                            data-toogle="tooltip" data-placement="bottom" title="Ajouter un cours"></a>
                         </h4>
                     </div>
                 }
@@ -123,7 +128,8 @@
                             @{
                                 String cheminAjouter = String.Format("/Cours/Ajouter");
                             }
-                            <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2" data-toogle="tooltip" data-placement="bottom" title="Ajouter un cours"></a>
+                            <a type="button" href=@cheminAjouter class="fas fa-solid fa-plus text-success p-2"
+                            data-toogle="tooltip" data-placement="bottom" title="Ajouter un cours"></a>
                         </h4>
                     </div>
                 }
@@ -329,11 +335,13 @@
                                     @{
                                         String cheminModifier = String.Format("/Cours/Modifier/{0}", coursPropose.Cours.Id);
                                     }
-                                    <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2" data-toogle="tooltip" data-placement="bottom" title="Modifier un cours"></a>
+                                    <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2" data-toogle="tooltip"
+                                data-placement="bottom" title="Modifier un cours"></a>
                                     @{
                                         String cheminSupprimer = String.Format("/Cours/SupprimerCours/{0}", coursPropose.Cours.Id);
                                     }
-                                    <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2" data-toogle="tooltip" data-placement="bottom" title="Supprimer un cours"></a>
+                                    <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"
+                                data-toogle="tooltip" data-placement="bottom" title="Supprimer un cours"></a>
                                 </td>
                             </tr>
                         }
@@ -368,7 +376,7 @@
                                         {
                                             @enseignant.Enseignant.Utilisateur.Nom
                                             @espace
-                                           @enseignant.Enseignant.Utilisateur.Prenom
+                                            @enseignant.Enseignant.Utilisateur.Prenom
                                         }
                                     }
 
@@ -377,7 +385,8 @@
                                     @{
                                         String cheminSupprimer = String.Format("/Enseignant/Supprimer/{0}", coursReserve.Cours.Id);
                                     }
-                                    <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2" data-toogle="tooltip" data-placement="bottom" title="Supprimer un cours"></a>
+                                    <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2"
+                                data-toogle="tooltip" data-placement="bottom" title="Supprimer un cours"></a>
                                 </td>
                             </tr>
                         }
@@ -394,4 +403,3 @@
 
 <script src="/Scripts/sortTable.js"></script>
 <script src="/Scripts/iconeAscDesc_show-hide.js"></script>
-
