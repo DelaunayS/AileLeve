@@ -22,7 +22,7 @@ namespace AileLeve.Controllers
         {
             if (id == 0)
             {
-                return Redirect("/Uilisateur/Connexion");
+                return Redirect("/Utilisateur/Connexion");
             }
 
             CompteViewModel viewModel = new CompteViewModel { Authentifie = HttpContext.User.Identity.IsAuthenticated };
