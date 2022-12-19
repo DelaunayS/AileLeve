@@ -60,6 +60,7 @@
                         @if (item.Role == "Recrutement")
                         {
                             String cheminValider = String.Format("/Admin/Valider/{0}", @item.Id);
+
                             <a type="button" href=@cheminValider class="fas fa-question text-danger p-2" data-toggle="tooltip"
                     data-placement="bottom" title="Enseignant en attente d'être recruté"></a>
 
@@ -74,6 +75,7 @@
                         {
                             <a class="fas fa-school text-success p-2" data-toggle="tooltip" data-placement="bottom"
                     title="Enseignant"></a>
+
                         }
                     </td>
 
@@ -81,8 +83,10 @@
                         @{
                             String cheminModifier = String.Format("/Profil/Modifier/{0}", @item.Id);
                         }
+
                         <a type="button" href=@cheminModifier class="fas fa-pen text-info p-2" data-toggle="tooltip"
                     data-placement="bottom" title="Modifier le compte"></a>
+
 
                         @{
                             String cheminSuspendre = String.Format("/Admin/Suspendre/{0}", @item.Id);
@@ -91,6 +95,7 @@
                         @{
                             valeurClass = item.StatusActif ? "fas fa-pause" : "fas fa-play";
                         }
+
                         <a type="button" href=@cheminSuspendre class="text-warning p-2 @valeurClass" data-toggle="tooltip"
                     data-placement="bottom" title="Suspendre le compte"></a>
                         @{
@@ -100,6 +105,7 @@
                         <a type="button" href=@cheminSupprimer class="fas fa-trash text-danger p-2" data-toggle="tooltip"
                     data-placement="bottom" title="Supprimer le compte"></a>
 
+
                     </td>
                 </tr>
             }
@@ -107,7 +113,9 @@
     </tbody>
 </table>
 
-
+<script src="/Scripts/jsPdf/jspdf.umd.js"></script>
+<script src="/Scripts/html2canvas.min.js"></script>
+<script src="/Scripts/genererPdf.js"></script>
 <script src="/Scripts/sortTable.js"></script>
 <script src="/Scripts/iconeAscDesc_show-hide.js"></script>
 <script src="/Scripts/filtreRecherche.js"></script>
