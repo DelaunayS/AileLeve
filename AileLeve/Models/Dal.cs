@@ -74,6 +74,8 @@ namespace AileLeve.Models
         /*Methodes pour le model Compte
         */
 
+      
+
         public bool RechercherCompte(string identifiant, string password)
         {
             string passwordCrypt = EncodeMD5(password);

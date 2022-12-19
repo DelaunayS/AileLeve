@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Ajouter un cours";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<h1 class="text-center mb-4">Ajouter une séance de méditation synchrone</h1>
+
+<div class="col-12 text-center">
+    <img src="~/img/yoga.png" />
+</div>
+
+<br />
+
+
+<div class="container">
+    <form action="/cours/ajouterMeditation" method="post">
+        <div>
+            <label for="creneau">Choisissez un créneau (date et horaire) : </label>
+            <input type="datetime-local" id="creneau" name="creneau">
+        </div>
+
+        <div class="row h-100 justify-content-center align-items-center mt-4">
+            <button type="submit" class="btn mr-5">Enregistrer</button>
+            <br />
+            <button class="btn">Annuler</button>
+        </div>
+    </form>
+</div>
+
+

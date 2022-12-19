@@ -60,6 +60,49 @@ namespace AileLeve.Controllers
             return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
 
+
+        [Authorize]
+        public IActionResult AjouterMeditation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin, Enseignant")]
+        public IActionResult AjouterMeditation(DateTime creneau)
+        {
+            CompteViewModel viewModel = new CompteViewModel
+            {
+                Authentifie = HttpContext.User.Identity.IsAuthenticated
+            };
+
+
+            if (HttpContext.User.IsInRole("Admin"))
+            {
+                string idAdminStr = HttpContext.User.Identity.Name;
+                int.TryParse(idAdminStr, out int idAdmin);
+                int coursNonAttribueId = dal.CreerCoursSimple(TypeCours.onlineSynchrone, "Méditation", "Terminale");
+                return RedirectToAction("AttribuerCours", "Enseignant", new { @id = HttpContext.User.Identity.Name });
+
+            }
+
+            if (HttpContext.User.IsInRole("Enseignant"))
+            {
+                int emploiDuTempsId = dal.CreerEmploiDuTemps(creneau);
+                string idUserStr = HttpContext.User.Identity.Name;
+                int.TryParse(idUserStr, out int idUser);
+                Enseignant enseignant = dal.ObtenirTousLesEnseignants().Where(p => p.Id == idUser).FirstOrDefault();
+                int coursId = dal.CreerCours(TypeCours.onlineSynchrone, "Méditation", "Terminale", enseignant.Id);
+                dal.CreerEstDisponible(enseignant.Id, emploiDuTempsId, coursId);
+
+                DateTime date = DateTime.Now;
+                dal.CreerNotification("Un nouveau cours de méditation et de type synchrone a été créé le " + date.ToString("MM/dd/yyyy f HH:mm"));
+            }
+
+            return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
+        }
+
+
         [HttpGet]
         [Authorize(Roles = "Admin, Enseignant")]     
         public IActionResult Supprimer(int id, string role)
