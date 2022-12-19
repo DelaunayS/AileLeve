@@ -330,13 +330,15 @@ namespace AileleveTest
                 DateTime dateNaissance = new DateTime(2012, 12, 22, 18, 00, 00);
                 int eleveId = dal.CreerEleve(dateNaissance, utilisateurId);
                 int utilisateurRLId = dal.CreerUtilisateur("Rouget", "Marcel", adresseId);
-                dal.CreerRepresentantLegal(utilisateurRLId, eleveId);
+                Utilisateur utilisateurRL=dal.ObtenirUtilisateur(utilisateurRLId);
+                dal.CreerRepresentantLegal(utilisateurRL.Nom,utilisateurRL.Prenom, eleveId);
 
                 List<RepresentantLegal> legals = dal.ObtenirTousLesRepresentantsLegaux();
                 Assert.NotNull(legals);
                 Assert.Single(legals);
                 Assert.Equal(eleveId, legals[0].EleveId);
-                Assert.Equal(utilisateurRLId, legals[0].UtilisateurId);
+                Assert.Equal(utilisateurRL.Nom, legals[0].NomRL);
+                 Assert.Equal(utilisateurRL.Prenom, legals[0].PrenomRL);
             }
         }
 
