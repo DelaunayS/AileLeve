@@ -74,13 +74,17 @@ namespace AileLeve.Models
         /*Methodes pour le model Compte
         */
 
+      
+
         public bool RechercherCompte(string identifiant, string password)
         {
-            Compte compte = this.ObtenirTousLesComptes().Where(c => c.Identifiant == identifiant && c.Password == password).FirstOrDefault();
+            string passwordCrypt = EncodeMD5(password);
+            Compte compte = this.ObtenirTousLesComptes().Where(c => c.Identifiant == identifiant && c.Password == passwordCrypt).FirstOrDefault();
             if (compte == null)
             {
-                return false;   
-            } else
+                return false;
+            }
+            else
             {
                 return true;
             }

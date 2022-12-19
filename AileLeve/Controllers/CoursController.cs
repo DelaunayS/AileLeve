@@ -60,6 +60,15 @@ namespace AileLeve.Controllers
             return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
         }
 
+
+        [Authorize]
+        public IActionResult AjouterMeditation()
+        {
+            return View();
+        }
+
+
+
         [HttpGet]
         [Authorize(Roles = "Admin, Enseignant")]     
         public IActionResult Supprimer(int id, string role)
