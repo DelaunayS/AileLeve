@@ -49,6 +49,8 @@ namespace AileLeve.Controllers
                 {
                     viewModel.Eleve = dal.ObtenirTousLesEleves().Where(e => e.UtilisateurId == viewModel.Compte.UtilisateurId).FirstOrDefault();
                     viewModel.CoursListeEleve = dal.ObtenirCoursReservesAvecDateEtProf(viewModel.Eleve.Id);
+                    viewModel.RL = dal.ObtenirTousLesRepresentantsLegaux().Where(c => c.EleveId == viewModel.Eleve.Id).FirstOrDefault();
+
                 };
 
                 return View(viewModel);                

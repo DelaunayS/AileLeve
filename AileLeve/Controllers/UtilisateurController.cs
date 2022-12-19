@@ -105,8 +105,19 @@ namespace AileLeve.Controllers
         public IActionResult Connexion()
         {
 
-            return View();
+            CompteViewModel cvm = new CompteViewModel
+            {
+                Authentifie = HttpContext.User.Identity.IsAuthenticated
+            };
+            if (cvm.Authentifie)
+            {
+                return RedirectToAction("Index", "Home", new { @id = HttpContext.User.Identity.Name });
+            }
+            else
+            {
+                return View();
 
+            }
         }
 
         [HttpPost]
@@ -114,30 +125,46 @@ namespace AileLeve.Controllers
         {  
             if (ModelState.IsValid)
             {
-                Compte compte = dal.Authentifier(identifiant, password);
-                if (compte.StatusActif == false)
+                bool res = dal.RechercherCompte(identifiant, password);
+
+                if (res)
                 {
-                    return View();
-                }
-                if (compte != null)
-                {
-                    var userClaims = new List<Claim>()
+                    Compte compte = dal.Authentifier(identifiant, password);
+                    if (compte.StatusActif == false)
+                    {
+                        return View();
+                    }
+
+                    if (compte != null)
+                    {
+                        var userClaims = new List<Claim>()
                     {
                         new Claim(ClaimTypes.Name, compte.Id.ToString()),
                         new Claim(ClaimTypes.Role, compte.Role)
                     };
 
-                    var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
+                        var ClaimIdentity = new ClaimsIdentity(userClaims, "User Identity");
 
-                    var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
+                        var userPrincipal = new ClaimsPrincipal(new[] { ClaimIdentity });
 
-                    HttpContext.SignInAsync(userPrincipal);
-                    return RedirectToAction("Index", "Home", new { @id = compte.Id });
+                        HttpContext.SignInAsync(userPrincipal);
+                        return RedirectToAction("Index", "Home", new { @id = compte.Id });
+                    }
+
+                } else
+                {
+                    return View();
                 }
+
                 ModelState.AddModelError("Compte.Identifiant", "Identifiant et/ou mot de passe incorrect(s)");
+
             }
+
             return View();
+
         }
+    
+
 
         [HttpGet]
         [Authorize(Roles = "Eleve, Enseignant,Recrutement")]   

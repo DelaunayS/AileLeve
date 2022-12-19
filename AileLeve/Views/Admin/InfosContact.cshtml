@@ -18,26 +18,35 @@
                 <input type="hidden" name="Compte.UtilisateurId" value="@Model.Compte.UtilisateurId" />
                 <input type="hidden" name="Compte.ProfilId" value="@Model.Compte.ProfilId" />
 
-                <h5 class="card-title"><i class="fas fa-user"></i> @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
-                <p class="card-text"><i class="fas fa-envelope"></i> @Model.Profil.Email</p>
-                <p class="card-text"><i class="fas fa-phone"></i> @Model.Profil.Telephone</p>
-                <p class="card-text"><i class="fas fa-id-badge"></i> @Model.Compte.Identifiant</p>
+                <h5 class="card-title"><i class="fas fa-user"></i>  @espace @Model.Utilisateur.Prenom @Model.Utilisateur.Nom</h5>
+                <p class="card-text"><i class="fas fa-envelope"></i>  @espace @Model.Profil.Email</p>
+                <p class="card-text"><i class="fas fa-phone"></i>  @espace @Model.Profil.Telephone</p>
+                <p class="card-text"><i class="fas fa-id-badge"></i>  @espace @Model.Compte.Identifiant</p>
                 @if (@Model.Utilisateur.Adresse != null)
                 {
                     @if (@Model.Utilisateur.Adresse.NumeroRue > 0)
                     {
                         <p class="card-text">
-                            <i class="fas fa-city"></i> @Model.Utilisateur.Adresse.NumeroRue
+                            <i class="fas fa-city"></i>  @espace
+                            @Model.Utilisateur.Adresse.NumeroRue
+                            @espace
                             @Model.Utilisateur.Adresse.Rue
                         </p>
                     }
                     @if (@Model.Utilisateur.Adresse.CodePostal > 0)
                     {
                         <p class="card-text">
-                            <i class="fas fa-city"></i>@Model.Utilisateur.Adresse.CodePostal
+                            <i class="fas fa-city"></i>  @espace
+                            @Model.Utilisateur.Adresse.CodePostal
+                            @espace
                             @Model.Utilisateur.Adresse.Ville
                         </p>
                     }
+                }
+
+                @if (Model.Compte.Role == "Eleve")
+                {
+                    <p class="card-text"><i class="fas fa-people-roof"></i>@espace @Model.RL.NomRL @espace @Model.RL.PrenomRL </p>
                 }
 
             </div>
@@ -196,14 +205,18 @@
                                 if (coursPropose.CoursId == eleve.CoursId)
                                 {
                                     @eleve.Eleve.Utilisateur.Nom
-
+                                    @espace
                                     @eleve.Eleve.Utilisateur.Prenom
                                     <br />
                                     if (coursPropose.Cours.TypeCours == 0)
                                     {
-                                        @eleve.Eleve.Utilisateur.Adresse.NumeroRue @eleve.Eleve.Utilisateur.Adresse.Rue
+                                        @eleve.Eleve.Utilisateur.Adresse.NumeroRue
+                                        @espace
+                                        @eleve.Eleve.Utilisateur.Adresse.Rue
                                         <br />
-                                        @eleve.Eleve.Utilisateur.Adresse.CodePostal @eleve.Eleve.Utilisateur.Adresse.Ville
+                                        @eleve.Eleve.Utilisateur.Adresse.CodePostal
+                                        @espace
+                                        @eleve.Eleve.Utilisateur.Adresse.Ville
                                         <br />
                                         <br />
                                     }

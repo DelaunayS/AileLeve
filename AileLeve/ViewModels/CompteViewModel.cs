@@ -28,6 +28,8 @@ namespace AileLeve.ViewModels
         public (List<EstDisponible>, List<Etudie>) CoursListe { get; set; }
         public (List<Etudie>, List<EstDisponible>) CoursListeEleve { get; set; }
         public Cours Cours { get; set; }
+        public RepresentantLegal RL { get; set; }
+
 
     }
 }

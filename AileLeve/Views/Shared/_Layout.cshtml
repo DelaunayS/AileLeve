@@ -18,7 +18,7 @@
         <nav id=#navbar
             class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark text-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" href="/"><img src="~/img/Aile'lèveV3.png" class="img-fluid" alt="Logo image"
+                <a class="navbar-brand" href="/Utilisateur/Connexion"><img src="~/img/Aile'lèveV3.png" class="img-fluid" alt="Logo image"
                         id="logoImg"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +29,10 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/Utilisateur/Connexion">Accueil</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/Abonnement/Index">Abonnements</a>
                         </li>
 
                         @if (User.Identity.IsAuthenticated)

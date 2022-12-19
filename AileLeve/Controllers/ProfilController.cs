@@ -31,7 +31,7 @@ namespace AileLeve.Controllers
                     if (utilisateurCompletViewModel.Compte.Role == "Eleve")
                     {
                         utilisateurCompletViewModel.Eleve = dal.ObtenirTousLesEleves().Where(p => p.UtilisateurId == utilisateurCompletViewModel.Utilisateur.Id).FirstOrDefault();
-                        RepresentantLegal RL = dal.ObtenirTousLesRepresentantsLegaux().Where(r => r.Id == utilisateurCompletViewModel.Eleve.Id).FirstOrDefault();
+                        RepresentantLegal RL = dal.ObtenirTousLesRepresentantsLegaux().Where(r => r.EleveId == utilisateurCompletViewModel.Eleve.Id).FirstOrDefault();
                         if (RL == null)
                         {
                             return View(utilisateurCompletViewModel);
