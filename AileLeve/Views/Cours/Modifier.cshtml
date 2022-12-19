@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Modifier le cours";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 
 }
 <h1 class="text-center mb-4">Modifier un cours</h1>
@@ -12,19 +12,19 @@
 
 
         <label for="matiere"><b>Type du cours précédent :</b> </label> @Model.Cours.TypeCours
-       
+
 
         <fieldset>
             <div><b>Veuillez sélectionner un nouveau type de cours :</b></div>
             <div>
                 <input type="radio" value="1" id="1" name="Cours.TypeCours">
                 <label for="onlineSynchrone">Cours synchrone</label>
-             </div> 
-             <div>
-                 <input type="radio" value="2" id="2" name="Cours.TypeCours">
+            </div>
+            <div>
+                <input type="radio" value="2" id="2" name="Cours.TypeCours">
                 <label for="onlineAsynchrone">Cours asynchrone</label>
-             </div>
-             <div>
+            </div>
+            <div>
                 <input type="radio" value="0" id="0" name="Cours.TypeCours">
                 <label for="domicile">Cours à domicile</label>
             </div>
@@ -122,7 +122,7 @@
                             <option value="Spe-Arts" selected>Spe-Arts</option>
                             break;
                     }
-                
+
                 </td>
             </tr>
 
@@ -131,36 +131,36 @@
                     <label for="matiere"><b>Choisissez une matière : </b></label>
                 </td>
                 <td>
-                    <select name="matiere" id="matiere">
-                        <option value="Francais">Français</option>
-                        <option value="Mathématiques">Mathématiques</option>
-                        <option value="Anglais">Anglais</option>
-                        <option value="Espagnol">Espagnol</option>
-                        <option value="Histoire">Histoire</option>
-                        <option value="Géographie">Géographie</option>
-                        <option value="EMC">EMC</option>
-                        <option value="Physique">Physique</option>
-                        <option value="Chimie">Chimie</option>
-                        <option value="SVT">SVT</option>
-                        <option value="Philosophie">Philosophie</option>
-                        <option value="Technologie/Informatique">Technologie/Informatique</option>
-                        <option value="Allemand">Allemand</option>
-                        <option value="Méditation">Méditation</option>
-                        <option value="SES">SES</option>
-                        <option value="Humanités">Humanités</option>
-                        <option value="Géopolitique">Géopolitique</option>
-                        <option value="Numérique">Numérique</option>
-                        <option value="Art">Art</option>
-                        <option value="Sciences de l'ingénieur'">Science de l'ingénieur</option>
+                    <select name="Cours.MatiereId" id="cours.Matiere.Nom" value="@Model.Cours.Matiere.Nom">
+                        <option value="1">Mathématiques</option>
+                        <option value="2">Français</option>
+                         <option value="3">Anglais</option>
+                        <option value="4">Espagnol</option>
+                        <option value="5">Histoire</option>
+                        <option value="6">Géographie</option>
+                        <option value="7">EMC</option>
+                        <option value="8">Physique</option>
+                        <option value="9">Chimie</option>
+                        <option value="10">SVT</option>
+                        <option value="11">Philosophie</option>
+                        <option value="12">Technologie/Informatique</option>
+                        <option value="13">Allemand</option>
+                        <option value="14">Méditation</option>
+                        <option value="15">SES</option>
+                        <option value="16">Humanités</option>
+                        <option value="17">Géopolitique</option>
+                        <option value="18">Numérique</option>
+                        <option value="19">Art</option>
+                        <option value="20">Science de l'ingénieur</option>
                     </select>
                 </td>
             </tr>
         </table>
-        <br/>
+        <br />
 
         <table>
             <tr>
-                
+
                 <td>
                     <label for="niveau"><b>Niveau précédent : </b></label>
                 </td>
@@ -176,13 +176,13 @@
                         case "CE2":
                             <option value="CE2" selected>CE2</option>
                             break;
-                            case "CM1":
+                        case "CM1":
                             <option value="CM1" selected>CM1</option>
                             break;
                         case "CM2":
                             <option value="CM2" selected>CM2</option>
                             break;
-                       
+
                         case "6ème":
                             <option value="6ème" selected>6ème</option>
                             break;
@@ -205,30 +205,30 @@
                             <option value="terminale" selected>Terminale</option>
                             break;
                     }
-                    
+
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="niveau"><b>Choisissez un niveau :</b></label>
-            <select name="niveau" id="niveau">
-                <option value="CP">CP</option>
-                <option value="CE1">CE1</option>
-                <option value="CE2">CE2</option>
-                <option value="CM1">CM1</option>
-                <option value="CM2">CM2</option>
-                <option value="6ème">6ème</option>
-                <option value="5ème">5ème</option>
-                <option value="4ème">4ème</option>
-                <option value="3ème">3ème</option>
-                <option value="seconde">Seconde</option>
-                <option value="1ère">1ère</option>
-                <option value="Terminale">Terminale</option>
-            </select>
+                    <select name="Cours.NiveauId" id="cours.Niveau.Nom" value="@Model.Cours.Niveau.Nom">
+                        <option value="1">CP</option>
+                        <option value="2">CE1</option>
+                        <option value="3">CE2</option>
+                        <option value="4">CM1</option>
+                        <option value="5">CM2</option>
+                        <option value="6">6ème</option>
+                        <option value="7">5ème</option>
+                        <option value="8">4ème</option>
+                        <option value="9">3ème</option>
+                        <option value="10">Seconde</option>
+                        <option value="11">1ère</option>
+                        <option value="12">Terminale</option>
+                    </select>
                 </td>
             </tr>
         </table>
-        <br/>
+        <br />
 
         <div>
             <label for="creneau"><b>Vous avez proposé ce cours le :</b> @Model.EstDisponible.EmploiDuTempsEnseignant.DateTime </label>
@@ -245,7 +245,11 @@
 @Html.HiddenFor(m=>m.Cours.Id)
 <div class="row h-100 justify-content-center align-items-center mt-4">
     <button type="submit" class="btn">Enregistrer les modifications</button>
-   
+
 </div>
 
     </form>
+
+
+
+
