@@ -95,10 +95,10 @@ namespace AileLeve.Models
                 new Utilisateur { Id = 6, Nom = "Frost", Prenom = "Robert", AdresseId = 6 },
                 new Utilisateur { Id = 7, Nom = "Ruskin", Prenom = "John", AdresseId = 7 },
                 new Utilisateur { Id = 8, Nom = "Bobin", Prenom = "Christian", AdresseId = 8 },
-                new Utilisateur { Id = 9, Nom = "Proust", Prenom = "Marcel", AdresseId = 9 },
+                new Utilisateur { Id = 9, Nom = "Proust", Prenom = "Marcel"  },
                 new Utilisateur { Id = 10, Nom = "Maulpoix", Prenom = "Jean-Michel", AdresseId = 10 },
                 new Utilisateur { Id = 11, Nom = "Admin", Prenom = "Bernard", AdresseId = 11 },
-                new Utilisateur { Id = 12, Nom = "Duras", Prenom = "Marguerite" },
+                new Utilisateur { Id = 12, Nom = "Duras", Prenom = "Marguerite", AdresseId = 9 },
                 new Utilisateur { Id = 13, Nom = "Gave", Prenom = "Charles", AdresseId = 12 },
                 new Utilisateur { Id = 14, Nom = "Onfray", Prenom = "Michel", AdresseId = 10 },
                 new Utilisateur { Id = 15, Nom = "Delamarche", Prenom = "Olivier", AdresseId = 13 },
@@ -145,15 +145,15 @@ namespace AileLeve.Models
                 new Compte { Id = 9, Identifiant = "Marcelou", Password = Dal.EncodeMD5("mmmmm"), UtilisateurId = 9, ProfilId = 9 , StatusActif=true,Role="Eleve"},
                 new Compte { Id = 10, Identifiant = "JeanMi", Password = Dal.EncodeMD5("jmjmjm"), UtilisateurId = 10, ProfilId = 10 , StatusActif=true,Role="Eleve"},
                 new Compte { Id = 11, Identifiant = "Admin", Password = Dal.EncodeMD5("isika"), UtilisateurId = 11, ProfilId = 11 ,StatusActif=true,Role="Admin"},
-                new Compte { Id = 12, Identifiant = "PrevJ", Password = Dal.EncodeMD5("isika"), UtilisateurId = 12, ProfilId = 12 ,StatusActif=true,Role= "Eleve" },
-                new Compte { Id = 13, Identifiant = "Gavekal", Password = Dal.EncodeMD5("isika"), UtilisateurId = 13, ProfilId = 13 ,StatusActif=true,Role= "Recrutement" },
-                new Compte { Id = 14, Identifiant = "Michou", Password = Dal.EncodeMD5("isika"), UtilisateurId = 14, ProfilId = 14 ,StatusActif=true,Role= "Recrutement" },
-                new Compte { Id = 15, Identifiant = "Olive", Password = Dal.EncodeMD5("isika"), UtilisateurId = 15, ProfilId = 15 ,StatusActif=true,Role= "Enseignant" },
-                new Compte { Id = 16, Identifiant = "Margot", Password = Dal.EncodeMD5("isika"), UtilisateurId = 16, ProfilId = 16 ,StatusActif=true,Role= "Eleve" },
-                new Compte { Id = 17, Identifiant = "HouMich", Password = Dal.EncodeMD5("isika"), UtilisateurId = 17, ProfilId = 17 ,StatusActif=true,Role= "Enseignant"},
-                new Compte { Id = 18, Identifiant = "AlainF", Password = Dal.EncodeMD5("isika"), UtilisateurId = 18, ProfilId = 18 ,StatusActif=true,Role= "Eleve" },
-                new Compte { Id = 19, Identifiant = "Bernardo", Password = Dal.EncodeMD5("isika"), UtilisateurId = 19, ProfilId = 19 ,StatusActif=true,Role= "Enseignant" },
-                new Compte { Id = 20, Identifiant = "MoulinJ", Password = Dal.EncodeMD5("isika"), UtilisateurId = 20, ProfilId = 20 ,StatusActif=true,Role= "Eleve" }
+                new Compte { Id = 12, Identifiant = "MargotD", Password = Dal.EncodeMD5("mmmmmd"), UtilisateurId = 12, ProfilId = 12 ,StatusActif=true,Role= "Eleve" },
+                new Compte { Id = 13, Identifiant = "Gavekal", Password = Dal.EncodeMD5("ggggg"), UtilisateurId = 13, ProfilId = 13, StatusActif = true, Role = "Recrutement" },
+                new Compte { Id = 14, Identifiant = "Michou", Password = Dal.EncodeMD5("mmmmi"), UtilisateurId = 14, ProfilId = 14, StatusActif = true, Role = "Recrutement" },
+                new Compte { Id = 15, Identifiant = "Olive", Password = Dal.EncodeMD5("ololol"), UtilisateurId = 15, ProfilId = 15, StatusActif = true, Role = "Enseignant" },
+                new Compte { Id = 16, Identifiant = "SimVeil", Password = Dal.EncodeMD5("vvvvv"), UtilisateurId = 16, ProfilId = 16, StatusActif = true, Role = "Eleve" },
+                new Compte { Id = 17, Identifiant = "HouMich", Password = Dal.EncodeMD5("michmich"), UtilisateurId = 17, ProfilId = 17, StatusActif = true, Role = "Enseignant" },
+                new Compte { Id = 18, Identifiant = "AlainF", Password = Dal.EncodeMD5("fffff"), UtilisateurId = 18, ProfilId = 18, StatusActif = true, Role = "Eleve" },
+                new Compte { Id = 19, Identifiant = "Bernardo", Password = Dal.EncodeMD5("bbbbbbr"), UtilisateurId = 19, ProfilId = 19, StatusActif = true, Role = "Enseignant" },
+                new Compte { Id = 20, Identifiant = "MoulinJ", Password = Dal.EncodeMD5("mmmmmj"), UtilisateurId = 20, ProfilId = 20, StatusActif = true, Role = "Eleve" }
 
             );
 
