@@ -316,14 +316,14 @@
                                         if (coursPropose.CoursId == eleve.CoursId)
                                         {
                                             @eleve.Eleve.Utilisateur.Nom
-
+                                            @espace
                                             @eleve.Eleve.Utilisateur.Prenom
                                             <br />
                                             if (coursPropose.Cours.TypeCours == 0)
                                             {
-                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue @eleve.Eleve.Utilisateur.Adresse.Rue
+                                                @eleve.Eleve.Utilisateur.Adresse.NumeroRue @espace @eleve.Eleve.Utilisateur.Adresse.Rue
                                                 <br />
-                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal @eleve.Eleve.Utilisateur.Adresse.Ville
+                                                @eleve.Eleve.Utilisateur.Adresse.CodePostal @espace @eleve.Eleve.Utilisateur.Adresse.Ville
                                                 <br />
                                                 <br />
                                             }
@@ -374,7 +374,7 @@
                                         if (coursReserve.CoursId == enseignant.CoursId)
                                         {
                                             @enseignant.Enseignant.Utilisateur.Nom
-
+                                            @espace
                                            @enseignant.Enseignant.Utilisateur.Prenom
                                         }
                                     }
