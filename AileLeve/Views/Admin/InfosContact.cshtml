@@ -7,7 +7,7 @@
 
 
 <div class="row">
-    <div class="col-sm-3 align-items-center">
+    <div class="col-sm-4 align-items-center">
         <div class="card w-100">
             <img class="card-img-top w-25" src="@Model.Profil.Image" alt="image profil">
             <div class="card-body">
@@ -46,7 +46,7 @@
 
                 @if (Model.Compte.Role == "Eleve")
                 {
-                    <p class="card-text"><i class="fas fa-people-roof"></i>@espace @Model.RL.NomRL @espace @Model.RL.PrenomRL </p>
+                    <p class="card-text"><i class="fas fa-users"></i>@espace @Model.RL.NomRL @espace @Model.RL.PrenomRL </p>
                 }
 
             </div>

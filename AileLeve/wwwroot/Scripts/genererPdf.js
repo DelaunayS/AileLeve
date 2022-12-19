@@ -18,5 +18,6 @@ function genererPdf() {
         //ajout du canvas au doc pdf
         doc.addImage(canvas.href, 'PNG', 0, 0, width, height);
         doc.save('admin.pdf');
+        window.location.reload();
     });
 }

@@ -18,8 +18,8 @@
         <nav id=#navbar
             class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark text-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" href="/Utilisateur/Connexion"><img src="~/img/Aile'lèveV3.png" class="img-fluid" alt="Logo image"
-                        id="logoImg"></a>
+                <a class="navbar-brand" href="/Utilisateur/Connexion"><img src="~/img/Aile'lèveV3.png" class="img-fluid"
+                        alt="Logo image" id="logoImg"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,7 @@
                             <li class="nav-item dropdown">
 
                                 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     Cours
                                 </a>
@@ -59,7 +59,8 @@
 
                                     @if (User.IsInRole("Admin") || User.IsInRole("Enseignant"))
                                     {
-                                        String cheminAttribuer = String.Format("/Enseignant/AttribuerCours/{0}", User.Identity.Name);
+                                        String cheminAttribuer = String.Format("/Enseignant/AttribuerCours/{0}",
+                                        User.Identity.Name);
                                         <a class="dropdown-item" href=@cheminAttribuer>Cours non attribués</a>
                                     }
                                 </div>
@@ -68,7 +69,7 @@
                             <li class="nav-item dropdown">
 
                                 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Méditation
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -81,7 +82,8 @@
 
                                     @if (User.IsInRole("Admin") || (User.IsInRole("Enseignant")))
                                     {
-                                        <a class="dropdown-item" href="/Cours/AjouterMeditation">Proposer une séance de méditation guidée synchrone</a>
+                                        <a class="dropdown-item" href="/Cours/AjouterMeditation">Proposer une séance de
+                                            méditation guidée synchrone</a>
                                     }
                                 </div>
                             </li>
@@ -92,7 +94,7 @@
                             <li class="nav-item dropdown">
 
                                 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     Gestion
                                 </a>
@@ -108,7 +110,7 @@
                         <li class="nav-item dropdown">
 
                             <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Compte
 
                             </a>
@@ -137,10 +139,10 @@
 
                             <a class="nav-link text-light" href="/Visiteur/Contact">Contact</a>
                         </li>
-                        @*<li class="nav-item">
+                            @*<li class="nav-item">
 
-        <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
-        </li>*@
+                                <a class="nav-link text-light" href="/Utilisateur/Contact">Contact</a>
+                                </li>*@
                     </ul>
                 </div>
 
@@ -152,15 +154,13 @@
                                 <i class="fas fa-print text-light mw-100 mh-100 " onclick="genererPdf()"></i>
                             </h3>
                         </a>
-                        <a class="notification p-2" href="/Notification/Index">
-                            <a class="p-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Notification">
-                                <h3 class="justify-content-center">
-                                    <i class="fas fa-bell text-light mw-100 mh-100"
-                                       id="notif"></i>
-                                </h3>
-                            </a>
+                        <a class="notification p-2" href="/Notification/Index" data-toggle="tooltip" data-placement="bottom"
+                        title="Notification">
+                            <h3 class="justify-content-center">
+                                <i class="fas fa-bell text-light mw-100 mh-100" id="notif"></i>
+                            </h3>
                         </a>
-</div>                 
+                    </div>
                 }
             </div>
         </nav>
