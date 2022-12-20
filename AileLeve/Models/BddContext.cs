@@ -88,7 +88,7 @@ namespace AileLeve.Models
                 );
 
             this.Utilisateurs.AddRange(
-                new Utilisateur { Id = 1, Nom = "Lalonde", Prenom = "Tiphaine", AdresseId = 1 },
+                new Utilisateur { Id = 1, Nom = "Martin", Prenom = "Céline", AdresseId = 1 },
                 new Utilisateur { Id = 2, Nom = "Dupont", Prenom = "Yann"},
                 new Utilisateur { Id = 3, Nom = "Dylan", Prenom = "Ben", AdresseId = 3 },
                 new Utilisateur { Id = 4, Nom = "Bibb", Prenom = "Justine" },
@@ -112,7 +112,7 @@ namespace AileLeve.Models
 
 
            this.Profils.AddRange(
-               new Profil { Id = 1, Telephone = "0625522552", Image = "/img/BibbJustine.jpg", Email = "tiphainelalonde@gmail.fr" },
+               new Profil { Id = 1, Telephone = "0625522552", Image = "/img/BibbJustine.jpg", Email = "celinemartin@gmail.com" },
                 new Profil { Id = 2, Telephone = "0725752552", Image = "/img/DupontYann.png", Email = "dupontyann@yahoo.fr" },
                 new Profil { Id = 3, Telephone = "0635528550", Image = "/img/DylanBob.jpg", Email = "dylanbob@gmail.fr" },
                 new Profil { Id = 4, Telephone = "0600548552", Image = "/img/BibbJustine.jpg", Email = "bibbjustine@hotmail.fr" },
@@ -135,7 +135,7 @@ namespace AileLeve.Models
             );
 
             this.Comptes.AddRange(
-            new Compte { Id = 1, Identifiant = "TiphaineL", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif=true, Role="Enseignant" },
+            new Compte { Id = 1, Identifiant = "CelineM", Password = Dal.EncodeMD5("ddddd"), UtilisateurId = 1, ProfilId = 1, StatusActif=true, Role="Enseignant" },
                 new Compte { Id = 2, Identifiant = "DupontY", Password = Dal.EncodeMD5("dydyd"), UtilisateurId = 2, ProfilId = 2, StatusActif=true, Role="Enseignant" },
                 new Compte { Id = 3, Identifiant = "Bobby", Password = Dal.EncodeMD5("bbbbb"), UtilisateurId = 3, ProfilId = 3, StatusActif=true, Role="Enseignant"},
                 new Compte { Id = 4, Identifiant = "Juju", Password = Dal.EncodeMD5("jjjjj"), UtilisateurId = 4, ProfilId = 4, StatusActif=true, Role="Enseignant"},
