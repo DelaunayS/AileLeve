@@ -233,10 +233,10 @@ namespace AileLeve.Models
                 new Cours { Id = 1, MatiereId = 1, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.domicile },
                 new Cours { Id = 2, MatiereId = 2, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 3, MatiereId = 3, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.domicile },
-                                new Cours { Id = 4, MatiereId = 5, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 5, MatiereId = 11, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 4, MatiereId = 5, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 5, MatiereId = 1, NiveauId = 1, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 6, MatiereId = 3, NiveauId = 2, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
-                new Cours { Id = 7, MatiereId = 11, NiveauId = 12, EnseignantId = 1, TypeCours = TypeCours.onlineSynchrone },
+                new Cours { Id = 7, MatiereId = 11, NiveauId = 12, EnseignantId = 7, TypeCours = TypeCours.onlineSynchrone },
 
                 new Cours { Id = 8, MatiereId = 2, NiveauId = 2, EnseignantId = 2, TypeCours = TypeCours.onlineSynchrone },
                 new Cours { Id = 9, MatiereId = 2, NiveauId = 5, EnseignantId = 2, TypeCours = TypeCours.domicile },
