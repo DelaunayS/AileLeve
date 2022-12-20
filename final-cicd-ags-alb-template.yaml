@@ -56,7 +56,7 @@ Parameters:
   ApplicationName:
     Type: String
     Description: ...
-    Default: alieleve
+    Default: aileleve
   DllToStart:
     Type: String
     Description: ...
