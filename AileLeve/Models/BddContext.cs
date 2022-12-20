@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+
 namespace AileLeve.Models
 {
     public class BddContext : DbContext
@@ -33,7 +35,18 @@ namespace AileLeve.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-        optionsBuilder.UseMySql("server=localhost;user id=root;password=#Badaboum44;database=AileLeve");
+			if (System.Diagnostics.Debugger.IsAttached)
+            {
+               optionsBuilder.UseMySql("server=localhost;user id=root;password=rrrrr;database=AileLeve");  // connexion string. Attention au password. avec comme nom de BDD : ChoixSejourTest
+            }
+            else
+            {
+                IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+                optionsBuilder.UseMySql(configuration.GetConnectionString("DefaultConnection"));
+            }
         }
 
         public void InitializeDb()
